@@ -1,1 +1,1 @@
-type vendor_fp_prop, property_type;
+vendor_public_prop(vendor_fp_prop)

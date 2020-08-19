@@ -1,1 +1,1 @@
-type vendor_thermal_normal_prop, property_type;
+vendor_internal_prop(vendor_thermal_normal_prop)
