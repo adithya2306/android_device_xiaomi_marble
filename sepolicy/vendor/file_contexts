@@ -1,5 +1,6 @@
 # Camera
 /vendor/lib(64)?/libipebpsstriping\.so		u:object_r:same_process_hal_file:s0
+/vendor/lib(64)?/libipebpsstriping170\.so	u:object_r:same_process_hal_file:s0
 
 # Media
 /vendor/bin/hw/dolbycodec2			u:object_r:mediacodec_exec:s0
