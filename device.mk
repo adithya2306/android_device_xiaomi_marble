@@ -143,6 +143,7 @@ PRODUCT_VENDOR_PROPERTIES += \
     debug.sf.frame_rate_multiple_threshold=120 \
     persist.sys.sf.native_mode=258 \
     ro.gfx.driver.1=com.qualcomm.qti.gpudrivers.taro.api32 \
+    ro.surface_flinger.enable_frame_rate_override=true \
     ro.vendor.display.ai_disp.enable=true \
     ro.vendor.display.framework_thermal_dimming=true \
     ro.vendor.display.hwc_thermal_dimming=false \
