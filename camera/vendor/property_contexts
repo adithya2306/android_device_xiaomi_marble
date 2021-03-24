@@ -1,0 +1,2 @@
+persist.vendor.camera.mi.module.	u:object_r:vendor_camera_prop:s0
+vendor.camera.sensor.			u:object_r:vendor_camera_prop:s0
