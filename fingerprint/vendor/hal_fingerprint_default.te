@@ -1,0 +1,32 @@
+allow hal_fingerprint_default fingerprint_data_file:dir rw_dir_perms;
+allow hal_fingerprint_default fingerprint_data_file:file create_file_perms;
+
+allow hal_fingerprint_default {
+  fingerprint_device
+  input_device
+  tee_device
+  uhid_device
+}: chr_file rw_file_perms;
+
+allow hal_fingerprint_default {
+  tee_device
+  fingerprint_device
+}: chr_file ioctl;
+
+allow hal_fingerprint_default self:netlink_socket create_socket_perms_no_ioctl;
+
+allow hal_fingerprint_default {
+  input_device
+  sysfs_graphics
+}: dir r_dir_perms;
+
+allow hal_fingerprint_default {
+  sysfs_fingerprint
+  sysfs_graphics
+}: file rw_file_perms;
+
+r_dir_file(hal_fingerprint_default, firmware_file)
+
+set_prop(hal_fingerprint_default, vendor_fp_prop)
+
+get_prop(system_server, vendor_fp_prop);
