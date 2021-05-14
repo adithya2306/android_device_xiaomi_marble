@@ -1,3 +1,0 @@
-# DT2W
-allow hal_power input_device:dir search;
-allow hal_power input_device:chr_file rw_file_perms;
