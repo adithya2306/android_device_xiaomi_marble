@@ -4,4 +4,6 @@ r_dir_file(hal_camera_default, vendor_sysfs_kgsl)
 # Allow hal_camera_default to read to mnt/vendor/persist/camera
 r_dir_file(hal_camera_default, camera_persist_file)
 
+r_dir_file(hal_camera_default, mnt_vendor_file)
+
 set_prop(hal_camera_default, vendor_camera_prop)
