@@ -1,6 +1,7 @@
 ifeq ($(J20C_SEPOLICY_INCLUDED),)
 
 BOARD_SEPOLICY_DIRS += \
+    device/xiaomi/J20C-sepolicy/audio/vendor \
     device/xiaomi/J20C-sepolicy/batterysecret/vendor \
     device/xiaomi/J20C-sepolicy/power/vendor \
     device/xiaomi/J20C-sepolicy/camera/vendor \
