@@ -1,0 +1,1 @@
+type goodix_fingerprint_hwservice, hwservice_manager_type;
