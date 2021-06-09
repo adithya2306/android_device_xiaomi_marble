@@ -289,8 +289,14 @@ PRODUCT_PACKAGES += \
     AOSPALisaFrameworksOverlay \
     AOSPALisaCSOTFrameworksOverlay \
     AOSPALisaSystemUIOverlay \
+    LisaCNSettingsProviderOverlay \
+    LisaCNWifiOverlay \
     LisaCarrierConfigOverlay \
     LisaFrameworksOverlay \
+    LisaGLSettingsProviderOverlay \
+    LisaGLWifiOverlay \
+    LisaINSettingsProviderOverlay \
+    LisaINWifiOverlay \
     LisaSettingsOverlay \
     LisaSystemUIOverlay \
     LisaWifiOverlay \
