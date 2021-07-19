@@ -1,1 +1,0 @@
-type vendor_sysfs_battery_temp_level, sysfs_type, fs_type;

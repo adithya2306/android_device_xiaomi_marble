@@ -1,1 +1,0 @@
-allow vendor_thermal-engine vendor_sysfs_battery_temp_level:file rw_file_perms;

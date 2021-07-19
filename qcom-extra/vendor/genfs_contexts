@@ -1,1 +1,0 @@
-genfscon sysfs /sys/class/power_supply/battery/system_temp_level               u:object_r:vendor_sysfs_battery_temp_level:s0
