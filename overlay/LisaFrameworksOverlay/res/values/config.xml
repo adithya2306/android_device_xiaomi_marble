@@ -642,6 +642,10 @@
          will not debounce light sensor readings -->
     <integer name="config_lightSensorWarmupTime">250</integer>
 
+    <!-- True if the display hardware only has brightness buckets rather than a full range of
+         backlight values -->
+    <bool name="config_displayBrightnessBucketsInDoze">true</bool>
+
     <!-- Safe headphone volume index. When music stream volume is below this index
     the SPL on headphone output is compliant to EN 60950 requirements for portable music
     players. -->
