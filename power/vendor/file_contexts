@@ -1,0 +1,2 @@
+# Touch
+/dev/xiaomi-touch                                                  u:object_r:vendor_touchfeature_device:s0
