@@ -17,6 +17,10 @@ on boot
     chmod 0777 /dev/smd8
     chown radio radio /dev/smd8
 
+    # Set xiaomi touch permissions
+    chown system system /dev/xiaomi-touch
+    chmod 0660 /dev/xiaomi-touch
+
 on post-fs
     # Create persist for camera calibration data
     mkdir /mnt/vendor/persist/camera 0755 system cameraserver
