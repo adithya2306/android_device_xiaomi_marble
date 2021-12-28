@@ -80,28 +80,22 @@ $(RFS_MSM_SLPI_SYMLINKS): $(LOCAL_INSTALLED_MODULE)
 	$(hide) ln -sf /vendor/firmware_mnt $@/readonly/firmware
 	$(hide) ln -sf /vendor/firmware $@/readonly/vendor/firmware
 
-WIFI_FIRMWARE_SYMLINKS := $(TARGET_OUT_VENDOR)/firmware/wlan/qca_cld/
-$(WIFI_FIRMWARE_SYMLINKS): $(LOCAL_INSTALLED_MODULE)
-	@echo "Creating wifi firmware symlinks: $@"
-	@rm -rf $@/*
-	@mkdir -p $@/qca6390
-	@mkdir -p $@/qca6750
-	@mkdir -p $@/wlan
-	$(hide) ln -sf /vendor/etc/wifi/qca6390/WCNSS_qcom_cfg.ini $@/qca6390/WCNSS_qcom_cfg.ini
-	$(hide) ln -sf /vendor/etc/wifi/qca6750/WCNSS_qcom_cfg.ini $@/qca6750/WCNSS_qcom_cfg.ini
-	$(hide) ln -sf /vendor/etc/wifi/wlan/WCNSS_qcom_cfg.ini $@/wlan/WCNSS_qcom_cfg.ini
-	$(hide) ln -sf /mnt/vendor/persist/wlan/wlan_mac.bin $@/qca6390/wlan_mac.bin
-	$(hide) ln -sf /mnt/vendor/persist/wlan/wlan_mac.bin $@/qca6750/wlan_mac.bin
-	$(hide) ln -sf /mnt/vendor/persist/wlan/wlan_mac.bin $@/wlan/wlan_mac.bin
-
 ALL_DEFAULT_INSTALLED_MODULES += \
     $(EGL_32_SYMLINKS) \
     $(EGL_64_SYMLINKS) \
     $(RFS_MSM_ADSP_SYMLINKS) \
     $(RFS_MSM_CDSP_SYMLINKS) \
     $(RFS_MSM_MPSS_SYMLINKS) \
-    $(RFS_MSM_SLPI_SYMLINKS) \
-    $(WIFI_FIRMWARE_SYMLINKS)
+    $(RFS_MSM_SLPI_SYMLINKS)
+
+# WiFi firmware symlinks
+WLAN_CHIPSETS := wlan qca6750 qca6390
+$(foreach chip, $(WLAN_CHIPSETS), \
+	$(shell mkdir -p $(TARGET_OUT_VENDOR)/firmware/wlan/qca_cld/$(chip); \
+	ln -sf /vendor/etc/wifi/$(chip)/WCNSS_qcom_cfg.ini \
+	$(TARGET_OUT_VENDOR)/firmware/wlan/qca_cld/$(chip)/WCNSS_qcom_cfg.ini; \
+	ln -sf /mnt/vendor/persist/wlan/wlan_mac.bin \
+	$(TARGET_OUT_VENDOR)/firmware/wlan/qca_cld/$(chip)/wlan_mac.bin))
 
 # Kernel headers
 $(TARGET_OUT_INTERMEDIATES)/KERNEL_OBJ/usr: $(wildcard device/xiaomi/lisa-kernel/kernel-headers/*)
