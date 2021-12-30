@@ -194,6 +194,7 @@ PRODUCT_PACKAGES += \
 
 # Overlays
 PRODUCT_PACKAGES += \
+    AOSPALisaFrameworks \
     NoCutoutOverlay \
     LisaFrameworks \
     LisaSettings \
