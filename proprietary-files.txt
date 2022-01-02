@@ -742,6 +742,8 @@ vendor/bin/qseecomd
 vendor/bin/ssgqmigd
 vendor/bin/ssgtzd
 vendor/etc/gpfspath_oem_config.xml
+vendor/etc/ssg/ta_config.json
+vendor/etc/ssg/tz_whitelist.json
 vendor/etc/init/qseecomd.rc
 vendor/etc/init/ssgtzd.rc
 vendor/etc/init/vendor.qti.hardware.qseecom@1.0-service.rc
