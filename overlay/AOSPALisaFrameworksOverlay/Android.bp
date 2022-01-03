@@ -13,7 +13,7 @@
 // limitations under the License.
 
 runtime_resource_overlay {
-    name: "LisaFrameworks",
+    name: "AOSPALisaFrameworksOverlay",
     sdk_version: "current",
     vendor: true,
 }

@@ -202,11 +202,11 @@ PRODUCT_PACKAGES += \
 
 # Overlays
 PRODUCT_PACKAGES += \
-    AOSPALisaFrameworks \
-    NoCutoutOverlay \
-    LisaFrameworks \
-    LisaSettings \
-    LisaSystemUI
+    AOSPALisaFrameworksOverlay \
+    LisaFrameworksOverlay \
+    LisaSettingsOverlay \
+    LisaSystemUIOverlay \
+    NoCutoutOverlay
 
 # ParanoidDoze
 PRODUCT_PACKAGES += \
