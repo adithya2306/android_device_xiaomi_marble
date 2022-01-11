@@ -90,3 +90,6 @@ persist.vendor.ssr.restart_level=ALL_ENABLE
 
 # Thermal
 vendor.sys.thermal.data.path=/data/vendor/thermal/
+
+# USB
+persist.vendor.usb.config=mtp,adb
