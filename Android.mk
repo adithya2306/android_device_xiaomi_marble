@@ -97,10 +97,4 @@ $(foreach chip, $(WLAN_CHIPSETS), \
 	ln -sf /mnt/vendor/persist/wlan/wlan_mac.bin \
 	$(TARGET_OUT_VENDOR)/firmware/wlan/qca_cld/$(chip)/wlan_mac.bin))
 
-# Kernel headers
-$(TARGET_OUT_INTERMEDIATES)/KERNEL_OBJ/usr: $(wildcard device/xiaomi/lisa-kernel/kernel-headers/*)
-	rm -rf $@
-	mkdir -p $@/include
-	cp -a device/xiaomi/lisa-kernel/kernel-headers/. $@/include
-
 endif
