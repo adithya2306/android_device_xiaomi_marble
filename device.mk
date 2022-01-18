@@ -203,6 +203,7 @@ PRODUCT_PACKAGES += \
     LisaFrameworksOverlay \
     LisaSettingsOverlay \
     LisaSystemUIOverlay \
+    LisaWifiOverlay \
     NoCutoutOverlay
 
 # ParanoidDoze
