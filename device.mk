@@ -282,13 +282,6 @@ PRODUCT_PACKAGES += \
     LisaWifiOverlay \
     NoCutoutOverlay
 
-# ParanoidDoze
-PRODUCT_PACKAGES += \
-    ParanoidDoze
-
-PRODUCT_SYSTEM_EXT_PROPERTIES += \
-    ro.sensor.pickup=xiaomi.sensor.pickup
-
 # Partitions
 PRODUCT_USE_DYNAMIC_PARTITIONS := true
 
@@ -336,7 +329,7 @@ PRODUCT_PACKAGES += \
 
 # Sensors
 PRODUCT_PACKAGES += \
-    android.hardware.sensors@2.0-service.multihal \
+    android.hardware.sensors@2.0-service.lisa-multihal \
     libsensorndkbridge
 
 PRODUCT_COPY_FILES += \
