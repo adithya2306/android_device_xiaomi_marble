@@ -10,7 +10,8 @@ BOARD_VENDOR_SEPOLICY_DIRS += \
     device/xiaomi/K9-sepolicy/qcom-extra/vendor \
     device/xiaomi/K9-sepolicy/thermal/vendor \
     device/xiaomi/K9-sepolicy/sensors/vendor \
-    device/xiaomi/K9-sepolicy/display/vendor
+    device/xiaomi/K9-sepolicy/display/vendor \
+    device/xiaomi/K9-sepolicy/nfc/vendor
 
 K9_SEPOLICY_INCLUDED := true
 endif
