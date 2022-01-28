@@ -53,6 +53,9 @@
         orientation. If zero, the value of rounded_corner_radius is used. -->
     <dimen name="rounded_corner_radius_bottom">102px</dimen>
 
+    <!-- Default paddings for content around the corners. -->
+    <dimen name="rounded_corner_content_padding">16dp</dimen>
+
     <!-- The default refresh rate for a given device. Change this value to set a higher default
          refresh rate. If the hardware composer on the device supports display modes with a higher
          refresh rate than the default value specified here, the framework may use those higher

@@ -20,7 +20,6 @@
     <dimen name="status_bar_padding_top">9dp</dimen>
     <dimen name="status_bar_padding_start">2dp</dimen>
     <dimen name="status_bar_padding_end">4dp</dimen>
-    <dimen name="rounded_corner_content_padding">16dp</dimen>
 
     <!-- Location on the screen of the center of the physical power button. -->
     <dimen name="physical_power_button_center_screen_location_y">1060px</dimen>
