@@ -1,0 +1,5 @@
+# Sensor
+type vendor_sysfs_iio, fs_type, sysfs_type;
+
+# Proximity
+type vendor_sysfs_prox, fs_type, sysfs_type;

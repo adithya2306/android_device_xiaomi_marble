@@ -1,0 +1,4 @@
+# Proximity
+genfscon sysfs /devices/virtual/touch/touch_dev/ear_sensor                                                            u:object_r:vendor_sysfs_prox:s0
+genfscon sysfs /devices/virtual/touch/touch_dev/palm_sensor                                                           u:object_r:vendor_sysfs_prox:s0
+genfscon sysfs /devices/virtual/touch/touch_dev/ear_sensor_data                                                       u:object_r:vendor_sysfs_prox:s0
