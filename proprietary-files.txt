@@ -1060,6 +1060,7 @@ vendor/etc/init/vendor.qti.hardware.qteeconnector@1.0-service.rc|c966350ee67d3a7
 vendor/lib64/hw/vendor.qti.hardware.qteeconnector@1.0-impl.so|19ff1f96d1c91df01d685b39024a90045db73386
 vendor/lib64/libGPQTEEC_vendor.so|53318cc689d49858bf5ae132ad02d372acb3bb9c
 vendor/lib64/libGPTEE_vendor.so|c4f0ac36e6cda86f979663ec573560b882f9580e
+vendor/lib64/libQTEEConnector_listener.so|8d25d1ac1374673ec2c1c5356f5b04e500d06af4
 vendor/lib64/libQTEEConnector_vendor.so|eca8b00362a6d4eb3b11ecd1ec638705591d01e0
 vendor/lib64/vendor.qti.hardware.qteeconnector@1.0.so|2195f5df3ebf4be21185c1e42cc14753efb7ef96
 
