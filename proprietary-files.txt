@@ -785,16 +785,7 @@ vendor/etc/seccomp_policy/vendor.qti.hardware.dsp.policy|f060101b26d3674bb173e5f
 vendor/lib64/vendor.qti.hardware.dsp@1.0.so|24e3753889e3bc99ac901a71868f94d34d5b9cb2
 
 # Fingerprint
-vendor/bin/hw/mfp-daemon
-vendor/etc/init/init.mfp-daemon.rc
-vendor/etc/permissions/com.fingerprints.extension.xml
--vendor/etc/vintf/manifest/AHBF@2.1-service.xml
--vendor/etc/vintf/manifest/fod.xml
-vendor/framework/com.fingerprints.extension.jar
-vendor/lib64/com.fingerprints.extension@3.0.so
 vendor/lib64/hw/fingerprint.fpc.so
-vendor/lib64/vendor.xiaomi.hardware.fingerprintextension@1.0.so
-vendor/lib64/vendor.xiaomi.hardware.fx.tunnel@1.0.so
 
 # FM - from LA.UM.9.14.r1-18600.02-LAHAINA.QSSI12.0
 vendor/lib/hw/vendor.qti.hardware.fm@1.0-impl.so|5f2de784f17fa29262de0c7cfd1dadd4a5d55131

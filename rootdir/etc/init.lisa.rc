@@ -29,6 +29,9 @@ on post-fs-data
     # Create data folder for nv_mac
     mkdir /data/vendor/mac_addr 0770 system wifi
 
+    # Create data folder for FPC fingerprint
+    mkdir /data/vendor/fpc 0770 system system
+
 service vendor.audio-hal /vendor/bin/hw/android.hardware.audio.service
     override
     class hal
@@ -52,12 +55,6 @@ service mi_thermald /vendor/bin/mi_thermald
     class main
     user root
     group system
-    override
-
-service mfp-daemon /vendor/bin/hw/mfp-daemon
-    class late_start
-    user system
-    group system drmrpc diag input uhid
     override
 
 # Safetynet bypass

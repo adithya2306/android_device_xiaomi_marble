@@ -32,6 +32,9 @@ persist.vendor.dpmhalservice.enable=1
 # DRM
 drm.service.enabled=true
 
+# Fingerprint
+ro.hardware.fingerprint=fpc
+
 # FRP
 ro.frp.pst=/dev/block/bootdevice/by-name/frp
 
