@@ -19,6 +19,7 @@ vendor.camera.aux.packagelist=org.codeaurora.snapcam,org.lineageos.snap,com.andr
 debug.sf.disable_backpressure=1
 debug.sf.enable_hwc_vds=1
 debug.sf.latch_unsignaled=1
+persist.sys.sf.native_mode=258
 ro.gfx.driver.1=com.qualcomm.qti.gpudrivers.lahaina.api30
 ro.vendor.display.sensortype=2
 vendor.display.qdcm.mode_combine=2

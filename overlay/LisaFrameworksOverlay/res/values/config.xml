@@ -135,9 +135,9 @@
 
     <!-- Indicate available ColorDisplayManager.COLOR_MODE_xxx. -->
     <integer-array name="config_availableColorModes">
-        <item>0</item> <!-- COLOR_MODE_NATURAL -->     <!-- This uses colorimetric render intents-->
-        <item>1</item> <!-- COLOR_MODE_BOOSTED -->     <!-- This applies a 10% boost using the PCC-->
-        <item>3</item> <!-- COLOR_MODE_AUTOMATIC -->   <!-- This uses enhanced render intents-->
+        <item>258</item> <!-- vivid -->
+        <item>256</item> <!-- saturated -->
+        <item>257</item> <!-- original -->
     </integer-array>
 
     <!-- Minimum screen brightness setting allowed by power manager.
