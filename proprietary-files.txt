@@ -1082,6 +1082,7 @@ vendor/lib64/libQTEEConnector_vendor.so|013f9397847e13ca05bcd01da591f4e3af9f58a9
 vendor/lib64/vendor.qti.hardware.qteeconnector@1.0.so|2195f5df3ebf4be21185c1e42cc14753efb7ef96
 
 # Radio - from LA.UM.9.14.r1-18900-LAHAINA.QSSI12.0
+-system_ext/app/datastatusnotification/datastatusnotification.apk|80567e2e64bc78193b59b0bd5d27513a09e2a112
 vendor/bin/ATFWD-daemon|ce70ff0a301c43f6546e937b51fa58261c061848
 vendor/bin/adpl|7188641df6bad98db9c8367487b7f3bb15486fbc
 vendor/bin/embmsslServer|391f8c002f519f89a3cbea4e7baf86adc1df945c
