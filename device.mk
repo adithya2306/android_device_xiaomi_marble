@@ -52,6 +52,12 @@ PRODUCT_PRODUCT_PROPERTIES += \
     vendor.audio.feature.spkr_prot.enable=false \
     vendor.audio.feature.power_mode.enable=false
 
+PRODUCT_SYSTEM_PROPERTIES += \
+    ro.config.media_vol_default=8 \
+    ro.config.media_vol_steps=25 \
+    ro.config.vc_call_vol_default=9 \
+    ro.config.vc_call_vol_steps=11
+
 # Bluetooth
 PRODUCT_PACKAGES += \
     android.hardware.bluetooth@1.1.vendor \
@@ -64,6 +70,21 @@ PRODUCT_PACKAGES += \
     vendor.qti.hardware.bluetooth_audio@2.1.vendor \
     vendor.qti.hardware.btconfigstore@1.0.vendor \
     vendor.qti.hardware.btconfigstore@2.0.vendor
+
+PRODUCT_SYSTEM_EXT_PROPERTIES += \
+    persist.vendor.bt.a2dp.aac_whitelist=false
+
+PRODUCT_VENDOR_PROPERTIES += \
+    persist.sys.fflag.override.settings_bluetooth_hearing_aid=true \
+    persist.vendor.bluetooth.modem_nv_support=true \
+    persist.vendor.qcom.bluetooth.a2dp_offload_cap=sbc-aptx-aptxtws-aptxhd-aac-ldac-aptxadaptiver2 \
+    persist.vendor.qcom.bluetooth.a2dp_mcast_test.enabled=false \
+    persist.vendor.qcom.bluetooth.aac_frm_ctl.enabled=true \
+    persist.vendor.qcom.bluetooth.aac_vbr_ctl.enabled=true \
+    persist.vendor.qcom.bluetooth.aptxadaptiver2_1_support=true \
+    persist.vendor.qcom.bluetooth.enable.swb=true \
+    persist.vendor.qcom.bluetooth.scram.enabled=false \
+    persist.vendor.qcom.bluetooth.twsp_state.enabled=false
 
 # Boot
 PRODUCT_PACKAGES += \
@@ -86,9 +107,17 @@ PRODUCT_COPY_FILES += \
     frameworks/native/data/etc/android.hardware.camera.full.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.camera.full.xml \
     frameworks/native/data/etc/android.hardware.camera.raw.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.camera.raw.xml
 
+PRODUCT_VENDOR_PROPERTIES += \
+    camera.disable_zsl_mode=1 \
+    ro.hardware.camera=xiaomi \
+    vendor.camera.aux.packagelist=org.codeaurora.snapcam,org.lineageos.snap,com.android.camera
+
 # Charger
 PRODUCT_PACKAGES += \
     charger_res_images
+
+PRODUCT_SYSTEM_PROPERTIES += \
+    ro.charger.enable_suspend=true
 
 # Dalvik
 $(call inherit-product, frameworks/native/build/phone-xhdpi-6144-dalvik-heap.mk)
@@ -100,19 +129,36 @@ PRODUCT_PACKAGES += \
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/parts/privapp-permissions-parts.xml:$(TARGET_COPY_OUT_SYSTEM_EXT)/etc/permissions/privapp-permissions-parts.xml
 
-# Display
+# Display / Graphics
 PRODUCT_PACKAGES += \
     disable_configstore
 
 PRODUCT_PRODUCT_PROPERTIES += \
     persist.sys.sf.color_mode=0 \
-    vendor.display.comp_mask=1048576 \
-    vendor.display.use_smooth_motion=1
+    vendor.display.comp_mask=1048576
+
+PRODUCT_VENDOR_PROPERTIES += \
+    debug.sf.disable_backpressure=1 \
+    debug.sf.enable_hwc_vds=1 \
+    persist.sys.sf.native_mode=258 \
+    ro.gfx.driver.1=com.qualcomm.qti.gpudrivers.lahaina.api30 \
+    ro.vendor.display.sensortype=2 \
+    vendor.display.qdcm.mode_combine=2
+
+# DPM
+PRODUCT_VENDOR_PROPERTIES += \
+    persist.vendor.dpm.feature=1 \
+    persist.vendor.dpm.idletimer.mode=default \
+    persist.vendor.dpm.nsrm.bkg.evt=3955 \
+    persist.vendor.dpmhalservice.enable=1
 
 # DRM
 PRODUCT_PACKAGES += \
     android.hardware.drm@1.4-service.clearkey \
     android.hardware.drm@1.3.vendor
+
+PRODUCT_VENDOR_PROPERTIES += \
+    drm.service.enabled=true
 
 # Fastboot
 PRODUCT_PACKAGES += \
@@ -131,6 +177,17 @@ PRODUCT_PACKAGES += \
 PRODUCT_COPY_FILES += \
     frameworks/native/data/etc/android.hardware.fingerprint.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.fingerprint.xml
 
+PRODUCT_VENDOR_PROPERTIES += \
+    ro.hardware.fingerprint=fpc
+
+# FRP
+PRODUCT_VENDOR_PROPERTIES += \
+    ro.frp.pst=/dev/block/bootdevice/by-name/frp
+
+# FUSE
+PRODUCT_SYSTEM_PROPERTIES += \
+    persist.sys.fuse.passthrough.enable=true
+
 # GPS
 LOC_HIDL_VERSION := 4.0
 
@@ -141,6 +198,10 @@ $(call inherit-product, $(SRC_TARGET_DIR)/product/gsi_keys.mk)
 PRODUCT_PACKAGES += \
     android.hardware.health@2.1-impl-qti \
     android.hardware.health@2.1-service
+
+# Incremental FS
+PRODUCT_VENDOR_PROPERTIES += \
+    ro.incremental.enable=1
 
 # Init scripts
 PRODUCT_COPY_FILES += \
@@ -173,6 +234,11 @@ PRODUCT_PACKAGES += \
     android.hardware.gatekeeper@1.0.vendor \
     android.hardware.keymaster@4.1.vendor
 
+PRODUCT_VENDOR_PROPERTIES += \
+    ro.crypto.dm_default_key.options_format.version=2 \
+    ro.crypto.volume.metadata.method=dm-default-key \
+    vendor.gatekeeper.disable_spu=true
+
 # Keylayout
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/configs/keylayout/gpio-keys.kl:$(TARGET_COPY_OUT_VENDOR)/usr/keylayout/gpio-keys.kl \
@@ -181,6 +247,11 @@ PRODUCT_COPY_FILES += \
 # Namespaces
 PRODUCT_SOONG_NAMESPACES += \
     $(LOCAL_PATH)
+
+# Netflix
+PRODUCT_SYSTEM_PROPERTIES += \
+    ro.netflix.bsp_rev=Q7325-SPY-33758-1 \
+    ro.netflix.channel=497730f0-ad4b-11e7-95a4-c7ad113ce187
 
 # Netmgr
 PRODUCT_PACKAGES += \
@@ -203,6 +274,9 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     ParanoidDoze
 
+PRODUCT_SYSTEM_EXT_PROPERTIES += \
+    ro.sensor.pickup=xiaomi.sensor.pickup
+
 # Partitions
 PRODUCT_USE_DYNAMIC_PARTITIONS := true
 
@@ -219,12 +293,31 @@ $(call inherit-product, $(SRC_TARGET_DIR)/product/emulated_storage.mk)
 # QC common
 TARGET_COMMON_QTI_COMPONENTS := all
 
+# QTEE
+PRODUCT_VENDOR_PROPERTIES += \
+    persist.vendor.qteeconnector.retrying_interval=30 \
+    persist.vendor.qteeconnector.retrying_timeout=2000
+
 # Radio
 PRODUCT_PACKAGES += \
     android.hardware.radio@1.5.vendor \
     android.hardware.radio.config@1.2.vendor \
     android.hardware.radio.deprecated@1.0.vendor \
     libwpa_client
+
+PRODUCT_VENDOR_PROPERTIES += \
+    persist.vendor.radio.add_power_save=1 \
+    persist.vendor.radio.atfwd.start=true \
+    persist.vendor.radio.data_ltd_sys_ind=true \
+    persist.vendor.radio.dynamic_load_mbn=3 \
+    persist.vendor.radio.dynamic_sar=1 \
+    persist.vendor.radio.enable_temp_dds=true \
+    persist.vendor.radio.force_ltd_sys_ind=1 \
+    persist.vendor.radio.force_on_dc=true \
+    persist.vendor.radio.hidl_dev_service=true \
+    persist.vendor.radio.manual_nw_rej_ct=1 \
+    persist.vendor.radio.redir_party_num=1 \
+    persist.vendor.radio.report_codec=1
 
 # Secure element
 PRODUCT_PACKAGES += \
@@ -244,14 +337,37 @@ PRODUCT_COPY_FILES += \
     frameworks/native/data/etc/android.hardware.sensor.stepcounter.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.sensor.stepcounter.xml \
     frameworks/native/data/etc/android.hardware.sensor.stepdetector.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.sensor.stepdetector.xml
 
+PRODUCT_VENDOR_PROPERTIES += \
+    persist.vendor.sensors.allow_non_default_discovery=true \
+    persist.vendor.sensors.enable.mag_filter=true \
+    persist.vendor.sensors.on_change_sample_period=true \
+    persist.vendor.sensors.sync_request=true
+
 # Shipping API
 PRODUCT_SHIPPING_API_LEVEL := 30
+
+# SoC
+PRODUCT_VENDOR_PROPERTIES += \
+    ro.soc.manufacturer=QTI \
+    ro.soc.model=SM7325
+
+# SSR
+PRODUCT_VENDOR_PROPERTIES += \
+    persist.vendor.ssr.restart_level=ALL_ENABLE
+
+# Thermal
+PRODUCT_VENDOR_PROPERTIES += \
+    vendor.sys.thermal.data.path=/data/vendor/thermal/
 
 # Update Engine
 PRODUCT_PACKAGES += \
     update_engine \
     update_engine_sideload \
     update_verifier
+
+# USB
+PRODUCT_VENDOR_PROPERTIES += \
+    persist.vendor.usb.config=mtp,adb
 
 # Vendor Service Manager
 PRODUCT_PACKAGES += \
