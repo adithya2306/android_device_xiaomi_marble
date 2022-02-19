@@ -1,2 +1,2 @@
-type spidev_device, dev_type;
+type ir_spi_device, dev_type;
 
