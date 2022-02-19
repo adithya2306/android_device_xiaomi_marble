@@ -194,9 +194,8 @@ TARGET_SCREEN_DENSITY := 440
 # Security patch level
 VENDOR_SECURITY_PATCH := $(PLATFORM_SECURITY_PATCH)
 
-# Sepolicy (haha no)
-BOARD_KERNEL_CMDLINE += androidboot.selinux=permissive
-SELINUX_IGNORE_NEVERALLOWS := true
+# Sepolicy
+include device/xiaomi/K9-sepolicy/K9-sepolicy.mk
 
 # Verified Boot
 BOARD_AVB_ENABLE := true
