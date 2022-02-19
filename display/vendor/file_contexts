@@ -1,0 +1,1 @@
+/sys/devices/virtual/mi_display/disp_feature/disp-DSI-+[0-1](/.*)?	u:object_r:vendor_sysfs_graphics:s0
