@@ -7,7 +7,6 @@ BOARD_VENDOR_SEPOLICY_DIRS += \
     device/xiaomi/K9-sepolicy/camera/vendor \
     device/xiaomi/K9-sepolicy/ir/vendor \
     device/xiaomi/K9-sepolicy/fingerprint/vendor \
-    device/xiaomi/K9-sepolicy/leds/vendor \
     device/xiaomi/K9-sepolicy/qcom-extra/vendor \
     device/xiaomi/K9-sepolicy/thermal/vendor \
     device/xiaomi/K9-sepolicy/sensors/vendor
