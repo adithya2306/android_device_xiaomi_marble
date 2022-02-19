@@ -1,3 +1,8 @@
-# device_xiaomi_J20C-sepolicy
+# device/xiaomi/K9-sepolicy
 
-### Common sepolicy for Xiaomi J20 (Surya/Karna - Poco X3 series)
+### Common sepolicy for Xiaomi K9
+
+Currently supported:
+
+- Xiaomi 11 Lite NE (lisa)
+- Mi 11 Lite 5G (renoir) - untested
