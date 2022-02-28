@@ -328,7 +328,6 @@ PRODUCT_VENDOR_PROPERTIES += \
     persist.vendor.radio.force_on_dc=true \
     persist.vendor.radio.hidl_dev_service=true \
     persist.vendor.radio.manual_nw_rej_ct=1 \
-    persist.vendor.radio.redir_party_num=1 \
     persist.vendor.radio.report_codec=1
 
 # Secure element
