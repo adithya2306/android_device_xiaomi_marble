@@ -716,6 +716,5 @@ IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
             <name>IMiPostProcService</name>
             <instance>default</instance>
         </interface>
-
     </hal>
 </manifest>

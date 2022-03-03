@@ -55,6 +55,10 @@ fi
 
 function blob_fixup() {
     case "${1}" in
+        odm/etc/vintf/manifest/c2_manifest_xiaomi.xml)
+            sed -i 's|<hal format="hidl">|<hal format="hidl" override="true">|g' "${2}"
+            sed -i "/ozoaudio/d" "${2}"
+            ;;
         vendor/etc/camera/pure*_parameter.xml)
             sed -i "s/=\([0-9]\+\)>/=\"\1\">/g" "${2}"
             ;;

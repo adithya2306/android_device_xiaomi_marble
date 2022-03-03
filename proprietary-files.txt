@@ -920,7 +920,6 @@ vendor/etc/media_yupik_v1/video_system_specs.json|1d75b9f2383330fba91ce1721d66f9
 vendor/etc/media_codecs.xml|659726c4e82f16aa2c95aab22b972374b8380d51
 vendor/etc/media_codecs_performance.xml|d112c699a4ae74b5cd149506e6c338d6a5c24f47
 vendor/etc/media_codecs_performance_yupik_v1.xml|82d824a9804fd67b9555fc8f0f9c3901512593aa
-vendor/etc/media_codecs_yupik_v1.xml|90c16ac32dbc8f3596acccb717d36e8721b50a4b
 vendor/etc/media_profiles.xml|981dd4a7ffb9020aa1142930ff3ae6d07bda12aa
 vendor/etc/media_profiles_V1_0.xml|2da4310e65720a36ee8422228959795f467f102e
 vendor/etc/media_profiles_vendor.xml|5b590a29be1823423571e00f541117dbab4f9f0b
@@ -982,6 +981,24 @@ vendor/lib64/vendor.qti.hardware.vpp@1.1.so|86664236f30b11267319d6adfddee8921b0d
 vendor/lib64/vendor.qti.hardware.vpp@1.2.so|80d2cf738461652c4c43481b69f385311d2eb333
 vendor/lib64/vendor.qti.hardware.vpp@1.3.so|e777d41222ded8d15aa8f9ab450f208c8b955e02
 vendor/lib64/vendor.qti.hardware.vpp@2.0.so|93e0a5496b85de9d77d3b5a26e4d15e3c4fd696b
+
+# Media (Dolby Vision)
+vendor/bin/hw/dolbycodec2
+vendor/etc/dolby_vision.cfg
+vendor/etc/init/dolbycodec2.rc
+vendor/etc/media_codecs_system_default_yupik.xml
+vendor/etc/media_codecs_with_dolby_yupik.xml
+vendor/etc/media_codecs_yupik_v1.xml
+-vendor/etc/vintf/manifest/c2_manifest_vendor.xml:odm/etc/vintf/manifest/c2_manifest_xiaomi.xml
+vendor/lib/c2.dolby.avc.dec.so
+vendor/lib/c2.dolby.avc.sec.dec.so
+vendor/lib/c2.dolby.client.so
+vendor/lib/c2.dolby.egl.so
+vendor/lib/c2.dolby.hevc.dec.so
+vendor/lib/c2.dolby.hevc.sec.dec.so
+vendor/lib/c2.dolby.store.so
+vendor/lib/libdolbyottcameracontrol.so
+vendor/lib/libdovi.so
 
 # Neural networks - from LA.UM.9.14.r1-18900-LAHAINA.QSSI12.0
 vendor/bin/hw/android.hardware.neuralnetworks@1.3-service-qti|92d0d5234b4e80cc9e525087e7ceebeec5da8fbd
