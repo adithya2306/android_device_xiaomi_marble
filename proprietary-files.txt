@@ -1,4 +1,4 @@
-# Device proprietary files - from lisa MIUI V12.5.14.0.RKOMIXM package, unless pinned
+# Device proprietary files - from lisa MIUI V13.0.2.0.SKOMIXM package, unless pinned
 
 # ADSP - from LA.UM.9.14.r1-18900-LAHAINA.QSSI12.0
 vendor/bin/adsprpcd|e97a90171313051e2994d1a3d0985de59f586788
@@ -13,6 +13,9 @@ vendor/lib64/libadsprpc.so|3937d0a229bd199bdaca17e6a039918e18d28b70
 # ADSP modules
 vendor/lib/rfsa/adsp/bm2n06.bin
 vendor/lib/rfsa/adsp/bm2n08.bin
+vendor/lib/rfsa/adsp/bm2n13.bin
+vendor/lib/rfsa/adsp/bm2n14.bin
+vendor/lib/rfsa/adsp/bm2n15.bin
 vendor/lib/rfsa/adsp/capi_v2_aptX_CLHDAD_Speech_Decoder.so
 vendor/lib/rfsa/adsp/capi_v2_aptX_CLHDADV_Encoder.so
 vendor/lib/rfsa/adsp/libadsp_jpege_skel.so
@@ -32,6 +35,7 @@ vendor/lib/rfsa/adsp/libmctfengine_skel.so
 vendor/lib/rfsa/adsp/libMIAIHDR_skel.so
 vendor/lib/rfsa/adsp/libmialgo_basic_cdsp_skel.so
 vendor/lib/rfsa/adsp/libmialgo_mfnr_cdsp_skel.so
+vendor/lib/rfsa/adsp/libmialgo_pureview_cdsp_skel.so
 vendor/lib/rfsa/adsp/libmialgo_rfs_cdsp_skel.so
 vendor/lib/rfsa/adsp/libmialgo_sfnr_cdsp_skel.so
 vendor/lib/rfsa/adsp/libmobilenet_dsp_frc_networks.so
@@ -119,6 +123,7 @@ vendor/lib64/libsndmonitor.so
 vendor/lib64/libspkrprot.so
 vendor/lib64/libssrec.so
 vendor/lib64/soundfx/libasphere.so
+vendor/lib64/soundfx/libmisoundfx.so
 vendor/lib64/soundfx/libqcompostprocbundle.so
 vendor/lib64/soundfx/libqcomvisualizer.so
 vendor/lib64/soundfx/libqcomvoiceprocessing.so
@@ -148,9 +153,11 @@ vendor/firmware/tfa98xx.cnt
 vendor/lib/hw/audio.primary.lahaina.so
 vendor/lib/libaudio_log_utils.so
 vendor/lib/libaudioroute_ext.so
+vendor/lib/libresampler.so
 vendor/lib64/hw/audio.primary.lahaina.so
 vendor/lib64/libaudio_log_utils.so
 vendor/lib64/libaudioroute_ext.so
+vendor/lib64/libresampler.so
 
 # Batterysecret
 vendor/bin/batterysecret 
@@ -199,6 +206,7 @@ vendor/lib64/hw/camera.qcom.so
 vendor/lib64/hw/camera.xiaomi.so
 vendor/lib64/hw/com.qti.chi.override.so
 vendor/lib64/libAF.so
+vendor/lib64/libaidenoiserv2.so
 vendor/lib64/libalAILDC.so
 vendor/lib64/libalCFR.so
 vendor/lib64/libalhLDC.so
@@ -243,6 +251,7 @@ vendor/lib64/libcom.xiaomi.metadatautils.so
 vendor/lib64/libcom.xiaomi.pluginutils.so
 vendor/lib64/libchilog.so
 vendor/lib64/libcvface_api.so
+vendor/lib64/libdeflicker.so
 vendor/lib64/libFlickerDet.so
 vendor/lib64/libfastcvdsp_stub.so
 vendor/lib64/libfastcvopt.so
@@ -258,6 +267,7 @@ vendor/lib64/libmiai_portraitsupernight.so
 vendor/lib64/libmialgo_ai_vision.so
 vendor/lib64/libmialgo_basic.so
 vendor/lib64/libmialgo_ellc.so
+vendor/lib64/libmialgo_pureView.so
 vendor/lib64/libmialgoengine.so
 vendor/lib64/libmialgo_ie_capture.so
 vendor/lib64/libmialgo_ie_preview.so
@@ -287,6 +297,7 @@ vendor/lib64/libmmcamera_pdpc.so
 vendor/lib64/libmpbase.so
 vendor/lib64/libofflinedump.so
 vendor/lib64/libofflinelog.so
+vendor/lib64/libomp.so
 vendor/lib64/libopencv.so
 vendor/lib64/libopestriping.so
 vendor/lib64/libos.so
@@ -470,6 +481,7 @@ vendor/etc/camera/person_det_dsp.dlc
 vendor/etc/camera/person_reid_gpu.dlc
 vendor/etc/camera/preview_bokeh_params.json
 vendor/etc/camera/pureShot_parameter.xml
+vendor/etc/camera/pureView_parameter.xml
 vendor/etc/camera/reid_float.dlc
 vendor/etc/camera/sceneDetection.xml
 vendor/etc/camera/seg_quantized.dlc
@@ -504,7 +516,6 @@ vendor/lib64/com.qti.feature2.frameselect.so
 vendor/lib64/com.qti.feature2.fusion.so
 vendor/lib64/com.qti.feature2.generic.so
 vendor/lib64/com.qti.feature2.gs.kodiak.so
-vendor/lib64/com.qti.feature2.gs.sm8350.so
 vendor/lib64/com.qti.feature2.hdr.so
 vendor/lib64/com.qti.feature2.mcreprocrt.so
 vendor/lib64/com.qti.feature2.memcpy.so
@@ -545,6 +556,7 @@ vendor/lib64/camera/plugins/com.xiaomi.plugin.memcpy.so
 vendor/lib64/camera/plugins/com.xiaomi.plugin.miaiie.so
 vendor/lib64/camera/plugins/com.xiaomi.plugin.mibokeh.so
 vendor/lib64/camera/plugins/com.xiaomi.plugin.misegment.so
+vendor/lib64/camera/plugins/com.xiaomi.plugin.pureview.so
 vendor/lib64/camera/plugins/com.xiaomi.plugin.rearsupernight.so
 vendor/lib64/camera/plugins/com.xiaomi.plugin.sigframe.so
 vendor/lib64/camera/plugins/com.xiaomi.plugin.skinbeautifier.so
@@ -1298,6 +1310,7 @@ vendor/etc/sensors/config/sns_mag_cal.json
 vendor/etc/sensors/config/sns_mag_cal_legacy.json
 vendor/etc/sensors/config/sns_multishake.json
 vendor/etc/sensors/config/sns_nonui.json
+vendor/etc/sensors/config/sns_oem13.json
 vendor/etc/sensors/config/sns_pedometer.json
 vendor/etc/sensors/config/sns_rmd.json
 vendor/etc/sensors/config/sns_rotv.json

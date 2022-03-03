@@ -83,6 +83,7 @@ PRODUCT_VENDOR_PROPERTIES += \
     persist.vendor.qcom.bluetooth.aac_vbr_ctl.enabled=true \
     persist.vendor.qcom.bluetooth.aptxadaptiver2_1_support=true \
     persist.vendor.qcom.bluetooth.enable.swb=true \
+    persist.vendor.qcom.bluetooth.enable.swbpm=true \
     persist.vendor.qcom.bluetooth.scram.enabled=false \
     persist.vendor.qcom.bluetooth.twsp_state.enabled=false
 
@@ -136,8 +137,7 @@ PRODUCT_PACKAGES += \
     disable_configstore
 
 PRODUCT_PRODUCT_PROPERTIES += \
-    persist.sys.sf.color_mode=0 \
-    vendor.display.comp_mask=1048576
+    persist.sys.sf.color_mode=0
 
 PRODUCT_VENDOR_PROPERTIES += \
     debug.sf.disable_backpressure=1 \
@@ -389,4 +389,5 @@ PRODUCT_COPY_FILES += \
 # WiFi
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/configs/wifi/WCNSS_qcom_cfg.ini:$(TARGET_COPY_OUT_VENDOR)/etc/wifi/WCNSS_qcom_cfg.ini \
-    $(LOCAL_PATH)/configs/wifi/WCNSS_qcom_cfg.ini:$(TARGET_COPY_OUT_VENDOR)/etc/wifi/qca6750/WCNSS_qcom_cfg.ini
+    $(LOCAL_PATH)/configs/wifi/WCNSS_qcom_cfg.ini:$(TARGET_COPY_OUT_VENDOR)/etc/wifi/qca6750/WCNSS_qcom_cfg.ini \
+    $(LOCAL_PATH)/configs/wifi/wpa_supplicant.conf:$(TARGET_COPY_OUT_VENDOR)/etc/wifi/wpa_supplicant.conf

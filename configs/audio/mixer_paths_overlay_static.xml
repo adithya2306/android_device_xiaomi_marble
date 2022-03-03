@@ -1040,7 +1040,8 @@
         <ctl name="TX0 MODE" value="ADC_LP" />
         <ctl name="ADC1 ChMap" value="SWRM_TX1_CH1" />
         <ctl name="ADC1_MIXER Switch" value="1" />
-        <ctl name="ADC1 Volume" value="6" />
+        <ctl name="ADC1 Volume" value="8" />
+        <ctl name="TX_DEC0 Volume" value="92" />
     </path>
  
     <path name="speaker-mic">
