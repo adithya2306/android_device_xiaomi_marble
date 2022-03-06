@@ -20,13 +20,8 @@ on property:vendor.post_boot.parsed=1
     write /dev/cpuset/audio-app/cpus 1-2
     write /dev/cpuset/restricted/cpus 0-3
 
-    # Configure CPU frequencies
-    write /sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq 1152000
-    write /sys/devices/system/cpu/cpu4/cpufreq/scaling_min_freq 1228800
-    write /sys/devices/system/cpu/cpu7/cpufreq/scaling_min_freq 1324800
-
     # Configure CPU input boost
-    write /sys/devices/system/cpu/cpu_boost/input_boost_freq "0:1651200 4:1516800"
+    write /sys/devices/system/cpu/cpu_boost/input_boost_freq "0:1152000 4:1228800 7:1324800"
     write /sys/devices/system/cpu/cpu_boost/input_boost_ms 100
 
     # Configure schedutil ratelimits
