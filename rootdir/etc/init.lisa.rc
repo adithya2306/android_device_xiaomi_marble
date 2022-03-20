@@ -36,6 +36,9 @@ on post-fs
     # Create persist for camera calibration data
     mkdir /mnt/vendor/persist/camera 0755 system cameraserver
 
+    # Apply sensors fix
+    start init-sensors_fix-sh
+
 on post-fs-data
     # Create data folder for nv_mac
     mkdir /data/vendor/mac_addr 0770 system wifi
@@ -73,3 +76,9 @@ service mi_thermald /vendor/bin/mi_thermald
     user root
     group system
     override
+
+service init-sensors_fix-sh /vendor/bin/init.sensors_fix.sh
+    class main
+    user system
+    group system
+    oneshot
