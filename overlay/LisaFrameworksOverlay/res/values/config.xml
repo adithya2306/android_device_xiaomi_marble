@@ -654,6 +654,20 @@
     <!-- Indicates whether device has a power button fingerprint sensor. -->
     <bool name="config_is_powerbutton_fps">true</bool>
 
+    <!-- An array of arrays of side fingerprint sensor properties relative to each display.
+         Note: this value is temporary and is expected to be queried directly
+         from the HAL in the future. -->
+    <array name="config_sfps_sensor_props" translatable="false">
+         <item>@array/sfps_sensor_props</item>
+    </array>
+
+    <string-array name="sfps_sensor_props" translatable="false">
+        <item></item>     <!-- displayId -->
+        <item>1080</item> <!-- sensorLocationX -->
+        <item>960</item>  <!-- sensorLocationY -->
+        <item>200</item>  <!-- sensorRadius -->
+    </string-array>
+
     <!-- Shutdown if the battery temperature exceeds (this value * 0.1) Celsius. -->
     <integer name="config_shutdownBatteryTemperature">600</integer>
 
