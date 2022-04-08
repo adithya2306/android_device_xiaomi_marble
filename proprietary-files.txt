@@ -701,6 +701,12 @@ vendor/bin/hw/vendor.qti.hardware.capabilityconfigstore@1.0-service|bb1a4b4b1ee9
 vendor/etc/init/vendor.qti.hardware.capabilityconfigstore@1.0-service.rc|4ede0250585a44b01d351bbc301d7a13cc3d783d
 vendor/lib64/hw/vendor.qti.hardware.capabilityconfigstore@1.0-impl.so|b093bd56d1622656c3ada5947769949ab1bc2a34
 
+# Diag - from LA.UM.9.14.r1-18900-LAHAINA.QSSI12.0
+vendor/bin/diag-router|398c6c31a60a80d4009af32d4c5e4161aca353f3
+vendor/etc/init/vendor.qti.diag.rc|0d851631208906b3972b16e1683f07d5582e0030
+-vendor/etc/vintf/manifest/vendor.qti.diag.hal.service.xml|cd7745bb829bc9bfb8a23ba779c796384e9b3835
+vendor/lib64/vendor.qti.diaghal@1.0.so|e3ce955a42368dde2cd1ddb2de33604e3837f971
+
 # Display (SDM) - from LA.UM.9.14.r1-18900-LAHAINA.QSSI12.0
 vendor/lib64/libdisp-aba.so|5c8ad123fb335a74bd573587924f93ac812594fd
 vendor/lib64/libdisplayqos.so|aa222f4c1a2d2fb60944c44f8a82621d6bc75184
