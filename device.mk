@@ -144,6 +144,8 @@ PRODUCT_VENDOR_PROPERTIES += \
     debug.sf.enable_hwc_vds=1 \
     persist.sys.sf.native_mode=258 \
     ro.gfx.driver.1=com.qualcomm.qti.gpudrivers.lahaina.api30 \
+    ro.surface_flinger.set_display_power_timer_ms=1000 \
+    ro.surface_flinger.set_idle_timer_ms=100 \
     ro.vendor.display.sensortype=2 \
     vendor.display.qdcm.mode_combine=2
 
