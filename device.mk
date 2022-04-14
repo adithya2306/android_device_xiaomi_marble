@@ -39,6 +39,10 @@ PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/configs/audio/sound_trigger_mixer_paths_yupikqrd.xml:$(TARGET_COPY_OUT_VENDOR)/etc/audio/sku_yupik/sound_trigger_mixer_paths_yupikqrd.xml \
     $(LOCAL_PATH)/configs/audio/sound_trigger_platform_info.xml:$(TARGET_COPY_OUT_VENDOR)/etc/audio/sku_yupik/sound_trigger_platform_info.xml
 
+PRODUCT_COPY_FILES += \
+    frameworks/av/services/audiopolicy/config/a2dp_in_audio_policy_configuration.xml:$(TARGET_COPY_OUT_VENDOR)/etc/a2dp_in_audio_policy_configuration.xml \
+    frameworks/av/services/audiopolicy/config/bluetooth_audio_policy_configuration.xml:$(TARGET_COPY_OUT_VENDOR)/etc/bluetooth_audio_policy_configuration.xml
+
 PRODUCT_PRODUCT_PROPERTIES += \
     aaudio.mmap_policy=1 \
     persist.vendor.audio.speaker.prot.enable=false \
@@ -59,6 +63,8 @@ PRODUCT_SYSTEM_PROPERTIES += \
     ro.config.vc_call_vol_steps=11
 
 # Bluetooth
+TARGET_USE_QTI_BT_STACK := false
+
 PRODUCT_PACKAGES += \
     android.hardware.bluetooth@1.1.vendor \
     audio.bluetooth.default \
@@ -75,7 +81,6 @@ PRODUCT_SYSTEM_EXT_PROPERTIES += \
     persist.vendor.bt.a2dp.aac_whitelist=false
 
 PRODUCT_VENDOR_PROPERTIES += \
-    persist.sys.fflag.override.settings_bluetooth_hearing_aid=true \
     persist.vendor.bluetooth.modem_nv_support=true \
     persist.vendor.qcom.bluetooth.a2dp_offload_cap=sbc-aptx-aptxtws-aptxhd-aac-ldac-aptxadaptiver2 \
     persist.vendor.qcom.bluetooth.a2dp_mcast_test.enabled=false \
