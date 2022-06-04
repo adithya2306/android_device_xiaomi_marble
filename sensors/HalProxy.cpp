@@ -482,6 +482,14 @@ void HalProxy::initializeSensorList() {
                     ALOGV("Loaded sensor: %s", sensor.name.c_str());
                     sensor.sensorHandle = setSubHalIndex(sensor.sensorHandle, subHalIndex);
                     setDirectChannelFlags(&sensor, mSubHalList[subHalIndex]);
+
+                    // standardize xiaomi pickup sensor
+                    if (sensor.typeAsString == "xiaomi.sensor.pickup") {
+                        sensor.type = V2_1::SensorType::PICK_UP_GESTURE;
+                        sensor.typeAsString = SENSOR_STRING_TYPE_PICK_UP_GESTURE;
+                        ALOGV("Patched xiaomi pickup sensor");
+                    }
+
                     mSensors[sensor.sensorHandle] = sensor;
                 }
             }
