@@ -69,8 +69,7 @@ std::vector<V2_1::Event> HalProxyCallbackBase::processEvents(const std::vector<V
     for (V2_1::Event event : events) {
         event.sensorHandle = setSubHalIndex(event.sensorHandle, mSubHalIndex);
         const V2_1::SensorInfo& sensor = mCallback->getSensorInfo(event.sensorHandle);
-        if (sensor.type == V2_1::SensorType::PICK_UP_GESTURE
-            && event.u.scalar != 1 && event.u.scalar != 2) {
+        if (sensor.type == V2_1::SensorType::PICK_UP_GESTURE && event.u.scalar != 1) {
             continue;
         }
         if ((sensor.flags & V1_0::SensorFlagBits::WAKE_UP) != 0) {
