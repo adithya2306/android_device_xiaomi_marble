@@ -1264,17 +1264,23 @@ vendor/lib64/vendor.qti.hardware.scve.objecttracker@1.0.so|e5e18a9383e9c16f1016a
 vendor/lib64/vendor.qti.hardware.scve.panorama@1.0.so|c5514ccf10d2ff9bd22695e86156d9a7f6da1063
 
 # Sensors
+vendor/bin/hw/vendor.xiaomi.hardware.citsensorservice@1.1-service
 vendor/bin/init.qcom.sensors.sh
 vendor/bin/sensors.qti
 vendor/bin/sscrpcd
 vendor/etc/init/init.vendor.sensors.rc
 vendor/etc/init/vendor.sensors.qti.rc
 vendor/etc/init/vendor.sensors.sscrpcd.rc
+vendor/etc/init/vendor.xiaomi.hardware.citsensorservice@1.1-service.rc
 vendor/etc/sensors/hals.conf
+-vendor/etc/vintf/manifest/vendor.xiaomi.hardware.citsensorservice@1.1-service.xml
+vendor/lib64/hw/vendor.xiaomi.hardware.citsensorservice@1.1-impl.so
+vendor/lib64/libnanopb.so
 vendor/lib64/libsdsprpc.so
-vendor/lib64/libnotifyaudiohal.so
+vendor/lib64/libssccalapi.so
 vendor/lib64/libsensorslog.so
 vendor/lib64/libsnsapi.so
+vendor/lib64/libsns_api.so
 vendor/lib64/libsns_device_mode_stub.so
 vendor/lib64/libsnsdiaglog.so
 vendor/lib64/libsns_fastRPC_util.so
@@ -1283,10 +1289,11 @@ vendor/lib64/libsns_registry_skel.so
 vendor/lib64/libssc_default_listener.so
 vendor/lib64/libssc.so
 vendor/lib64/libultrasound.so
-vendor/lib64/sensors.elliptic@2.0.so
 vendor/lib64/sensors.mius.proximity.so
 vendor/lib64/sensors.ssc.so
 vendor/lib64/sensors.touch.detect.so
+vendor/lib64/vendor.xiaomi.hardware.citsensorservice@1.0.so
+vendor/lib64/vendor.xiaomi.hardware.citsensorservice@1.1.so
 
 # Sensors config
 vendor/etc/sensors/config/ak991x_dri_0.json

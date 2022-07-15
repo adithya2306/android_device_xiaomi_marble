@@ -15,6 +15,14 @@
 -->
 <compatibility-matrix version="1.0" type="framework">
     <hal format="hidl">
+        <name>android.hardware.media.c2</name>
+        <version>1.0</version>
+        <interface>
+            <name>IComponentStore</name>
+            <instance>dolby</instance>
+        </interface>
+    </hal>
+    <hal format="hidl">
         <name>vendor.xiaomi.hardware.campostproc</name>
         <transport>hwbinder</transport>
         <version>1.0</version>
@@ -24,11 +32,12 @@
         </interface>
     </hal>
     <hal format="hidl">
-        <name>android.hardware.media.c2</name>
-        <version>1.0</version>
+        <name>vendor.xiaomi.hardware.citsensorservice</name>
+        <transport>hwbinder</transport>
+        <version>1.1</version>
         <interface>
-            <name>IComponentStore</name>
-            <instance>dolby</instance>
+            <name>ICitSensorService</name>
+            <instance>default</instance>
         </interface>
     </hal>
 </compatibility-matrix>
