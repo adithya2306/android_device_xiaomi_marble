@@ -217,6 +217,7 @@ PRODUCT_COPY_FILES += \
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/rootdir/bin/init.mi.usb.sh:$(TARGET_COPY_OUT_VENDOR)/bin/init.mi.usb.sh \
     $(LOCAL_PATH)/rootdir/bin/init.qcom.usb.sh:$(TARGET_COPY_OUT_VENDOR)/bin/init.qcom.usb.sh \
+    $(LOCAL_PATH)/rootdir/bin/init.panel_name.sh:$(TARGET_COPY_OUT_VENDOR)/bin/init.panel_name.sh \
     $(LOCAL_PATH)/rootdir/bin/init.sensors_fix.sh:$(TARGET_COPY_OUT_VENDOR)/bin/init.sensors_fix.sh
 
 # IR
@@ -277,6 +278,7 @@ PRODUCT_PACKAGES += \
 # Overlays
 PRODUCT_PACKAGES += \
     AOSPALisaFrameworksOverlay \
+    AOSPALisaCSOTFrameworksOverlay \
     LisaFrameworksOverlay \
     LisaSettingsOverlay \
     LisaSystemUIOverlay \

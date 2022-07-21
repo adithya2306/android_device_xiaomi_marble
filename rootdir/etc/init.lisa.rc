@@ -32,6 +32,10 @@ on boot
     chown system system /dev/xiaomi-touch
     chmod 0660 /dev/xiaomi-touch
 
+    # Set dimlayer exposure permission
+    chown system system /sys/devices/platform/soc/soc:qcom,dsi-display-primary/dimlayer_exposure
+    chmod 0664 /sys/devices/platform/soc/soc:qcom,dsi-display-primary/dimlayer_exposure
+
 on post-fs
     # Create persist for camera calibration data
     mkdir /mnt/vendor/persist/camera 0755 system cameraserver
@@ -78,6 +82,12 @@ service mi_thermald /vendor/bin/mi_thermald
     override
 
 service init-sensors_fix-sh /vendor/bin/init.sensors_fix.sh
+    class main
+    user system
+    group system
+    oneshot
+
+service init-panel_name-sh /vendor/bin/init.panel_name.sh
     class main
     user system
     group system

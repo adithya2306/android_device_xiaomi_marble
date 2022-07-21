@@ -3,3 +3,6 @@
 
 # Media
 /vendor/bin/hw/dolbycodec2			u:object_r:mediacodec_exec:s0
+
+# Display panel name
+/vendor/bin/init\.panel_name\.sh		u:object_r:vendor_qti_init_shell_exec:s0
