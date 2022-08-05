@@ -200,7 +200,6 @@
     <integer-array name="config_autoBrightnessLevels">
         <item>1</item>
         <item>2</item>
-        <item>3</item>
         <item>4</item>
         <item>6</item>
         <item>8</item>
@@ -321,10 +320,9 @@
          overridden in platform specific overlays -->
     <array name="config_autoBrightnessDisplayValuesNits">
         <item>4.5</item>
-        <item>5.0</item>
         <item>6.6</item>
         <item>8.0</item>
-        <item>18.0</item>
+        <item>20.0</item>
         <item>24.3</item>
         <item>29.7</item>
         <item>34.0</item>
