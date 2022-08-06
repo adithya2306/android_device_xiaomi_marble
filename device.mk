@@ -135,7 +135,8 @@ PRODUCT_COPY_FILES += \
 
 # Display / Graphics
 PRODUCT_PACKAGES += \
-    disable_configstore
+    disable_configstore \
+    lights.lisa
 
 PRODUCT_ODM_PROPERTIES += \
     debug.sf.disable_client_composition_cache=0 \
