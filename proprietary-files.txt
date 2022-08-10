@@ -709,51 +709,76 @@ vendor/etc/init/vendor.qti.diag.rc|0d851631208906b3972b16e1683f07d5582e0030
 -vendor/etc/vintf/manifest/vendor.qti.diag.hal.service.xml|cd7745bb829bc9bfb8a23ba779c796384e9b3835
 vendor/lib64/vendor.qti.diaghal@1.0.so|e3ce955a42368dde2cd1ddb2de33604e3837f971
 
-# Display (SDM) - from LA.UM.9.14.r1-19300.01-LAHAINA.QSSI12.0
-vendor/lib64/libdisp-aba.so|5c8ad123fb335a74bd573587924f93ac812594fd
-vendor/lib64/libdisplayqos.so|aa222f4c1a2d2fb60944c44f8a82621d6bc75184
-vendor/lib64/libdisplayskuutils.so|76149ecef8fee8d4faa303c0cc2a73f51c363b4c
-vendor/lib64/libdpps.so|d53fb49c44d3cd63f428f8cfe4926650e3275f28
-vendor/lib64/libhdr_tm.so|7954c5cd5c0b23fe8d0609361c22d24c59f1448b
-vendor/lib64/libqdcm-mode-parser.so|207143ab4dda0886bde2a0333d7a1bcd7af6f8e1
-vendor/lib64/libqseed3.so|d62c37baf259250cadfcff8734e82054ed87bb96
-vendor/lib64/librcmask.so|8feb479fe590b6aec282ce3342574d9113f80516
-vendor/lib64/libsdm-color.so|aeb07689c1bfc885ef9c846c0148e6f1e3f7f0ac
-vendor/lib64/libsdm-colormgr-algo.so|5416a3b9b0735099c9b86f451f41386711787ea4
-vendor/lib64/libsdm-diag.so|720089c4bc66897e1bfd84e7983b3c34f2c4eec8
-vendor/lib64/libsdm-disp-vndapis.so|dc3ff8c971bbcb0d1b9e5079324d1d1d05a1fd39
-vendor/lib64/libsdmextension.so|721ac8e32cca6d418906dcc520a72e5bccbf55ee
-vendor/lib64/libsnapdragoncolor-manager.so|e7f55a1ba843bb570afa6bbf16bb61dc01ec74ea
-vendor/lib64/libsnapdragoncolor-qdcm.so|673c41753603bacb197674df567723dfd928384e
-vendor/lib64/libtinyxml2_1.so|11ceb3f1e7650c41621d47e5ec5567c8f466086e
+# Display
+vendor/bin/feature_enabler_client
+vendor/bin/hw/vendor.qti.hardware.display.composer-service|c6b2c3424c803c9bd9fe16dd205c394e956d1439
+vendor/bin/init.qti.display_boot.sh
+vendor/etc/init/feature_enabler_client.rc
+vendor/lib64/libclient2slpi.notifier.so
+vendor/lib64/libdisp-aba.so
+vendor/lib64/libdisplaydebug.so
+vendor/lib64/libdisplayqos.so
+vendor/lib64/libdisplayskuutils.so
+vendor/lib64/libdpps.so
+vendor/lib64/libdrmutils.so
+vendor/lib64/libgpu_tonemapper.so
+vendor/lib64/libhdr_tm.so
+vendor/lib64/libhistogram.so
+vendor/lib64/libqdcm-mode-parser.so
+vendor/lib64/libqdutils.so
+vendor/lib64/libqrtrclient.so
+vendor/lib64/libqseed3.so
+vendor/lib64/libqservice.so
+vendor/lib64/librcmask.so
+vendor/lib64/libsdedrm.so
+vendor/lib64/libsdm-color.so
+vendor/lib64/libsdm-colormgr-algo.so
+vendor/lib64/libsdm-diag.so
+vendor/lib64/libsdm-disp-vndapis.so
+vendor/lib64/libsdmcore.so
+vendor/lib64/libsdmextension.so
+vendor/lib64/libsdmutils.so
+vendor/lib64/libsnapdragoncolor-manager.so
+vendor/lib64/libsnapdragoncolor-qdcm.so
+vendor/lib64/libtinyxml2_1.so
+
+# Displayfeature
+vendor/bin/displayfeature
+vendor/bin/hw/vendor.xiaomi.hardware.displayfeature@1.0-service
+vendor/etc/init/vendor.xiaomi.hardware.displayfeature@1.0-service.rc
+vendor/lib64/hw/displayfeature.default.so
+vendor/lib64/hw/vendor.xiaomi.hardware.displayfeature@1.0-impl.so
+vendor/lib64/libdisplayfeatureservice.so
+vendor/lib64/libdisplayfeature.so
+vendor/lib64/libmi-stc-HW-modulate.so
+vendor/lib64/libtinyxml.so
+vendor/lib64/vendor.xiaomi.hardware.displayfeature@1.0.so
 
 # Display calibration
 vendor/etc/mdss_dsi_k9d_36_02_0a_dsc_cmd_mi.xml
 vendor/etc/mdss_dsi_k9d_42_0d_0b_dsc_cmd_mi.xml
 vendor/etc/qdcm_calib_data_xiaomi_36_02_0a_cmd_mode_dsc_dsi_panel.xml
 vendor/etc/qdcm_calib_data_xiaomi_42_0d_0b_cmd_mode_dsc_dsi_panel.xml
+
+# Display configs
+vendor/etc/display/advanced_sf_offsets.xml
+vendor/etc/display/DPU660.xml
+vendor/etc/display/DPU670.xml
+vendor/etc/display/DPU7__.xml
 vendor/etc/snapdragon_color_libs_config.xml
-vendor/lib64/libmi-stc-HW-modulate.so
 
-# Display configs - from LA.UM.9.14.r1-19300.01-LAHAINA.QSSI12.0
-vendor/etc/display/advanced_sf_offsets.xml|e145a0c0f975f6d924fbe7f18f531ae044ec3bef
-vendor/etc/display/DPU660.xml|b26dd73e361546d89bf3d7082a471703dc6ac2cb
-vendor/etc/display/DPU670.xml|e5131a60ceff29ca5eb561eec7eddadef1d0486f
-vendor/etc/display/DPU7__.xml|c056f3cb9fa123ca3de5b2a9775c184dddf25b9d
-
-# Display postprocessing - from LA.UM.9.14.r1-19300.01-LAHAINA.QSSI12.0
-vendor/bin/hw/vendor.display.color@1.0-service|347fda7fe824e405829e1772739e999937421a58
-vendor/bin/ppd|4fcb818e39c813570fdbfaa9726274986e190e04
-vendor/bin/qdcmss|2dd2d71247c85a1bb6b3168d53cd844cb387f75c
-vendor/etc/init/qdcmss.rc|53d78d686678c4f923a9ec4ace7d4d3575b13788
-vendor/etc/init/vendor.display.color@1.0-service.rc|5ad673f879b3685a0e79b5633437e5499cb94f48
-vendor/lib64/vendor.display.color@1.0.so|317de26d1e7a1d2d07ffa01d2a5a7528e81dffa9
-vendor/lib64/vendor.display.color@1.1.so|513cb2a853ea2e3b481df0df5408705b6d86abd9
-vendor/lib64/vendor.display.color@1.2.so|86a650b87ed1baac5e23c23c3d37ce5b20c805ae
-vendor/lib64/vendor.display.color@1.3.so|125043e43085e8fc9d52c3d94659c20f60885862
-vendor/lib64/vendor.display.color@1.4.so|57de75a5da7e7c362ca31bd0390dce7088d006fa
-vendor/lib64/vendor.display.color@1.5.so|40e5a6e0315d89ac1a9af7589ec9f384211ec3f8
-vendor/lib64/vendor.display.postproc@1.0.so|47b01ccbabd3886c04c65ddffcbfd563a5e9b63a
+# Display postprocessing
+vendor/bin/hw/vendor.display.color@1.0-service
+vendor/bin/qdcmss
+vendor/etc/init/qdcmss.rc
+vendor/etc/init/vendor.display.color@1.0-service.rc
+vendor/lib64/vendor.display.color@1.0.so
+vendor/lib64/vendor.display.color@1.1.so
+vendor/lib64/vendor.display.color@1.2.so
+vendor/lib64/vendor.display.color@1.3.so
+vendor/lib64/vendor.display.color@1.4.so
+vendor/lib64/vendor.display.color@1.5.so
+vendor/lib64/vendor.display.postproc@1.0.so
 
 # DPM - from LA.UM.9.14.r1-19300.01-LAHAINA.QSSI12.0
 vendor/bin/dpmQmiMgr|2da835936abc23f39903e68a63c5e7303edac1e7
@@ -1168,7 +1193,6 @@ vendor/lib64/libqcrilNrLogger.so|491048eb9430056457776a6222827c7e6c52fe73
 vendor/lib64/libqcrilNrQtiBus.so|02465cb98b46341d5d646ac061c3d0d5dbaf9cad
 vendor/lib64/libqcrilNrQtiMutex.so|d6a4f31106b6a48ab15557eba9f28e9d81ba1ce7
 vendor/lib64/libqrtr.so|8b99ffbfd5bfebce026f36146e08c0f3f93fae00
-vendor/lib64/libqrtrclient.so|51c55fea28fa475ae9b2c64592f32802e6ba6c25
 vendor/lib64/libqsocket.so|888c9c61d575bfa42754506034ef34109bd39782
 vendor/lib64/libril-db.so|fb2ddc3ac24cfb6bce4b068c4fff44a862dd889b
 vendor/lib64/libril-qc-ltedirectdisc.so|82e44cb8193309ccfbe756d6d9a05a6f1dae5b18

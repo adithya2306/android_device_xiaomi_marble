@@ -144,7 +144,11 @@ PRODUCT_VENDOR_PROPERTIES += \
     debug.sf.enable_hwc_vds=1 \
     persist.sys.sf.native_mode=258 \
     ro.gfx.driver.1=com.qualcomm.qti.gpudrivers.lahaina.api30 \
+    ro.vendor.display.dither=true \
+    ro.vendor.display.mi_calib.enable=true \
     ro.vendor.display.sensortype=2 \
+    ro.vendor.histogram.enable=true \
+    ro.vendor.xiaomi.bl.poll=true \
     vendor.display.qdcm.mode_combine=2
 
 # DPM
