@@ -284,6 +284,7 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     AOSPALisaFrameworksOverlay \
     AOSPALisaCSOTFrameworksOverlay \
+    LisaCarrierConfigOverlay \
     LisaFrameworksOverlay \
     LisaSettingsOverlay \
     LisaSystemUIOverlay \
