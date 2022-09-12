@@ -379,8 +379,10 @@ PRODUCT_PACKAGES += \
     update_verifier
 
 # USB
+ifneq ($(TARGET_BUILD_VARIANT),user)
 PRODUCT_VENDOR_PROPERTIES += \
     persist.vendor.usb.config=mtp,adb
+endif
 
 # Vendor Service Manager
 PRODUCT_PACKAGES += \
