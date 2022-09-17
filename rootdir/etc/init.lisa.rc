@@ -14,6 +14,10 @@ on early-boot
     write /sys/bus/msm_subsys/devices/subsys6/restart_level RELATED
     write /sys/bus/msm_subsys/devices/subsys7/restart_level RELATED
 
+on early-init
+    # Start audio adsp rpc daemon at early init stage
+    start vendor.audioadsprpcd_audiopd
+
 on boot
     # Set modem permission for AT command
     chmod 0777 /dev/smd8
