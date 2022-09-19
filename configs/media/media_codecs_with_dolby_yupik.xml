@@ -16,7 +16,7 @@
             <Limit name="performance-point-1920x1080" value="120" />
             <Limit name="performance-point-1280x720" value="240" />
         </MediaCodec>
-        <MediaCodec name="c2.dolby.decoder.avc.secure" type="video/dolby-vision" >
+        <!--MediaCodec name="c2.dolby.decoder.avc.secure" type="video/dolby-vision" >
             <Limit name="size" min="96x96" max="4096x2176" />
             <Limit name="alignment" value="2x2" />
             <Limit name="block-size" value="16x16" />
@@ -29,7 +29,7 @@
             <Feature name="low-latency" />
             <Limit name="concurrent-instances" max="3" />
             <Limit name="performance-point-3840x2160" value="30" />
-        </MediaCodec>
+        </MediaCodec-->
         <MediaCodec name="c2.dolby.decoder.hevc" type="video/dolby-vision" >
             <Limit name="size" min="96x96" max="4096x2176" />
             <Limit name="alignment" value="2x2" />
@@ -44,7 +44,7 @@
             <Limit name="performance-point-1920x1080" value="120" />
             <Limit name="performance-point-1280x720" value="240" />
         </MediaCodec>
-        <MediaCodec name="c2.dolby.decoder.hevc.secure" type="video/dolby-vision" >
+        <!--MediaCodec name="c2.dolby.decoder.hevc.secure" type="video/dolby-vision" >
             <Limit name="size" min="96x96" max="4096x2176" />
             <Limit name="alignment" value="2x2" />
             <Limit name="block-size" value="16x16" />
@@ -57,6 +57,6 @@
             <Feature name="low-latency" />
             <Limit name="concurrent-instances" max="3" />
             <Limit name="performance-point-3840x2160" value="30" />
-        </MediaCodec>
+        </MediaCodec-->
     </Decoders>
 </Included>
