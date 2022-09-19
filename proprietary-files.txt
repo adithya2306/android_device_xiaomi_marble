@@ -1019,7 +1019,6 @@ vendor/bin/hw/dolbycodec2
 vendor/etc/dolby_vision.cfg
 vendor/etc/init/dolbycodec2.rc
 vendor/etc/media_codecs_system_default_yupik.xml
-vendor/etc/media_codecs_with_dolby_yupik.xml
 vendor/etc/media_codecs_yupik_v1.xml
 -vendor/etc/vintf/manifest/c2_manifest_vendor.xml:odm/etc/vintf/manifest/c2_manifest_xiaomi.xml
 vendor/lib/c2.dolby.avc.dec.so
