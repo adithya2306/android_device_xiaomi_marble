@@ -139,7 +139,6 @@ PRODUCT_ODM_PROPERTIES += \
     ro.surface_flinger.set_touch_timer_ms=1000 \
     vendor.display.disable_3d_adaptive_tm=0 \
     vendor.display.enable_rounded_corner=0 \
-    vendor.display.use_smooth_motion=0 \
     vendor.display.vds_allow_hwc=true
 
 PRODUCT_VENDOR_PROPERTIES += \
