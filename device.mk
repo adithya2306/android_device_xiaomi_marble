@@ -264,7 +264,6 @@ PRODUCT_PROPERTY_OVERRIDES += \
 
 # Media
 PRODUCT_PACKAGES += \
-    libavservices_minijail_vendor \
     libcodec2_soft_common.vendor \
     libsfplugin_ccodec_utils.vendor
 
