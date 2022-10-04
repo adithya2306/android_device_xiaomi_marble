@@ -138,6 +138,7 @@ PRODUCT_PACKAGES += \
     disable_configstore
 
 PRODUCT_ODM_PROPERTIES += \
+    debug.sf.disable_client_composition_cache=0 \
     persist.sys.sf.color_mode=0 \
     ro.sf.force_hwc_brightness=1 \
     ro.surface_flinger.set_display_power_timer_ms=1000 \
@@ -145,7 +146,6 @@ PRODUCT_ODM_PROPERTIES += \
     ro.surface_flinger.set_touch_timer_ms=800
 
 PRODUCT_VENDOR_PROPERTIES += \
-    debug.sf.disable_backpressure=1 \
     debug.sf.enable_hwc_vds=1 \
     persist.sys.sf.native_mode=258 \
     ro.gfx.driver.1=com.qualcomm.qti.gpudrivers.lahaina.api30 \
