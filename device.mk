@@ -140,10 +140,12 @@ PRODUCT_PACKAGES += \
 PRODUCT_ODM_PROPERTIES += \
     debug.sf.disable_client_composition_cache=0 \
     persist.sys.sf.color_mode=0 \
-    ro.sf.force_hwc_brightness=1 \
     ro.surface_flinger.set_display_power_timer_ms=1000 \
     ro.surface_flinger.set_idle_timer_ms=500 \
     ro.surface_flinger.set_touch_timer_ms=800
+
+PRODUCT_SYSTEM_PROPERTIES += \
+    ro.sf.force_hwc_brightness=1
 
 PRODUCT_VENDOR_PROPERTIES += \
     debug.sf.enable_hwc_vds=1 \
