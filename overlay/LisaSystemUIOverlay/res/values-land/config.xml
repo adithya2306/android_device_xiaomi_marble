@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
-     Copyright (C) 2021 Paranoid Android
+     Copyright (C) 2022 Paranoid Android
 
      Licensed under the Apache License, Version 2.0 (the "License");
      you may not use this file except in compliance with the License.
@@ -14,14 +14,12 @@
      See the License for the specific language governing permissions and
      limitations under the License.
 -->
-<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+<resources>
 
-    <!-- Max visible notification icons -->
-    <integer name="config_maxVisibleNotificationIcons">5</integer>
-    <integer name="config_maxVisibleNotificationIconsOnLock">4</integer>
-
-    <!-- StatusBar burn-in protection -->
-    <dimen name="horizontal_max_shift">2.0dp</dimen>
-    <dimen name="vertical_max_shift">1.0dp</dimen>
+    <!-- The padding around the statusbar, in landscape -->
+    <!-- Use the default values, since the cutout is masked -->
+    <dimen name="status_bar_padding_start">8dp</dimen>
+    <dimen name="status_bar_padding_end">8dp</dimen>
+    <dimen name="status_bar_padding_top">0dp</dimen>
 
 </resources>
