@@ -149,8 +149,8 @@
 
     <!-- Minimum screen brightness setting allowed by power manager.
          The user is forbidden from setting the brightness below this level.
-         Equivalent to 8/4095. -->
-    <item name="config_screenBrightnessSettingMinimumFloat" format="float" type="dimen">0.00195360195</item>
+         Equivalent to 10/4095. -->
+    <item name="config_screenBrightnessSettingMinimumFloat" format="float" type="dimen">0.00244200244</item>
 
     <!-- Maximum screen brightness allowed by the power manager.
          The user is forbidden from setting the brightness above this level.  -->
@@ -164,14 +164,14 @@
     <!-- Screen brightness used to dim the screen while dozing in a very low power state.
          May be less than the minimum allowed brightness setting
          that can be set by the user. -->
-    <integer name="config_screenBrightnessDoze">17</integer>
-    <item name="config_screenBrightnessDozeFloat" format="float" type="dimen">0.00415140415</item>
+    <integer name="config_screenBrightnessDoze">15</integer>
+    <item name="config_screenBrightnessDozeFloat" format="float" type="dimen">0.00366300366</item>
 
     <!-- Screen brightness used to dim the screen when the user activity
          timeout expires.  May be less than the minimum allowed brightness setting
          that can be set by the user. -->
-    <integer name="config_screenBrightnessDim">13</integer>
-    <item name="config_screenBrightnessDimFloat" format="float" type="dimen">0.00317460317</item>
+    <integer name="config_screenBrightnessDim">8</integer>
+    <item name="config_screenBrightnessDimFloat" format="float" type="dimen">0.00195360195</item>
 
     <!-- Stability requirements in milliseconds for accepting a new brightness level.  This is used
          for debouncing the light sensor.  Different constants are used to debounce the light sensor
@@ -450,8 +450,8 @@
 
          This array should be equal in size to config_screenBrightnessBacklight -->
     <array name="config_screenBrightnessNits">
-        <item>4.5</item>
-        <item>800</item>
+        <item>3.0</item>
+        <item>800.0</item>
     </array>
 
     <!-- Array of ambient lux threshold values. This is used for determining hysteresis constraint
