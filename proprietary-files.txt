@@ -130,6 +130,7 @@ vendor/etc/init/hw/init.batterysecret.rc
 
 # Bluetooth
 vendor/bin/hw/android.hardware.bluetooth@1.0-service-qti
+vendor/bin/nv_mac
 vendor/etc/init/android.hardware.bluetooth@1.0-service-qti.rc
 vendor/lib/btaudio_offload_if.so
 vendor/lib/hw/audio.bluetooth_qti.default.so
