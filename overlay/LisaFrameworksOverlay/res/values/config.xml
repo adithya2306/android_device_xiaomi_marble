@@ -170,8 +170,8 @@
     <!-- Screen brightness used to dim the screen when the user activity
          timeout expires.  May be less than the minimum allowed brightness setting
          that can be set by the user. -->
-    <integer name="config_screenBrightnessDim">8</integer>
-    <item name="config_screenBrightnessDimFloat" format="float" type="dimen">0.00195360195</item>
+    <integer name="config_screenBrightnessDim">10</integer>
+    <item name="config_screenBrightnessDimFloat" format="float" type="dimen">0.00244200244</item>
 
     <!-- Stability requirements in milliseconds for accepting a new brightness level.  This is used
          for debouncing the light sensor.  Different constants are used to debounce the light sensor
