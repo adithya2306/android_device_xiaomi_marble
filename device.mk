@@ -148,7 +148,8 @@ PRODUCT_ODM_PROPERTIES += \
     ro.surface_flinger.use_content_detection_for_refresh_rate=true
 
 PRODUCT_SYSTEM_PROPERTIES += \
-    ro.sf.force_hwc_brightness=1
+    ro.sf.force_hwc_brightness=1 \
+    ro.sf.use_latest_hwc_vsync_period=0
 
 PRODUCT_VENDOR_PROPERTIES += \
     debug.sf.disable_backpressure=1 \
