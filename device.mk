@@ -274,12 +274,15 @@ PRODUCT_SOONG_NAMESPACES += \
 PRODUCT_PACKAGES += \
     AOSPAMarbleFrameworksOverlay \
     AOSPAMarbleSystemUIOverlay \
+    MarbleCNSettingsOverlay \
     MarbleCNSettingsProviderOverlay \
     MarbleCNWifiOverlay \
     MarbleCarrierConfigOverlay \
     MarbleFrameworksOverlay \
+    MarbleGLSettingsOverlay \
     MarbleGLSettingsProviderOverlay \
     MarbleGLWifiOverlay \
+    MarbleINSettingsOverlay \
     MarbleINSettingsProviderOverlay \
     MarbleINWifiOverlay \
     MarbleNfcOverlay \
