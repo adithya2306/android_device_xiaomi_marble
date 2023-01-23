@@ -64,7 +64,8 @@ void set_ro_build_prop(const string &source, const string &prop,
     property_override(prop_name.c_str(), value.c_str());
 }
 
-void set_device_props(const string model, const string name, const string marketname) {
+void set_device_props(const string model, const string name, const string marketname,
+        const string mod_device) {
     // list of partitions to override props
     string source_partitions[] = { "", "bootimage.", "odm.", "product.",
                                    "system.", "system_ext.", "vendor." };
@@ -75,6 +76,7 @@ void set_device_props(const string model, const string name, const string market
         set_ro_build_prop(source, "marketname", marketname);
     }
 
+    property_override("ro.product.mod_device", mod_device.c_str());
     property_override("bluetooth.device.default_name", marketname.c_str());
 }
 
@@ -84,11 +86,11 @@ void vendor_load_properties()
     string region = GetProperty("ro.boot.hwc", "");
 
     if (region == "IN") { // India
-        set_device_props("2109119DI", "lisa_in", "Xiaomi 11 Lite NE");
+        set_device_props("2109119DI", "lisa_in", "Xiaomi 11 Lite NE", "lisa_in_global");
     } else if (region == "CN") { // China
-        set_device_props("2107119DC", "lisa", "Mi 11 LE");
+        set_device_props("2107119DC", "lisa", "Mi 11 LE", "lisa");
     } else { // Global
-        set_device_props("2109119DG", "lisa_global", "Xiaomi 11 Lite 5G NE");
+        set_device_props("2109119DG", "lisa_global", "Xiaomi 11 Lite 5G NE", "lisa_global");
     }
 
     // Set hardware revision
