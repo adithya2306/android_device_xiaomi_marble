@@ -52,9 +52,7 @@ PRODUCT_ODM_PROPERTIES += \
     vendor.audio.feature.spkr_prot.enable=false \
     vendor.audio.feature.power_mode.enable=false
 
-PRODUCT_SYSTEM_PROPERTIES += \
-    ro.config.media_vol_default=8 \
-    ro.config.media_vol_steps=25 \
+PRODUCT_VENDOR_PROPERTIES += \
     ro.config.vc_call_vol_default=9 \
     ro.config.vc_call_vol_steps=11
 
