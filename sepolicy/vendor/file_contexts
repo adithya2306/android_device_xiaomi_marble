@@ -11,10 +11,10 @@
 # Hexagon DSP-side executable needed for Halide operation
 # This is labeled as public_adsprpcd_file as it needs to be read by apps
 # (e.g. Google Camera App)
-/mnt/vendor/dsp/fastrpc_shell_3                                              u:object_r:public_adsprpcd_file:s0
+/mnt/vendor/dsp/fastrpc_shell_3                                           u:object_r:public_adsprpcd_file:s0
 
 # Display
-/sys/devices/virtual/mi_display/disp_feature/disp-DSI-+[0-1](/.*)?          u:object_r:vendor_sysfs_graphics:s0
+/sys/devices/virtual/mi_display/disp_feature/disp-DSI-+[0-1](/.*)?        u:object_r:vendor_sysfs_graphics:s0
 
 # Displayfeature
 /vendor/bin/displayfeature                                                u:object_r:vendor_displayfeature_exec:s0
@@ -32,8 +32,11 @@
 # Media
 /vendor/bin/hw/dolbycodec2                                                u:object_r:mediacodec_exec:s0
 
+# Mlipay
+/(vendor|system/vendor)/bin/mlipayd@1.1                                   u:object_r:hal_mlipay_default_exec:s0
+
 # NV MAC
-/vendor/bin/nv_mac                                                          u:object_r:vendor_wcnss_service_exec:s0      
+/vendor/bin/nv_mac                                                        u:object_r:vendor_wcnss_service_exec:s0
 
 # Sensors
 /dev/elliptic(.*)?                                                        u:object_r:sound_device:s0
@@ -44,7 +47,7 @@
 
 /vendor/bin/hw/android\.hardware\.sensors@2.0-service\.lisa-multihal      u:object_r:hal_sensors_default_exec:s0
 /vendor/bin/hw/vendor\.xiaomi\.hardware\.citsensorservice@1\.1-service    u:object_r:vendor_hal_citsensorservice_xiaomi_default_exec:s0
-/vendor/bin/init\.sensors_fix\.sh                                          u:object_r:vendor_init-qcom-sensors-sh_exec:s0
+/vendor/bin/init\.sensors_fix\.sh                                         u:object_r:vendor_init-qcom-sensors-sh_exec:s0
 
 # Thermal
 /vendor/bin/mi_thermald                                                   u:object_r:mi_thermald_exec:s0
@@ -54,7 +57,7 @@
 /dev/xiaomi-touch                                                         u:object_r:vendor_touchfeature_device:s0
 
 # USB
-/vendor/bin/init\.mi\.usb\.sh                                              u:object_r:vendor_qti_init_shell_exec:s0
+/vendor/bin/init\.mi\.usb\.sh                                             u:object_r:vendor_qti_init_shell_exec:s0
 
 # Wakeup nodes
 /sys/devices/platform/soc/soc:qcom,msm-audio-apr/soc:qcom,msm-audio-apr:qcom,q6core-audio/soc:qcom,msm-audio-apr:qcom,q6core-audio:sound/Listen\s[0-9]+\sAudio\sService/wakeup/wakeup[0-9]+(/.*)? u:object_r:sysfs_wakeup:s0

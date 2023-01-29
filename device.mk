@@ -201,7 +201,8 @@ PRODUCT_COPY_FILES += \
     frameworks/native/data/etc/android.hardware.fingerprint.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.fingerprint.xml
 
 PRODUCT_VENDOR_PROPERTIES += \
-    ro.hardware.fingerprint=fpc
+    ro.hardware.fingerprint=fpc \
+    persist.vendor.sys.fp.vendor=fpc
 
 # FRP
 PRODUCT_VENDOR_PROPERTIES += \
@@ -275,9 +276,16 @@ PRODUCT_PACKAGES += \
     libcodec2_soft_common.vendor \
     libsfplugin_ccodec_utils.vendor
 
+# Mlipay
+PRODUCT_PACKAGES += \
+    IFAAService \
+    vendor.xiaomi.hardware.mlipay@1.1.vendor \
+    vendor.xiaomi.hardware.mtdservice@1.0.vendor
+
 # Namespaces
 PRODUCT_SOONG_NAMESPACES += \
-    $(LOCAL_PATH)
+    $(LOCAL_PATH) \
+    hardware/xiaomi
 
 # Netflix
 PRODUCT_SYSTEM_PROPERTIES += \
