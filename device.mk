@@ -169,6 +169,13 @@ PRODUCT_VENDOR_PROPERTIES += \
     ro.vendor.xiaomi.bl.poll=true \
     vendor.display.qdcm.mode_combine=2
 
+# Doze
+PRODUCT_PACKAGES += \
+    ParanoidDoze
+
+PRODUCT_SYSTEM_EXT_PROPERTIES += \
+    ro.sensor.pickup=xiaomi.sensor.pickup
+
 # DPM
 PRODUCT_VENDOR_PROPERTIES += \
     persist.vendor.dpm.feature=1 \
@@ -366,7 +373,7 @@ PRODUCT_PACKAGES += \
 
 # Sensors
 PRODUCT_PACKAGES += \
-    android.hardware.sensors@2.0-service.lisa-multihal \
+    android.hardware.sensors@2.0-service.multihal \
     libsensorndkbridge
 
 PRODUCT_COPY_FILES += \
