@@ -951,11 +951,15 @@ vendor/lib/libdolbyottcameracontrol.so|3758b2541004c5d9a2935ed134afbabb66d6a315
 vendor/lib/libdovi.so|185d52f232cfd2ec7156ee5103593ac12f04cb1f
 
 # Mlipay
+-vendor/app/IFAAService/IFAAService.apk
 vendor/bin/mlipayd@1.1
 vendor/etc/init/vendor.xiaomi.hardware.mlipay@1.1-service.rc
 -vendor/etc/vintf/manifest/manifest_vendor.xiaomi.hardware.mlipay.xml
 vendor/lib64/libmlipay.so
 vendor/lib64/libmlipay@1.1.so
+vendor/lib64/vendor.xiaomi.hardware.mtdservice@1.0.so
+vendor/lib64/vendor.xiaomi.hardware.mlipay@1.0.so
+vendor/lib64/vendor.xiaomi.hardware.mlipay@1.1.so
 
 # Neural networks
 vendor/bin/hw/android.hardware.neuralnetworks@1.3-service-qti
