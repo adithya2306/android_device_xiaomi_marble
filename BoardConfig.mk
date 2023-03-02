@@ -1,13 +1,11 @@
 #
 # Copyright (C) 2021 The Android Open Source Project
+#           (C) 2022-2023 Paranoid Android
 #
 # SPDX-License-Identifier: Apache-2.0
 #
 
-BOARD_VENDOR := xiaomi
-
 DEVICE_PATH := device/xiaomi/lisa
-COMMON_PATH := device/qcom/common
 
 # Architecture
 TARGET_ARCH := arm64
@@ -36,19 +34,12 @@ AB_OTA_PARTITIONS := \
     vendor \
     vendor_boot
 
-# Audio
-TARGET_PROVIDES_AUDIO_EXTNS := true
-
 # Bootloader
 TARGET_BOOTLOADER_BOARD_NAME := lisa
-TARGET_NO_BOOTLOADER := true
 
 # Build
 BUILD_BROKEN_DUP_RULES := true
 BUILD_BROKEN_ELF_PREBUILT_PRODUCT_COPY_FILES  := true
-
-# DRM
-TARGET_ENABLE_MEDIADRM_64 := true
 
 # Firmware
 -include vendor/xiaomi/lisa-firmware/BoardConfigVendor.mk
@@ -70,8 +61,22 @@ BOARD_KERNEL_TAGS_OFFSET := 0x00000100
 BOARD_RAMDISK_OFFSET := 0x01000000
 BOARD_RAMDISK_USE_LZ4 := true
 
-BOARD_KERNEL_CMDLINE := console=ttyMSM0,115200n8 androidboot.hardware=qcom androidboot.console=ttyMSM0 androidboot.memcg=1 lpm_levels.sleep_disabled=1 msm_rtb.filter=0x237 service_locator.enable=1 androidboot.usbcontroller=a600000.dwc3 swiotlb=0 loop.max_part=7 cgroup.memory=nokmem,nosocket pcie_ports=compat iptable_raw.raw_before_defrag=1 ip6table_raw.raw_before_defrag=1
-BOARD_KERNEL_CMDLINE += androidboot.init_fatal_reboot_target=recovery
+BOARD_KERNEL_CMDLINE := \
+    androidboot.console=ttyMSM0 \
+    androidboot.hardware=qcom \
+    androidboot.init_fatal_reboot_target=recovery \
+    androidboot.memcg=1 \
+    androidboot.usbcontroller=a600000.dwc3 \
+    cgroup.memory=nokmem,nosocket \
+    console=ttyMSM0,115200n8 \
+    ip6table_raw.raw_before_defrag=1 \
+    iptable_raw.raw_before_defrag=1 \
+    loop.max_part=7 \
+    lpm_levels.sleep_disabled=1 \
+    msm_rtb.filter=0x237 \
+    pcie_ports=compat \
+    service_locator.enable=1 \
+    swiotlb=0
 
 BOARD_INCLUDE_DTB_IN_BOOTIMG := true
 BOARD_KERNEL_SEPARATED_DTBO := true
@@ -212,6 +217,6 @@ BOARD_AVB_VBMETA_SYSTEM_KEY_PATH := external/avb/test/data/testkey_rsa2048.pem
 BOARD_AVB_VBMETA_SYSTEM_ROLLBACK_INDEX := $(PLATFORM_SECURITY_PATCH_TIMESTAMP)
 BOARD_AVB_VBMETA_SYSTEM_ROLLBACK_INDEX_LOCATION := 2
 
-# WiFi
+# Wi-Fi
 CONFIG_ACS := true
 CONFIG_IEEE80211AX := true

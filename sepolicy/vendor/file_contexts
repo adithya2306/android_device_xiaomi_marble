@@ -20,9 +20,6 @@
 /vendor/bin/displayfeature                                                u:object_r:vendor_displayfeature_exec:s0
 /vendor/bin/hw/vendor\.xiaomi\.hardware\.displayfeature@1\.0-service      u:object_r:vendor_hal_displayfeature_xiaomi_default_exec:s0
 
-# Display panel name
-/vendor/bin/init\.panel_name\.sh                                          u:object_r:vendor_qti_init_shell_exec:s0
-
 # Fingerprint
 /data/vendor/fpc(/.*)?                                                    u:object_r:vendor_fingerprint_data_file:s0
 

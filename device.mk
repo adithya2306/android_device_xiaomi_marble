@@ -1,5 +1,6 @@
 #
 # Copyright (C) 2021 The Android Open Source Project
+#           (C) 2022-2023 Paranoid Android
 #
 # SPDX-License-Identifier: Apache-2.0
 #
@@ -20,8 +21,14 @@ AB_OTA_POSTINSTALL_CONFIG += \
     POSTINSTALL_OPTIONAL_vendor=true
 
 PRODUCT_PACKAGES += \
+    android.hardware.boot@1.1-impl-qti \
+    android.hardware.boot@1.1-impl-qti.recovery \
+    android.hardware.boot@1.1-service \
     checkpoint_gc \
-    otapreopt_script
+    otapreopt_script \
+    update_engine \
+    update_engine_sideload \
+    update_verifier
 
 # AAPT
 PRODUCT_AAPT_CONFIG := normal
@@ -29,15 +36,7 @@ PRODUCT_AAPT_PREF_CONFIG := xxhdpi
 
 # Audio
 PRODUCT_COPY_FILES += \
-    $(LOCAL_PATH)/configs/audio/audio_effects.xml:$(TARGET_COPY_OUT_VENDOR)/etc/audio/sku_yupik/audio_effects.xml \
-    $(LOCAL_PATH)/configs/audio/audio_io_policy.conf:$(TARGET_COPY_OUT_VENDOR)/etc/audio/sku_yupik/audio_io_policy.conf \
-    $(LOCAL_PATH)/configs/audio/audio_platform_info_yupikqrd.xml:$(TARGET_COPY_OUT_VENDOR)/etc/audio/sku_yupik/audio_platform_info_yupikqrd.xml \
-    $(LOCAL_PATH)/configs/audio/audio_policy_configuration.xml:$(TARGET_COPY_OUT_VENDOR)/etc/audio/sku_yupik_qssi/audio_policy_configuration.xml \
-    $(LOCAL_PATH)/configs/audio/mixer_paths_yupikqrd.xml:$(TARGET_COPY_OUT_VENDOR)/etc/audio/sku_yupik/mixer_paths_yupikqrd.xml \
-    $(LOCAL_PATH)/configs/audio/mixer_paths_overlay_dynamic.xml:$(TARGET_COPY_OUT_VENDOR)/etc/audio/sku_yupik/mixer_paths_overlay_dynamic.xml \
-    $(LOCAL_PATH)/configs/audio/mixer_paths_overlay_static.xml:$(TARGET_COPY_OUT_VENDOR)/etc/audio/sku_yupik/mixer_paths_overlay_static.xml \
-    $(LOCAL_PATH)/configs/audio/sound_trigger_mixer_paths_yupikqrd.xml:$(TARGET_COPY_OUT_VENDOR)/etc/audio/sku_yupik/sound_trigger_mixer_paths_yupikqrd.xml \
-    $(LOCAL_PATH)/configs/audio/sound_trigger_platform_info.xml:$(TARGET_COPY_OUT_VENDOR)/etc/audio/sku_yupik/sound_trigger_platform_info.xml
+    $(LOCAL_PATH)/configs/audio_policy_configuration.xml:$(TARGET_COPY_OUT_VENDOR)/etc/audio/sku_yupik_qssi/audio_policy_configuration.xml
 
 PRODUCT_ODM_PROPERTIES += \
     aaudio.mmap_policy=1 \
@@ -57,18 +56,7 @@ PRODUCT_VENDOR_PROPERTIES += \
     ro.config.vc_call_vol_steps=11
 
 # Bluetooth
-PRODUCT_PACKAGES += \
-    android.hardware.bluetooth.audio@2.1-impl \
-    android.hardware.bluetooth@1.1.vendor \
-    com.dsi.ant@1.0.vendor \
-    com.qualcomm.qti.bluetooth_audio@1.0.vendor \
-    vendor.qti.hardware.bluetooth_audio@2.1.vendor \
-    vendor.qti.hardware.btconfigstore@1.0.vendor \
-    vendor.qti.hardware.btconfigstore@2.0.vendor \
-    vendor.qti.hardware.fm@1.0.vendor
-
 PRODUCT_SYSTEM_EXT_PROPERTIES += \
-    persist.vendor.bt.a2dp.aac_whitelist=false \
     persist.vendor.btstack.enable.lpa=true
 
 PRODUCT_VENDOR_PROPERTIES += \
@@ -83,17 +71,10 @@ PRODUCT_VENDOR_PROPERTIES += \
     persist.vendor.qcom.bluetooth.scram.enabled=false \
     persist.vendor.qcom.bluetooth.twsp_state.enabled=false
 
-# Boot
-PRODUCT_PACKAGES += \
-    android.hardware.boot@1.1-impl-qti \
-    android.hardware.boot@1.1-impl-qti.recovery \
-    android.hardware.boot@1.1-service
-
 # Camera
 $(call inherit-product-if-exists, device/xiaomi/lisa-miuicamera/config.mk)
 
 PRODUCT_PACKAGES += \
-    Camera2 \
     android.hardware.camera.provider@2.4-impl \
     android.hardware.camera.provider@2.4-service_64 \
     libcamera2ndk_vendor \
@@ -115,13 +96,6 @@ PRODUCT_VENDOR_PROPERTIES += \
     camera.disable_zsl_mode=1 \
     ro.hardware.camera=xiaomi
 
-# Charger
-PRODUCT_PACKAGES += \
-    charger_res_images
-
-PRODUCT_SYSTEM_PROPERTIES += \
-    ro.charger.enable_suspend=true
-
 # Dalvik
 $(call inherit-product, frameworks/native/build/phone-xhdpi-6144-dalvik-heap.mk)
 
@@ -129,15 +103,8 @@ $(call inherit-product, frameworks/native/build/phone-xhdpi-6144-dalvik-heap.mk)
 PRODUCT_PACKAGES += \
     XiaomiParts
 
-PRODUCT_COPY_FILES += \
-    $(LOCAL_PATH)/parts/privapp-permissions-parts.xml:$(TARGET_COPY_OUT_SYSTEM_EXT)/etc/permissions/privapp-permissions-parts.xml
-
 # Display / Graphics
 TARGET_GRALLOC_HANDLE_HAS_NO_RESERVED_SIZE := true
-
-PRODUCT_COPY_FILES += \
-    $(LOCAL_PATH)/configs/display/display_id_4630946480857061762.xml:$(TARGET_COPY_OUT_VENDOR)/etc/displayconfig/display_id_4630946480857061762.xml \
-    $(LOCAL_PATH)/configs/display/display_id_4630946622257352578.xml:$(TARGET_COPY_OUT_VENDOR)/etc/displayconfig/display_id_4630946622257352578.xml
 
 PRODUCT_PACKAGES += \
     disable_configstore \
@@ -159,7 +126,6 @@ PRODUCT_SYSTEM_PROPERTIES += \
 
 PRODUCT_VENDOR_PROPERTIES += \
     debug.sf.disable_backpressure=1 \
-    debug.sf.enable_hwc_vds=1 \
     persist.sys.sf.native_mode=258 \
     ro.gfx.driver.1=com.qualcomm.qti.gpudrivers.lahaina.api30 \
     ro.vendor.display.dither=true \
@@ -195,12 +161,6 @@ PRODUCT_VENDOR_PROPERTIES += \
 # Fastboot
 PRODUCT_PACKAGES += \
     fastbootd
-
-# Filesystems table
-PRODUCT_COPY_FILES += \
-    $(LOCAL_PATH)/rootdir/etc/fstab.qcom:$(TARGET_COPY_OUT_VENDOR)/etc/fstab.qcom \
-    $(LOCAL_PATH)/rootdir/etc/fstab.qcom:$(TARGET_COPY_OUT_RECOVERY)/root/first_stage_ramdisk/fstab.qcom \
-    $(LOCAL_PATH)/rootdir/etc/fstab.qcom:$(TARGET_COPY_OUT_VENDOR_RAMDISK)/first_stage_ramdisk/fstab.qcom
 
 # Fingerprint
 PRODUCT_PACKAGES += \
@@ -249,7 +209,6 @@ PRODUCT_COPY_FILES += \
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/rootdir/bin/init.mi.usb.sh:$(TARGET_COPY_OUT_VENDOR)/bin/init.mi.usb.sh \
     $(LOCAL_PATH)/rootdir/bin/init.qcom.usb.sh:$(TARGET_COPY_OUT_VENDOR)/bin/init.qcom.usb.sh \
-    $(LOCAL_PATH)/rootdir/bin/init.panel_name.sh:$(TARGET_COPY_OUT_VENDOR)/bin/init.panel_name.sh \
     $(LOCAL_PATH)/rootdir/bin/init.sensors_fix.sh:$(TARGET_COPY_OUT_VENDOR)/bin/init.sensors_fix.sh
 
 # IR
@@ -263,7 +222,6 @@ PRODUCT_COPY_FILES += \
 # Kernel
 KERNEL_MODULES_INSTALL := dlkm
 KERNEL_MODULES_OUT := $(OUT_DIR)/target/product/lisa/$(KERNEL_MODULES_INSTALL)/lib/modules
-KERNEL_SD_LLVM_SUPPORT := false
 
 # Keymaster
 PRODUCT_PACKAGES += \
@@ -289,15 +247,6 @@ PRODUCT_PACKAGES += \
 PRODUCT_SOONG_NAMESPACES += \
     $(LOCAL_PATH)
 
-# Netflix
-PRODUCT_SYSTEM_PROPERTIES += \
-    ro.netflix.bsp_rev=Q7325-SPY-33758-1 \
-    ro.netflix.channel=497730f0-ad4b-11e7-95a4-c7ad113ce187
-
-# Netmgr
-PRODUCT_PACKAGES += \
-    android.system.net.netd@1.1.vendor
-
 # Neural networks
 PRODUCT_PACKAGES += \
     android.hardware.neuralnetworks@1.3.vendor
@@ -305,7 +254,6 @@ PRODUCT_PACKAGES += \
 # Overlays
 PRODUCT_PACKAGES += \
     AOSPALisaFrameworksOverlay \
-    AOSPALisaCSOTFrameworksOverlay \
     AOSPALisaSystemUIOverlay \
     LisaCNSettingsProviderOverlay \
     LisaCNWifiOverlay \
@@ -323,9 +271,14 @@ PRODUCT_PACKAGES += \
 # Partitions
 PRODUCT_USE_DYNAMIC_PARTITIONS := true
 
+PRODUCT_COPY_FILES += \
+    $(LOCAL_PATH)/rootdir/etc/fstab.qcom:$(TARGET_COPY_OUT_VENDOR)/etc/fstab.qcom \
+    $(LOCAL_PATH)/rootdir/etc/fstab.qcom:$(TARGET_COPY_OUT_RECOVERY)/root/first_stage_ramdisk/fstab.qcom \
+    $(LOCAL_PATH)/rootdir/etc/fstab.qcom:$(TARGET_COPY_OUT_VENDOR_RAMDISK)/first_stage_ramdisk/fstab.qcom
+
 # Perf
 PRODUCT_COPY_FILES += \
-    $(LOCAL_PATH)/configs/perf/msm_irqbalance.conf:$(TARGET_COPY_OUT_VENDOR)/etc/msm_irqbalance.conf
+    $(LOCAL_PATH)/configs/msm_irqbalance.conf:$(TARGET_COPY_OUT_VENDOR)/etc/msm_irqbalance.conf
 
 # Platform
 TARGET_BOARD_PLATFORM := lahaina
@@ -342,12 +295,6 @@ PRODUCT_VENDOR_PROPERTIES += \
     persist.vendor.qteeconnector.retrying_timeout=2000
 
 # Radio
-PRODUCT_PACKAGES += \
-    android.hardware.radio@1.5.vendor \
-    android.hardware.radio.config@1.2.vendor \
-    android.hardware.radio.deprecated@1.0.vendor \
-    libwpa_client
-
 PRODUCT_VENDOR_PROPERTIES += \
     persist.vendor.radio.add_power_save=1 \
     persist.vendor.radio.atfwd.start=true \
@@ -360,10 +307,6 @@ PRODUCT_VENDOR_PROPERTIES += \
     persist.vendor.radio.hidl_dev_service=true \
     persist.vendor.radio.manual_nw_rej_ct=1 \
     persist.vendor.radio.report_codec=1
-
-# Secure element
-PRODUCT_PACKAGES += \
-    android.hardware.secure_element@1.2.vendor
 
 # Sensors
 PRODUCT_PACKAGES += \
@@ -388,30 +331,15 @@ PRODUCT_VENDOR_PROPERTIES += \
 # Shipping API
 PRODUCT_SHIPPING_API_LEVEL := 30
 
-# SoC
-PRODUCT_VENDOR_PROPERTIES += \
-    ro.soc.manufacturer=QTI \
-    ro.soc.model=SM7325
-
 # Thermal
 PRODUCT_VENDOR_PROPERTIES += \
     vendor.sys.thermal.data.path=/data/vendor/thermal/
-
-# Update Engine
-PRODUCT_PACKAGES += \
-    update_engine \
-    update_engine_sideload \
-    update_verifier
 
 # USB
 ifneq ($(TARGET_BUILD_VARIANT),user)
 PRODUCT_VENDOR_PROPERTIES += \
     persist.vendor.usb.config=mtp,adb
 endif
-
-# Vendor Service Manager
-PRODUCT_PACKAGES += \
-    vndservicemanager
 
 # Vendor blobs
 $(call inherit-product, vendor/xiaomi/lisa/lisa-vendor.mk)
@@ -422,10 +350,4 @@ PRODUCT_COPY_FILES += \
 
 # Vibrator
 PRODUCT_COPY_FILES += \
-    $(LOCAL_PATH)/configs/input/excluded-input-devices.xml:$(TARGET_COPY_OUT_VENDOR)/etc/excluded-input-devices.xml
-
-# WiFi
-PRODUCT_COPY_FILES += \
-    $(LOCAL_PATH)/configs/wifi/WCNSS_qcom_cfg.ini:$(TARGET_COPY_OUT_VENDOR)/etc/wifi/WCNSS_qcom_cfg.ini \
-    $(LOCAL_PATH)/configs/wifi/WCNSS_qcom_cfg.ini:$(TARGET_COPY_OUT_VENDOR)/etc/wifi/qca6750/WCNSS_qcom_cfg.ini \
-    $(LOCAL_PATH)/configs/wifi/wpa_supplicant.conf:$(TARGET_COPY_OUT_VENDOR)/etc/wifi/wpa_supplicant.conf
+    $(LOCAL_PATH)/configs/excluded-input-devices.xml:$(TARGET_COPY_OUT_VENDOR)/etc/excluded-input-devices.xml
