@@ -31,6 +31,9 @@ on post-fs
     # Create persist for camera calibration data
     mkdir /mnt/vendor/persist/camera 0755 system cameraserver
 
+    # Bind mount brightness node
+    mount none /sys/class/backlight/panel0-backlight/brightness /sys/class/mi_display/disp-DSI-0/brightness_clone bind
+
     # Apply sensors fix
     start init-sensors_fix-sh
 
