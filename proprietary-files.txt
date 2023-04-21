@@ -1,4 +1,4 @@
-# Device proprietary files - from lisa MIUI V14.0.2.0.TKOMIXM package, unless pinned
+# Device proprietary files - from lisa MIUI V14.0.3.0.TKOMIXM package, unless pinned
 
 # ADSP
 vendor/bin/adsprpcd
@@ -644,7 +644,7 @@ vendor/etc/init/vendor.qti.diag.rc
 vendor/lib64/vendor.qti.diaghal@1.0.so
 
 # Display
-vendor/bin/hw/vendor.qti.hardware.display.composer-service|655461b1f0de3f7f22541d227e66d3e73bcfdba2
+vendor/bin/hw/vendor.qti.hardware.display.composer-service|129d35e3f6af66326f4a097ea390c88b6f1a3950
 vendor/bin/init.qti.display_boot.sh
 vendor/lib64/libclient2slpi.notifier.so
 vendor/lib64/libdisp-aba.so
