@@ -41,9 +41,6 @@ TARGET_BOOTLOADER_BOARD_NAME := lisa
 BUILD_BROKEN_DUP_RULES := true
 BUILD_BROKEN_ELF_PREBUILT_PRODUCT_COPY_FILES  := true
 
-# Firmware
--include vendor/xiaomi/lisa-firmware/BoardConfigVendor.mk
-
 # HIDL
 DEVICE_FRAMEWORK_COMPATIBILITY_MATRIX_FILE += $(DEVICE_PATH)/configs/hidl/device_framework_compatibility_matrix.xml
 DEVICE_MANIFEST_FILE += $(DEVICE_PATH)/configs/hidl/manifest.xml
@@ -83,7 +80,7 @@ BOARD_KERNEL_SEPARATED_DTBO := true
 BOARD_MKBOOTIMG_ARGS += --header_version $(BOARD_BOOT_HEADER_VERSION)
 
 KERNEL_DEFCONFIG := lisa_defconfig
-TARGET_KERNEL_SOURCE := kernel/xiaomi/lisa
+TARGET_KERNEL_SOURCE := kernel/xiaomi/lahaina
 
 BOARD_VENDOR_KERNEL_MODULES := \
     $(KERNEL_MODULES_OUT)/adsp_loader_dlkm.ko \
