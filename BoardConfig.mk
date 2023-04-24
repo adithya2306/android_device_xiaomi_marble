@@ -22,7 +22,7 @@ TARGET_2ND_CPU_VARIANT := cortex-a55
 
 # A/B
 AB_OTA_UPDATER := true
-AB_OTA_PARTITIONS := \
+AB_OTA_PARTITIONS += \
     boot \
     dtbo \
     odm \
