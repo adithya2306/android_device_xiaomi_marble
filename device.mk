@@ -122,8 +122,7 @@ PRODUCT_ODM_PROPERTIES += \
     ro.surface_flinger.use_content_detection_for_refresh_rate=true
 
 PRODUCT_SYSTEM_PROPERTIES += \
-    ro.sf.force_hwc_brightness=1 \
-    ro.sf.use_latest_hwc_vsync_period=0
+    ro.sf.force_hwc_brightness=1
 
 PRODUCT_VENDOR_PROPERTIES += \
     debug.sf.disable_backpressure=1 \
@@ -186,8 +185,6 @@ PRODUCT_SYSTEM_PROPERTIES += \
     persist.sys.fuse.passthrough.enable=true
 
 # GPS
-LOC_HIDL_VERSION := 4.0
-
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/configs/gps/flp.conf:$(TARGET_COPY_OUT_VENDOR)/etc/flp.conf \
     $(LOCAL_PATH)/configs/gps/gps.conf:$(TARGET_COPY_OUT_VENDOR)/etc/gps.conf

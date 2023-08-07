@@ -58,14 +58,6 @@ vendor/lib/rfsa/adsp/misound_karaokemix_res.bin
 vendor/lib/rfsa/adsp/misound_res_headphone.bin
 vendor/lib/rfsa/adsp/misound_res_spk.bin
 
-# Alarm
--product/app/PowerOffAlarm/PowerOffAlarm.apk
-vendor/bin/hw/vendor.qti.hardware.alarm@1.0-service
-vendor/bin/power_off_alarm
-vendor/etc/init/vendor.qti.hardware.alarm@1.0-service.rc
-vendor/lib64/hw/vendor.qti.hardware.alarm@1.0-impl.so
-vendor/lib64/vendor.qti.hardware.alarm@1.0.so
-
 # Audio
 vendor/lib/liba2dpoffload.so
 vendor/lib/libacdb-fts.so
@@ -772,58 +764,8 @@ vendor/etc/init/android.hardware.gatekeeper@1.0-service-qti.rc
 vendor/lib64/hw/android.hardware.gatekeeper@1.0-impl-qti.so
 
 # GPS
-vendor/bin/garden_app
-vendor/bin/loc_launcher
-vendor/bin/lowi-server
-vendor/bin/mlid
-vendor/bin/slim_daemon
-vendor/bin/xtra-daemon
-vendor/bin/xtwifi-client
-vendor/bin/xtwifi-inet-agent
-vendor/etc/apdr.conf
-vendor/etc/cacert_location.pem
 vendor/etc/izat.conf
 vendor/etc/lowi.conf
-vendor/etc/sap.conf
-vendor/etc/seccomp_policy/gnss@2.0-base.policy
-vendor/etc/seccomp_policy/gnss@2.0-xtra-daemon.policy
-vendor/etc/seccomp_policy/gnss@2.0-xtwifi-client.policy
-vendor/etc/seccomp_policy/gnss@2.0-xtwifi-inet-agent.policy
--vendor/etc/vintf/manifest/vendor.qti.gnss@4.0-service.xml
-vendor/etc/xtra_root_cert.pem
-vendor/etc/xtwifi.conf
-vendor/lib64/hw/vendor.qti.gnss@4.0-impl.so
-vendor/lib64/libcdfw.so
-vendor/lib64/libcdfw_remote_api.so
-vendor/lib64/libdataitems.so
-vendor/lib64/libgarden.so
-vendor/lib64/libgarden_haltests_e2e.so
-vendor/lib64/libgdtap.so
-vendor/lib64/libgnsspps.so
-vendor/lib64/libizat_client_api.so
-vendor/lib64/libizat_core.so
-vendor/lib64/liblbs_core.so
-vendor/lib64/libloc_api_v02.so
-vendor/lib64/libloc_socket.so
-vendor/lib64/liblocationservice.so
-vendor/lib64/liblocationservice_glue.so
-vendor/lib64/liblowi_client.so
-vendor/lib64/liblowi_wifihal.so
-vendor/lib64/libqcc_file_agent.so
-vendor/lib64/libslimclient.so
-vendor/lib64/libsynergy_loc_api.so
-vendor/lib64/libxtadapter.so
-vendor/lib64/libxtwifi_server_protocol.so
-vendor/lib64/libxtwifi_server_protocol_uri_v3.so
-vendor/lib64/vendor.qti.gnss@1.0.so
-vendor/lib64/vendor.qti.gnss@1.1.so
-vendor/lib64/vendor.qti.gnss@1.2.so
-vendor/lib64/vendor.qti.gnss@2.0.so
-vendor/lib64/vendor.qti.gnss@2.1.so
-vendor/lib64/vendor.qti.gnss@3.0.so
-vendor/lib64/vendor.qti.gnss@4.0-service.so
-vendor/lib64/vendor.qti.gnss@4.0.so
-vendor/lib64/vendor.qti.hardware.qccsyshal@1.0.so
 
 # GPU drivers
 -vendor/app/com.qualcomm.qti.gpudrivers.lahaina.api30/com.qualcomm.qti.gpudrivers.lahaina.api30.apk;PRESIGNED
@@ -912,9 +854,6 @@ vendor/lib/libvpphcp.so
 vendor/lib/libvpphvx.so
 vendor/lib/libvppimmotion.so
 vendor/lib/libvpplibrary.so
-vendor/lib/vendor.qti.hardware.vpp@1.1.so
-vendor/lib/vendor.qti.hardware.vpp@1.2.so
-vendor/lib/vendor.qti.hardware.vpp@1.3.so
 vendor/lib/vendor.qti.hardware.vpp@2.0.so
 vendor/lib64/libAlacSwDec.so
 vendor/lib64/libApeSwDec.so
@@ -939,9 +878,6 @@ vendor/lib64/libvpphcp.so
 vendor/lib64/libvpphvx.so
 vendor/lib64/libvppimmotion.so
 vendor/lib64/libvpplibrary.so
-vendor/lib64/vendor.qti.hardware.vpp@1.1.so
-vendor/lib64/vendor.qti.hardware.vpp@1.2.so
-vendor/lib64/vendor.qti.hardware.vpp@1.3.so
 vendor/lib64/vendor.qti.hardware.vpp@2.0.so
 
 # Media (Dolby Vision) - from MIUI V13.0.8.0.SKOMIXM
