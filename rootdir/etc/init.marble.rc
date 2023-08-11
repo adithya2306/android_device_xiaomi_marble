@@ -33,6 +33,10 @@ on boot
     chmod 0664 /sys/bus/platform/devices/soc:xiaomi_fingerprint/fingerdown
     chown system graphics /sys/bus/platform/devices/soc:xiaomi_fingerprint/fingerdown
 
+    # Hide permissive selinux
+    chmod 0640 /sys/fs/selinux/enforce
+    chmod 0440 /sys/fs/selinux/policy
+
 on post-fs
     chown system system /sys/class/backlight/panel0-backlight/brightness
     chown system system /sys/class/backlight/panel0-backlight/max_brightness
