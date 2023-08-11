@@ -1,0 +1,51 @@
+# Copyright (c) 2020, The Linux Foundation. All rights reserved.
+#
+# Redistribution and use in source and binary forms, with or without
+# modification, are permitted (subject to the limitations in the
+# disclaimer below) provided that the following conditions are met:
+#
+#    * Redistributions of source code must retain the above copyright
+#      notice, this list of conditions and the following disclaimer.
+#
+#    * Redistributions in binary form must reproduce the above
+#      copyright notice, this list of conditions and the following
+#      disclaimer in the documentation and/or other materials provided
+#      with the distribution.
+#
+#    * Neither the name of The Linux Foundation nor the names of its
+#      contributors may be used to endorse or promote products derived
+#      from this software without specific prior written permission.
+#
+# NO EXPRESS OR IMPLIED LICENSES TO ANY PARTY'S PATENT RIGHTS ARE
+# GRANTED BY THIS LICENSE. THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT
+# HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED
+# WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
+# MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED.
+# IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR
+# ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+# DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE
+# GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
+# INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER
+# IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR
+# OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN
+# IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+
+# FPC fingerprint
+/sys/bus/platform/devices/soc:fingerprint_fpc* irq              0700  system system
+/sys/bus/platform/devices/soc:fingerprint_fpc* irq_enable       0700  system system
+/sys/bus/platform/devices/soc:fingerprint_fpc* wakeup_enable    0700  system system
+/sys/bus/platform/devices/soc:fingerprint_fpc* hw_reset         0700  system system
+/sys/bus/platform/devices/soc:fingerprint_fpc* device_prepare   0700  system system
+/sys/bus/platform/devices/soc:fingerprint_fpc* fingerdown_wait  0700  system system
+/sys/bus/platform/devices/soc:fingerprint_fpc* vendor           0700  system system
+/sys/bus/platform/devices/soc:fingerprint_fpc* request_vreg     0700  system system
+/sys/bus/platform/devices/soc:fingerprint_fpc* power_cfg        0700  system system
+/sys/bus/platform/devices/soc:fingerprint_fpc* power_ctrl       0700  system system
+/sys/bus/platform/devices/soc:fingerprint_fpc* screen           0700  system system
+
+# xiaomi display feature
+subsystem mi_display
+    devname uevent_devpath
+    dirname /dev/mi_display
+
+/dev/mi_display/*         0666   root       graphics

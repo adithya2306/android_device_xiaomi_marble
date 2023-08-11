@@ -1,5 +1,5 @@
 
-# Copyright (c) 2019-2020, The Linux Foundation. All rights reserved.
+# Copyright (c) 2019-2021, The Linux Foundation. All rights reserved.
 #
 # Redistribution and use in source and binary forms, with or without
 # modification, are permitted provided that the following conditions are
@@ -26,97 +26,85 @@
 # OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN
 # IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #
+# Changes from Qualcomm Innovation Center are provided under the following
+# license:
+#
+# Copyright (c) 2021-2022 Qualcomm Innovation Center, Inc. All rights reserved.
+#
+# Redistribution and use in source and binary forms, with or without
+# modification, are permitted (subject to the limitations in the
+# disclaimer below) provided that the following conditions are met:
+#
+#     * Redistributions of source code must retain the above copyright
+#       notice, this list of conditions and the following disclaimer.
+#
+#     * Redistributions in binary form must reproduce the above
+#       copyright notice, this list of conditions and the following
+#       disclaimer in the documentation and/or other materials provided
+#       with the distribution.
+#
+#     * Neither the name of Qualcomm Innovation Center, Inc. nor the names of its
+#       contributors may be used to endorse or promote products derived
+#       from this software without specific prior written permission.
+#
+# NO EXPRESS OR IMPLIED LICENSES TO ANY PARTY'S PATENT RIGHTS ARE
+# GRANTED BY THIS LICENSE. THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT
+# HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED
+# WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
+# MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED.
+# IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR
+# ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+# DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE
+# GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
+# INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER
+# IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR
+# OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN
+# IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #
 
-import /vendor/etc/init/init.mishow.ctl.rc
 import /vendor/etc/init/hw/init.qti.kernel.rc
 import /vendor/etc/init/hw/init.mi_thermald.rc
 import /vendor/etc/init/hw/init.batterysecret.rc
-import /vendor/etc/init/init.charge_logger.rc
-import /vendor/etc/init/hw/init.xiaomi.camera.rc
 
 on early-init
-    exec u:r:vendor_modprobe:s0 -- /vendor/bin/vendor_modprobe.sh
-    exec u:r:vendor_modprobe:s0 -- /vendor/bin/modprobe -a -d /vendor/lib/modules q6_pdr_dlkm q6_notifier_dlkm snd_event_dlkm apr_dlkm adsp_loader_dlkm q6_dlkm native_dlkm pinctrl_wcd_dlkm pinctrl_lpi_dlkm swr_dlkm platform_dlkm hdmi_dlkm stub_dlkm wcd_core_dlkm wsa883x_dlkm bolero_cdc_dlkm wsa_macro_dlkm va_macro_dlkm rx_macro_dlkm tx_macro_dlkm bt_fm_slim wcd938x_dlkm wcd938x_slave_dlkm swr_dmic_dlkm swr_haptics_dlkm machine_dlkm radio-i2c-rtc6226-qca cdsprm tfa98xx_dlkm aw882xx_dlkm
-    write /proc/sys/kernel/sched_boost 1
-    wait /sys/devices/soc0/soc_id
+    write /proc/sys/kernel/printk_devkmsg ratelimited
+    export MEMTAG_OPTIONS off
+    write /dev/memcg/camera/provider/memory.soft_limit_in_bytes 36818038505472
 
 on init
-    # Scheduler uclamp
-    mkdir /dev/cpuctl/foreground
-    mkdir /dev/cpuctl/background
-    mkdir /dev/cpuctl/top-app
-    mkdir /dev/cpuctl/rt
-    chown system system /dev/cpuctl
-    chown system system /dev/cpuctl/foreground
-    chown system system /dev/cpuctl/background
-    chown system system /dev/cpuctl/top-app
-    chown system system /dev/cpuctl/rt
-    chown system system /dev/cpuctl/tasks
-    chown system system /dev/cpuctl/foreground/tasks
-    chown system system /dev/cpuctl/background/tasks
-    chown system system /dev/cpuctl/top-app/tasks
-    chown system system /dev/cpuctl/rt/tasks
-    chmod 0664 /dev/cpuctl/tasks
-    chmod 0664 /dev/cpuctl/foreground/tasks
-    chmod 0664 /dev/cpuctl/background/tasks
-    chmod 0664 /dev/cpuctl/top-app/tasks
-    chmod 0664 /dev/cpuctl/rt/tasks
-    write /dev/cpuctl/foreground/cpu.rt_runtime_us 950000
-    write /dev/cpuctl/background/cpu.rt_runtime_us 950000
-    write /dev/cpuctl/top-app/cpu.rt_runtime_us 950000
-    write /dev/cpuctl/rt/cpu.rt_runtime_us 950000
-
     wait /dev/block/platform/soc/${ro.boot.bootdevice}
     symlink /dev/block/platform/soc/${ro.boot.bootdevice} /dev/block/bootdevice
     chown system system /sys/devices/platform/soc/1d84000.ufshc/auto_hibern8
     chmod 0660 /sys/devices/platform/soc/1d84000.ufshc/auto_hibern8
     start logd
 
-    #add uwb node
-    mkdir /data/uwb 0777 uwb uwb
-    mkdir /data/vendor 0777 uwb uwb
-    mkdir /data/vendor/uwb 0777 uwb uwb
-    mkdir /data/vendor/uwb/param 0777 uwb uwb
-    chmod 0660 /dev/sr100
-    chown uwb uwb /dev/sr100
+    # Initial cpusets
+    mkdir /dev/cpuset/foreground/boost
+    copy /dev/cpuset/cpus /dev/cpuset/foreground/boost/cpus
+    copy /dev/cpuset/mems /dev/cpuset/foreground/boost/mems
+
+     # Initial cpuctl
+    chmod 0666 /dev/cpuctl/background/cpu.shares
+    chmod 0666 /dev/cpuctl/top-app/cpu.shares
 
 on early-fs
     start vold
-    exec_background u:r:vendor_modprobe:s0 -- /vendor/bin/modprobe -a -d /vendor/lib/modules/ cnss2 icnss2
-    exec_background u:r:vendor_modprobe:s0 -- /vendor/bin/modprobe -a -d /vendor/lib/modules/5.4-gki cnss2 icnss2
 
 on fs
     start hwservicemanager
-    mkdir /mnt/vendor/spunvm 0660 system system
-    mount_all --early
+    mount_all /vendor/etc/fstab.qcom --early
     chown root system /mnt/vendor/persist
     chmod 0771 /mnt/vendor/persist
     restorecon_recursive /mnt/vendor/persist
     mkdir /mnt/vendor/persist/data 0700 system system
     mkdir /mnt/vendor/persist/haptics 0755 system system
     mkdir /mnt/vendor/persist/audio 0755 system system
-    mkdir /mnt/vendor/persist/uwb 0755 system system
     mkdir /dev/logfs 0771 system system
     mount vfat /dev/block/bootdevice/by-name/logfs /dev/logfs noatime umask=006,uid=1000,gid=1000
     mount ext4 /dev/block/bootdevice/by-name/rescue /mnt/rescue noatime
     restorecon_recursive /mnt/rescue
-    chown system system /sys/class/smartpa/re25_calib
-    chown system system /dev/tfa_reg
-    chown system system /dev/tfa_rw
-    chown system system /dev/tfa_rpc
-    chown system system /dev/tfa_control
-    chmod 0666 /sys/class/smartpa/re25_calib
-    chmod 0660 /dev/tfa_reg
-    chmod 0660 /dev/tfa_rw
-    chmod 0660 /dev/tfa_rpc
-    chmod 0660 /dev/tfa_control
+    mkdir /mnt/vendor/persist/qca6490/ 0700 system system
     chmod 0666 /dev/xlog
-
-on fs && property:ro.boot.product.vendor.sku=lahaina
-    mkdir /mnt/vendor/spunvm 0660 system system
-    wait /dev/block/bootdevice/by-name/spunvm
-    mount vfat /dev/block/bootdevice/by-name/spunvm /mnt/vendor/spunvm rw noatime shortname=lower,uid=1000,gid=1000,dmask=007,fmask=007,context=u:object_r:vendor_spunvm_file:s0
 
 on post-fs
     # set RLIMIT_MEMLOCK to 64MB
@@ -125,24 +113,21 @@ on post-fs
 on late-fs
     wait_for_prop hwservicemanager.ready true
     #exec_start wait_for_keymaster
-    mount_all --late
+    mount_all /vendor/etc/fstab.qcom --late
 
 on post-fs-data
     mkdir /vendor/data/tombstones 0771 system system
-    chmod 0644 /dev/elliptic0
-    chmod 0644 /dev/elliptic1
-    chmod 0660 /dev/ir_spi
-    chown system system /dev/ir_spi
     mkdir /data/vendor/thermal 0771 root system
     mkdir /data/vendor/thermal/config 0771 root system
-    mkdir /data/vendor/wlan_logs 0777 root shell
-    mkdir /data/vendor/nfc 0777 nfc nfc
-    mkdir /mnt/vendor/persist/qxwz 0770 gps system
-    mkdir /data/vendor/qxwz 0770 gps system
-    chmod 0660 /dev/al6021
-    chown system camera /dev/al6021
+    mkdir /data/vendor/perfspy 0775 camera camera
+    
+    
+    chmod 0660 /dev/ir_spi
+    chown system system /dev/ir_spi
+    #nfc
+    mkdir /data/vendor/nfc 0770 nfc nfc
 
-    #add torch node for cit
+    # add torch node for cit && mmi
     chown system system /sys/class/leds/led:torch_0/brightness
     chown system system /sys/class/leds/led:torch_1/brightness
     chown system system /sys/class/leds/led:torch_2/brightness
@@ -178,6 +163,332 @@ on post-fs-data
     chmod 0664 /sys/class/leds/led:switch_2/trigger
     chmod 0664 /sys/class/leds/led:switch_3/trigger
     chmod 0664 /sys/class/leds/flashlight/brightness
+    mkdir /data/vendor/wlan_logs 0777 root shell
+    mkdir /data/vendor/qxwz 0770 gps system
+    #QCC mode configuration
+    setprop vendor.qti.qdma.oper.mode 3
+    setprop vendor.qti.qcc.oper.mode 3
+
+    # Display feature sysfs node
+    chown system system /sys/class/mi_display/disp-DSI-0/disp_param
+    chmod 0664 /sys/class/mi_display/disp-DSI-0/disp_param
+    chown system system /sys/class/mi_display/disp-DSI-0/mipi_rw
+    chmod 0664 /sys/class/mi_display/disp-DSI-0/mipi_rw
+    chown system system /sys/class/mi_display/disp-DSI-0/panel_info
+    chmod 0444 /sys/class/mi_display/disp-DSI-0/panel_info
+    chown system system /sys/class/mi_display/disp-DSI-0/wp_info
+    chmod 0444 /sys/class/mi_display/disp-DSI-0/wp_info
+    chown system system /sys/class/mi_display/disp-DSI-0/dynamic_fps
+    chmod 0444 /sys/class/mi_display/disp-DSI-0/dynamic_fps
+    chown system system /sys/class/mi_display/disp-DSI-0/doze_brightness
+    chmod 0664 /sys/class/mi_display/disp-DSI-0/doze_brightness
+    chown system system /sys/class/mi_display/disp-DSI-0/brightness_clone
+    chmod 0664 /sys/class/mi_display/disp-DSI-0/brightness_clone
+    chown system system /sys/class/mi_display/disp-DSI-0/max_brightness_clone
+    chmod 0664 /sys/class/mi_display/disp-DSI-0/max_brightness_clone
+
+    # Display feature sysfs node for penel1
+    chown system system /sys/class/mi_display/disp-DSI-1/brightness_clone
+    chmod 0664 /sys/class/mi_display/disp-DSI-1/brightness_clone
+    chown system system /sys/class/mi_display/disp-DSI-1/max_brightness_clone
+    chmod 0664 /sys/class/mi_display/disp-DSI-1/max_brightness_clone
+
+on early-boot
+    # Enable WLAN cold boot calibration
+    write /sys/kernel/cnss/fs_ready 1
+    # Enable WLAN SSR recovery
+    write /sys/kernel/cnss/recovery 1
+    start vendor.sensors
+    verity_update_state
+
+on boot
+    chown system system /sys/class/thermal/thermal_message/sconfig
+    chown system system /sys/class/thermal/thermal_message/charger_temp
+    chown system system /sys/class/thermal/thermal_message/board_sensor_temp_comp
+    chown system system /sys/class/thermal/thermal_message/cpu_nolimit_temp
+    chown system system /sys/class/thermal/thermal_message/balance_mode
+    chown cameraserver cameraserver /sys/class/thermal/thermal_message/flash_state
+    chown system system /sys/module/perf_helper/mimd/mimdtrigger
+    write /dev/cpuset/audio-app/cpus 0-7
+    # Add a cpuset for the camera daemon
+    # We want all cores for camera
+    mkdir /dev/cpuset/camera-daemon
+    write /dev/cpuset/camera-daemon/cpus 0-7
+    write /dev/cpuset/camera-daemon/mems 0
+    chown cameraserver cameraserver /dev/cpuset/camera-daemon
+    chown cameraserver cameraserver /dev/cpuset/camera-daemon/tasks
+    chmod 0660 /dev/cpuset/camera-daemon/tasks
+    chown system /sys/devices/platform/soc/990000.i2c/i2c-0/0-0038/trusted_touch_enable
+    chmod 0660 /sys/devices/platform/soc/990000.i2c/i2c-0/0-0038/trusted_touch_enable
+    chown system /sys/devices/platform/soc/990000.spi/spi_master/spi0/spi0.0/trusted_touch_enable
+    chmod 0660 /sys/devices/platform/soc/990000.spi/spi_master/spi0/spi0.0/trusted_touch_enable
+    chown system /sys/devices/platform/soc/980000.i2c/i2c-0/0-0062/trusted_touch_enable
+    chmod 0660 /sys/devices/platform/soc/980000.i2c/i2c-0/0-0062/trusted_touch_enable
+    chown system /sys/devices/platform/soc/980000.i2c/i2c-0/0-0062/trusted_touch_event
+    chmod 0660 /sys/devices/platform/soc/980000.i2c/i2c-0/0-0062/trusted_touch_event
+    chown system /sys/devices/system/cpu/hyp_core_ctl/enable
+    chown system /sys/devices/system/cpu/hyp_core_ctl/hcc_min_freq
+    #USB controller configuration
+    setprop vendor.usb.controller a600000.dwc3
+
+    #chown/chmod input_suspend node
+    chown system system /sys/class/qcom-battery/input_suspend
+    chmod 774 /sys/class/qcom-battery/input_suspend
+
+
+    # game plaid mode
+    chown system system  /sys/devices/virtual/gpu_plaid/plaid/game_data
+
+    # Create persist for camera calibration data
+    mkdir /mnt/vendor/persist/camera 0755 system cameraserver
+
+    mkdir /dev/cpuctl/misc
+    chown system system /dev/cpuctl/misc
+    chown system system /dev/cpuctl/misc/tasks
+    chown system system /dev/cpuctl/misc/cgroup.procs
+    chmod 0664 /dev/cpuctl/misc/cgroup.procs
+    chmod 0664 /dev/cpuctl/misc/tasks
+
+    #ufscld functions permission
+    chown root system /sys/devices/platform/soc/1d84000.ufshc/ufscld/auto_hibern8_enable
+    chown root system /sys/devices/platform/soc/1d84000.ufshc/ufscld/block_suspend
+    chown root system /sys/devices/platform/soc/1d84000.ufshc/ufscld/cld_operation_status
+    chown root system /sys/devices/platform/soc/1d84000.ufshc/ufscld/debug
+    chown root system /sys/devices/platform/soc/1d84000.ufshc/ufscld/frag_level
+    chown root system /sys/devices/platform/soc/1d84000.ufshc/ufscld/trigger
+    chown root system /sys/devices/platform/soc/1d84000.ufshc/ufscld/trigger_interval
+    chmod 664 /sys/devices/platform/soc/1d84000.ufshc/ufscld/trigger
+
+    #ufsfbo functions permission
+    chown root system /sys/devices/platform/soc/1d84000.ufshc/ufsfbs/auto_hibern8_enable
+    chown root system /sys/devices/platform/soc/1d84000.ufshc/ufsfbs/block_suspend
+    chown root system /sys/devices/platform/soc/1d84000.ufshc/ufsfbs/debug
+    chown root system /sys/devices/platform/soc/1d84000.ufshc/ufsfbs/fbs_defrag_enable
+    chown root system /sys/devices/platform/soc/1d84000.ufshc/ufsfbs/fbs_defrag_ops
+    chown root system /sys/devices/platform/soc/1d84000.ufshc/ufsfbs/fbs_exe_level
+    chown root system /sys/devices/platform/soc/1d84000.ufshc/ufsfbs/fbs_flc_enable
+    chown root system /sys/devices/platform/soc/1d84000.ufshc/ufsfbs/fbs_flc_ops
+    chown root system /sys/devices/platform/soc/1d84000.ufshc/ufsfbs/fbs_get_lr_frag_level
+    chown root system /sys/devices/platform/soc/1d84000.ufshc/ufsfbs/fbs_lra
+    chown root system /sys/devices/platform/soc/1d84000.ufshc/ufsfbs/fbs_max_lrc
+    chown root system /sys/devices/platform/soc/1d84000.ufshc/ufsfbs/fbs_max_lrs
+    chown root system /sys/devices/platform/soc/1d84000.ufshc/ufsfbs/fbs_min_lrs
+    chown root system /sys/devices/platform/soc/1d84000.ufshc/ufsfbs/fbs_rec_lrs
+    chown root system /sys/devices/platform/soc/1d84000.ufshc/ufsfbs/fbs_send_lr_list
+    chown root system /sys/devices/platform/soc/1d84000.ufshc/ufsfbs/fbs_support
+    chown root system /sys/devices/platform/soc/1d84000.ufshc/ufsfbs/fbs_wholefile_enable
+
+on property:vendor.display.lcd_density=560
+   setprop dalvik.vm.heapgrowthlimit 256m
+
+on property:vendor.display.lcd_density=640
+   setprop dalvik.vm.heapgrowthlimit 512m
+
+on init && property:ro.boot.mode=charger
+    wait_for_prop vendor.all.modules.ready 1
+    mount_all /vendor/etc/charger_fw_fstab.qti --early
+    wait /sys/kernel/boot_adsp/boot
+    write /sys/kernel/boot_adsp/boot 1
+
+on charger
+    start vendor.power_off_alarm
+    setprop sys.usb.controller a600000.dwc3
+    wait /sys/class/udc/${sys.usb.controller}
+    setprop sys.usb.configfs 1
+    write /sys/devices/system/cpu/qcom_lpm/parameters/sleep_disabled 0
+    write /sys/kernel/cnss/charger_mode 1
+    write /sys/kernel/cnss/charger_mode 1
+
+on property:vendor.audio.cit.spkcal.copy=true
+
+#                1.cal                  3.newCreate
+#   oldCaliFile  --->  newCaliFile  ----------------->  newCaliFile(or emptyFile)
+#                          \
+#                           \                           /  4.recovery
+#                 2.backup   --->  newCaliFile.bak  ----
+#
+# _if oldCaliFile isn't exist then  2 and 4 will failed(try again will success).
+# it could optimized when property action in front of spkcal
+# 
+
+    # 2.backup
+    chmod 600 /mnt/vendor/persist/audio/crus_calr.bin
+    chmod 600 /mnt/vendor/persist/audio/crus_calr.txt
+    copy /mnt/vendor/persist/audio/crus_calr.bin /mnt/vendor/persist/audio/crus_calr.bin.bak
+    copy /mnt/vendor/persist/audio/crus_calr.txt /mnt/vendor/persist/audio/crus_calr.txt.bak
+    
+    # 3.newCreate
+    write /mnt/vendor/persist/audio/crus_calr.bin ""
+    write /mnt/vendor/persist/audio/crus_calr.txt ""
+    
+    # 4.recovery
+    copy /mnt/vendor/persist/audio/crus_calr.bin.bak /mnt/vendor/persist/audio/crus_calr.bin
+    copy /mnt/vendor/persist/audio/crus_calr.txt.bak /mnt/vendor/persist/audio/crus_calr.txt
+    
+    chmod 666 /mnt/vendor/persist/audio/crus_calr.bin
+    chmod 666 /mnt/vendor/persist/audio/crus_calr.txt
+
+    # 2.backup
+    chmod 600 /mnt/vendor/persist/audio/aw_calr.bin
+    chmod 600 /mnt/vendor/persist/audio/aw_calr.txt
+    copy /mnt/vendor/persist/audio/aw_calr.bin /mnt/vendor/persist/audio/aw_calr.bin.bak
+    copy /mnt/vendor/persist/audio/aw_calr.txt /mnt/vendor/persist/audio/aw_calr.txt.bak
+
+    # 3.newCreate
+    write /mnt/vendor/persist/audio/aw_calr.bin ""
+    write /mnt/vendor/persist/audio/aw_calr.txt ""
+
+    # 4.recovery
+    copy /mnt/vendor/persist/audio/aw_calr.bin.bak /mnt/vendor/persist/audio/aw_calr.bin
+    copy /mnt/vendor/persist/audio/aw_calr.txt.bak /mnt/vendor/persist/audio/aw_calr.txt
+
+    chmod 666 /mnt/vendor/persist/audio/aw_calr.bin
+    chmod 666 /mnt/vendor/persist/audio/aw_calr.txt
+
+#service vendor.lowi /vendor/bin/sscrpcd
+#   class core
+#   user system
+#   group system wakelock
+#   capabilities BLOCK_SUSPEND
+
+#pd-mapper
+service vendor.pd_mapper /vendor/bin/pd-mapper
+    class core
+    user system
+    group system
+
+#Peripheral manager
+service vendor.per_mgr /vendor/bin/pm-service
+    class core
+    user system
+    group system
+    ioprio rt 4
+
+service vendor.per_proxy /vendor/bin/pm-proxy
+    class core
+    user system
+    group system
+    disabled
+
+service vendor.mdm_helper /vendor/bin/mdm_helper
+    class core
+    group system wakelock
+    disabled
+
+service vendor.mdm_launcher /vendor/bin/sh /vendor/bin/init.mdm.sh
+    class core
+    oneshot
+
+on property:init.svc.vendor.per_mgr=running
+    start vendor.per_proxy
+
+on property:sys.shutdown.requested=*
+    write /sys/kernel/qcom_rproc/shutdown_in_progress 1
+    stop vendor.per_proxy
+
+#on property:vold.decrypt=trigger_restart_framework
+#   start vendor.cnss_diag
+
+on property:ro.debuggable=1
+    start vendor.cnss_diag
+    start vendor.tcpdump
+
+on property:persist.vendor.cnss_diag.enable=true
+    start vendor.cnss_diag
+
+on property:persist.vendor.cnss_diag.enable=false
+    stop vendor.cnss_diag
+
+service vendor.cnss_diag /system/vendor/bin/cnss_diag -q -f -t HELIUM -b 2048 --time_interval 11 -s
+   class main
+   user system
+   group system wifi inet sdcard_rw media_rw diag
+   disabled
+   oneshot
+
+service vendor.nv_mac /vendor/bin/nv_mac
+    class late_start
+    user system
+    group system inet net_admin wifi net_raw
+    oneshot
+
+on early-boot && property:persist.vendor.pcie.boot_option=*
+    write /sys/bus/platform/devices/1c00000.qcom,pcie/debug/boot_option ${persist.vendor.pcie.boot_option}
+    write /sys/bus/platform/devices/1c08000.qcom,pcie/debug/boot_option ${persist.vendor.pcie.boot_option}
+
+service fatal_err_check /system/bin/check_fatal_err.sh
+    class late_start
+    user root
+    group root
+    oneshot
+
+on property:vendor.bluetooth.startwdsdaemon=true
+    start vendor.bt_wdsdaemon
+
+on property:vendor.bluetooth.startwdsdaemon=false
+    stop vendor.bt_wdsdaemon
+
+service vendor.bt_wdsdaemon /system/vendor/bin/wdsdaemon -su
+    class late_start
+    user root
+    group bluetooth diag system wakelock
+    disabled
+    oneshot
+
+#on property:sys.user.0.ce_available=true
+#    start vendor.tcpdump
+
+on property:persist.vendor.tcpdump.enable=true
+    start vendor.tcpdump
+
+on property:persist.vendor.tcpdump.enable=false
+    stop vendor.tcpdump
+
+on property:vendor.hardware.wlan.runtcpdump=stop
+     stop vendor.tcpdump
+
+on property:vendor.hardware.wlan.runtcpdump=start && property:persist.vendor.tcpdump.enable=true
+     start vendor.tcpdump
+
+on property:persist.sys.cota.carrier=OR
+    stop vendor.tcpdump
+
+on property:vendor.hardware.wlan.runsniffer=stop
+     stop vendor.sniffer
+
+ on property:vendor.hardware.wlan.runsniffer=start
+     start vendor.sniffer
+
+ on property:vendor.hardware.wlan.runsniffer.circular=stop
+     stop vendor.sniffer.circular
+
+ on property:vendor.hardware.wlan.runsniffer.circular=start
+     start vendor.sniffer.circular
+
+service vendor.tcpdump /vendor/bin/tcpdump -i any -W 3 -C 5 -s 134 -w /data/vendor/wlan_logs/tcpdump.pcap -Z system --time-interval 11
+    class main
+    user root
+    group root wifi
+    disabled
+    oneshot
+
+service vendor.sniffer /vendor/bin/tcpdump -i wlan0 -w /data/vendor/wlan_logs/sniffer.pcap -Z system
+    class main
+    user root
+    group root wifi
+    disabled
+    oneshot
+
+service vendor.sniffer.circular /vendor/bin/tcpdump -i wlan0 -W 3 -C 300 -w /data/vendor/wlan_logs/sniffer.pcap -Z system
+    class main
+    user root
+    group root wifi
+    disabled
+    oneshot
+
+on property:sys.boot_completed=1
+    enable vendor.qvirtmgr
+    start  vendor.qvirtmgr
 
 on post-fs-data
     chmod 0666 /dev/migt
@@ -212,414 +523,95 @@ on post-fs-data
     restorecon /sys/module/migt/parameters/force_stask_to_big
     chmod 0666 /sys/module/migt/parameters/force_reset_runtime
     restorecon /sys/module/migt/parameters/force_reset_runtime
+    chmod 0777 /sys/module/metis/parameters/minor_window_app
+    restorecon /sys/module/metis/parameters/minor_window_app
     chmod 0666 /sys/module/migt/parameters/mi_viptask
     restorecon /sys/module/migt/parameters/mi_viptask
-    mkdir /data/vendor/misc/display 0771 system system
+    chmod 0666 /sys/module/migt/parameters/mi_freq_enable
+    restorecon /sys/module/migt/parameters/mi_freq_enable
 
-on early-boot
-    start vendor.sensors
-    verity_update_state
-    # Enable WLAN cold boot calibration
-    write /sys/devices/platform/soc/b0000000.qcom,cnss-qca6490/fs_ready 1
-    chmod 0202 /sys/devices/platform/soc/b0000000.qcom,cnss-qca6490/data_stall
+    chmod 0666 /dev/metis
+    restorecon /dev/metis
+    chown 0666 /sys/module/metis/parameters
+    chmod 0664 /sys/module/metis/parameters/add_rebind_task_lit
+    chmod 0664 /sys/module/metis/parameters/add_rebind_task_mid
+    chmod 0664 /sys/module/metis/parameters/add_rebind_task_big
+    chmod 0664 /sys/module/metis/parameters/del_rebind_task_lit
+    chmod 0664 /sys/module/metis/parameters/del_rebind_task_mid
+    chmod 0664 /sys/module/metis/parameters/del_rebind_task_big
+    chmod 0664 /sys/module/metis/parameters/add_lclus_affinity_uidlist
+    chmod 0664 /sys/module/metis/parameters/del_lclus_affinity_uidlist
+    chmod 0664 /sys/module/metis/parameters/add_mclus_affinity_uidlist
+    chmod 0664 /sys/module/metis/parameters/del_mclus_affinity_uidlist
+    chmod 0664 /sys/module/metis/parameters/add_bclus_affinity_uidlist
+    chmod 0664 /sys/module/metis/parameters/del_bclus_affinity_uidlist
+    chmod 0664 /sys/module/metis/parameters/reset_clus_affinity_uidlist
+    chown root system /sys/module/metis/parameters
+    chown root system /sys/module/metis/parameters/add_rebind_task_lit
+    chown root system /sys/module/metis/parameters/add_rebind_task_mid
+    chown root system /sys/module/metis/parameters/add_rebind_task_big
+    chown root system /sys/module/metis/parameters/del_rebind_task_lit
+    chown root system /sys/module/metis/parameters/del_rebind_task_mid
+    chown root system /sys/module/metis/parameters/del_rebind_task_big
+    chown root system /sys/module/metis/parameters/add_lclus_affinity_uidlist
+    chown root system /sys/module/metis/parameters/del_lclus_affinity_uidlist
+    chown root system /sys/module/metis/parameters/add_mclus_affinity_uidlist
+    chown root system /sys/module/metis/parameters/del_mclus_affinity_uidlist
+    chown root system /sys/module/metis/parameters/add_bclus_affinity_uidlist
+    chown root system /sys/module/metis/parameters/del_bclus_affinity_uidlist
+    chown root system /sys/module/metis/parameters/reset_clus_affinity_uidlist
 
-on boot
-    chown system system /sys/class/thermal/thermal_message/sconfig
-    chown system system /sys/class/thermal/thermal_message/balance_mode
-    chown system system /sys/class/thermal/thermal_message/charger_temp
-    chown cameraserver cameraserver /sys/class/thermal/thermal_message/flash_state
-    write /dev/cpuset/audio-app/cpus 1-2
-    # init the  cpuset value for the camera background,don't change the oder
-    write /dev/cpuset/camera-background/background/cpus 0-2
-    write /dev/cpuset/camera-background/cpus 0-3
-    # Add a cpuset for the camera daemon
-    # We want all cores for camera
-    mkdir /dev/cpuset/camera-daemon
-    write /dev/cpuset/camera-daemon/cpus 0-7
-    write /dev/cpuset/camera-daemon/mems 0
-    chown cameraserver cameraserver /dev/cpuset/camera-daemon
-    chown cameraserver cameraserver /dev/cpuset/camera-daemon/tasks
-    chmod 0660 /dev/cpuset/camera-daemon/tasks
-    chown system /sys/devices/platform/soc/990000.i2c/i2c-0/0-0049/trusted_touch_enable
-    chmod 0660 /sys/devices/platform/soc/990000.i2c/i2c-0/0-0049/trusted_touch_enable
-    chown system /sys/devices/platform/soc/990000.i2c/i2c-0/0-0038/trusted_touch_enable
-    chmod 0660 /sys/devices/platform/soc/990000.i2c/i2c-0/0-0038/trusted_touch_enable
-    chown system /sys/devices/platform/soc/988000.i2c/i2c-1/1-0038/trusted_touch_enable
-    chmod 0660 /sys/devices/platform/soc/988000.i2c/i2c-1/1-0038/trusted_touch_enable
-    chown system /sys/devices/platform/soc/990000.i2c/i2c-0/0-0049/trusted_touch_event
-    chmod 0660 /sys/devices/platform/soc/990000.i2c/i2c-0/0-0049/trusted_touch_event
-    chown system /sys/devices/platform/soc/990000.i2c/i2c-0/0-0038/trusted_touch_event
-    chmod 0660 /sys/devices/platform/soc/990000.i2c/i2c-0/0-0038/trusted_touch_event
-    chown system /sys/devices/platform/soc/988000.i2c/i2c-1/1-0038/trusted_touch_event
-    chmod 0660 /sys/devices/platform/soc/988000.i2c/i2c-1/1-0038/trusted_touch_event
-    chown system /sys/devices/platform/soc/a94000.i2c/i2c-2/2-0062/trusted_touch_enable
-    chmod 0660 /sys/devices/platform/soc/a94000.i2c/i2c-2/2-0062/trusted_touch_enable
-    chown system /sys/devices/platform/soc/a94000.i2c/i2c-2/2-0062/trusted_touch_event
-    chmod 0660 /sys/devices/platform/soc/a94000.i2c/i2c-2/2-0062/trusted_touch_event
-    chown system /sys/devices/system/cpu/hyp_core_ctl/enable
-    chown system /sys/devices/system/cpu/hyp_core_ctl/hcc_min_freq
-    #USB controller configuration
-    setprop vendor.usb.rndis.func.name "gsi"
-    setprop vendor.usb.rmnet.func.name "gsi"
-    setprop vendor.usb.rmnet.inst.name "rmnet"
-    setprop vendor.usb.dpl.inst.name "dpl"
-    setprop vendor.usb.qdss.inst.name "qdss_mdm"
-    setprop vendor.usb.controller a600000.dwc3
-    #Load WLAN driver
-    exec_background u:r:vendor_modprobe:s0 -- /vendor/bin/modprobe -a -d /vendor/lib/modules/ qca_cld3_wlan qca_cld3_qca6390
-    exec_background u:r:vendor_modprobe:s0 -- /vendor/bin/modprobe -a -d /vendor/lib/modules/5.4-gki qca_cld3_wlan qca_cld3_qca6390
-    #Allow access to memory hotplug device attributes
-    chown system system /sys/kernel/mem-offline/anon_migrate
+    chmod 0666 /dev/metis
+    restorecon /dev/metis
+    chmod 0666 /sys/module/metis/parameters/mi_viptask
+    restorecon /sys/module/metis/parameters/mi_viptask
+    chmod 0666 /sys/module/metis/parameters/mi_boost_duration
+    restorecon /sys/module/metis/parameters/mi_boost_duration
+    chmod 0666 /sys/class/thermal/thermal_message/boost
+    restorecon /sys/class/thermal/thermal_message/boost
+    chmod 0666 /sys/module/metis/parameters/vip_link_enable
+    restorecon /sys/module/metis/parameters/vip_link_enable
+    chmod 0666 /sys/module/metis/parameters/mi_fboost_enable
+    restorecon /sys/module/metis/parameters/mi_fboost_enable
+    chmod 0666 /sys/module/metis/parameters/add_mi_viptask_enqueue_boost
+    restorecon /sys/module/metis/parameters/add_mi_viptask_enqueue_boost
+    chmod 0666 /sys/module/metis/parameters/del_mi_viptask_enqueue_boost
+    restorecon /sys/module/metis/parameters/del_mi_viptask_enqueue_boost
+    chmod 0666 /sys/module/metis/parameters/add_mi_viptask_sched_priority
+    restorecon /sys/module/metis/parameters/add_mi_viptask_sched_priority
+    chmod 0666 /sys/module/metis/parameters/del_mi_viptask_sched_priority
+    restorecon /sys/module/metis/parameters/del_mi_viptask_sched_priority
+    chmod 0666 /sys/module/metis/parameters/add_mi_viptask_sched_lit_core
+    restorecon /sys/module/metis/parameters/add_mi_viptask_sched_lit_core
+    chmod 0666 /sys/module/metis/parameters/del_mi_viptask_sched_lit_core
+    restorecon /sys/module/metis/parameters/del_mi_viptask_sched_lit_core
+    chmod 0666 /sys/module/metis/parameters/is_break_enable
+    restorecon /sys/module/metis/parameters/is_break_enable
+    chmod 0666 /sys/module/metis/parameters/binder_from_pid
+    restorecon /sys/module/metis/parameters/binder_from_pid
 
-    #Display feature sysfs node
-    chown system system /sys/class/mi_display/disp-DSI-0/disp_param
-    chmod 0664 /sys/class/mi_display/disp-DSI-0/disp_param
-    chown system system /sys/class/mi_display/disp-DSI-0/mipi_rw
-    chmod 0664 /sys/class/mi_display/disp-DSI-0/mipi_rw
-    chown system system /sys/class/mi_display/disp-DSI-0/panel_info
-    chmod 0444 /sys/class/mi_display/disp-DSI-0/panel_info
-    chown system system /sys/class/mi_display/disp-DSI-0/wp_info
-    chmod 0444 /sys/class/mi_display/disp-DSI-0/wp_info
-    chown system system /sys/class/mi_display/disp-DSI-0/dynamic_fps
-    chmod 0444 /sys/class/mi_display/disp-DSI-0/dynamic_fps
-    chown system system /sys/class/mi_display/disp-DSI-0/doze_brightness
-    chmod 0664 /sys/class/mi_display/disp-DSI-0/doze_brightness
-    chown system system /sys/class/mi_display/disp-DSI-0/disp_count
-    chmod 0664 /sys/class/mi_display/disp-DSI-0/disp_count
-    chown system system /sys/class/mi_display/disp-DSI-1/disp_count
-    chmod 0664 /sys/class/mi_display/disp-DSI-1/disp_count
-    chown system system /sys/class/mi_display/disp-DSI-0/brightness_clone
-    chmod 0664 /sys/class/mi_display/disp-DSI-0/brightness_clone
-    chown system system /sys/class/mi_display/disp-DSI-0/max_brightness_clone
-    chmod 0664 /sys/class/mi_display/disp-DSI-0/max_brightness_clone
-
-    # Display feature sysfs node for penel1
-    chown system system /sys/class/mi_display/disp-DSI-1/brightness_clone
-    chmod 0664 /sys/class/mi_display/disp-DSI-1/brightness_clone
-    chown system system /sys/class/mi_display/disp-DSI-1/max_brightness_clone
-    chmod 0664 /sys/class/mi_display/disp-DSI-1/max_brightness_clone
-
-    chown system system /sys/class/mi_display/disp-DSI-1/dynamic_fps
-    chmod 0444 /sys/class/mi_display/disp-DSI-1/dynamic_fps
-
-    #touch funtions permissions setting
-    chown system system /sys/class/touch/touch_dev/palm_sensor
-    chmod 0664 /sys/class/touch/touch_dev/palm_sensor
-    chmod 0666 /dev/stmvl53l5
-    chown system system /dev/stmvl53l5
-    write /sys/block/sda/queue/wbt_lat_usec 75000
-
-    #chown/chmod input_suspend node as needed from mishow service
-    chown system system /sys/class/qcom-battery/input_suspend
-    chmod 774 /sys/class/qcom-battery/input_suspend
-
-    #ufscld functions permission
-    chown root system /sys/devices/platform/soc/1d84000.ufshc/ufscld/auto_hibern8_enable
-    chown root system /sys/devices/platform/soc/1d84000.ufshc/ufscld/block_suspend
-    chown root system /sys/devices/platform/soc/1d84000.ufshc/ufscld/cld_operation_status
-    chown root system /sys/devices/platform/soc/1d84000.ufshc/ufscld/debug
-    chown root system /sys/devices/platform/soc/1d84000.ufshc/ufscld/frag_level
-    chown root system /sys/devices/platform/soc/1d84000.ufshc/ufscld/trigger
-    chown root system /sys/devices/platform/soc/1d84000.ufshc/ufscld/trigger_interval
-    chmod 664 /sys/devices/platform/soc/1d84000.ufshc/ufscld/trigger
-
-on property:vendor.display.lcd_density=560
-   setprop dalvik.vm.heapgrowthlimit 256m
-
-on property:vendor.display.lcd_density=640
-   setprop dalvik.vm.heapgrowthlimit 256m
-
-on boot && property:persist.vendor.usb.controller.default=*
-    setprop vendor.usb.controller ${persist.vendor.usb.controller.default}
-
-on property:vendor.usb.controller=* && property:ro.boot.usben=true
-    write /sys/class/udc/${vendor.usb.controller}/device/../mode peripheral
-
-on init && property:ro.boot.mode=charger
-    mount_all /vendor/etc/charger_fw_fstab.qti --early
-    write /sys/kernel/boot_adsp/boot 1
-    wait /sys/class/power_supply/battery
-
-on charger
-    start vendor.power_off_alarm
-    setprop sys.usb.controller a600000.dwc3
-    setprop sys.usb.configfs 1
-    write /sys/module/lpm_levels/parameters/sleep_disabled N
-
-on property:vendor.audio.cit.spkcal.copy=true
-    copy /data/vendor/cit/cs35l41_cal.bin /mnt/vendor/persist/audio/cs35l41_cal.bin
-    copy /data/vendor/cit/cs35l41_cal_right.bin /mnt/vendor/persist/audio/cs35l41_cal_right.bin
-    copy /data/vendor/cit/cs35l41_cal.txt /mnt/vendor/persist/audio/cs35l41_cal.txt
-    copy /data/vendor/cit/cs35l41_cal_right.txt /mnt/vendor/persist/audio/cs35l41_cal_right.txt
-    chmod 666 /mnt/vendor/persist/audio/cs35l41_cal.bin
-    chmod 666 /mnt/vendor/persist/audio/cs35l41_cal_right.bin
-    chmod 666 /mnt/vendor/persist/audio/cs35l41_cal.txt
-    chmod 666 /mnt/vendor/persist/audio/cs35l41_cal_right.txt
-    copy /data/vendor/cit/tfa9894_chk.txt /mnt/vendor/persist/audio/tfa9894_chk.txt
-    chmod 666 /mnt/vendor/persist/audio/tfa9894_chk.txt
-    copy /data/vendor/cit/cs35l45_cal_mt.bin /mnt/vendor/persist/audio/cs35l45_cal_mt.bin
-    copy /data/vendor/cit/cs35l45_cal_md.bin /mnt/vendor/persist/audio/cs35l45_cal_md.bin
-    copy /data/vendor/cit/cs35l45_cal_ft.bin /mnt/vendor/persist/audio/cs35l45_cal_ft.bin
-    copy /data/vendor/cit/cs35l45_cal_fd.bin /mnt/vendor/persist/audio/cs35l45_cal_fd.bin
-    copy /data/vendor/cit/cs35l45_cal_mt.txt /mnt/vendor/persist/audio/cs35l45_cal_mt.txt
-    copy /data/vendor/cit/cs35l45_cal_md.txt /mnt/vendor/persist/audio/cs35l45_cal_md.txt
-    copy /data/vendor/cit/cs35l45_cal_ft.txt /mnt/vendor/persist/audio/cs35l45_cal_ft.txt
-    copy /data/vendor/cit/cs35l45_cal_fd.txt /mnt/vendor/persist/audio/cs35l45_cal_fd.txt
-    chmod 666 /mnt/vendor/persist/audio/cs35l45_cal_mt.bin
-    chmod 666 /mnt/vendor/persist/audio/cs35l45_cal_md.bin
-    chmod 666 /mnt/vendor/persist/audio/cs35l45_cal_ft.bin
-    chmod 666 /mnt/vendor/persist/audio/cs35l45_cal_fd.bin
-    chmod 666 /mnt/vendor/persist/audio/cs35l45_cal_mt.txt
-    chmod 666 /mnt/vendor/persist/audio/cs35l45_cal_md.txt
-    chmod 666 /mnt/vendor/persist/audio/cs35l45_cal_ft.txt
-    chmod 666 /mnt/vendor/persist/audio/cs35l45_cal_fd.txt
-    copy /data/vendor/cit/aw_cali.bin /mnt/vendor/persist/audio/aw_cali.bin
-    copy /data/vendor/cit/aw88263_chk.txt /mnt/vendor/persist/audio/aw88263_chk.txt
-    chmod 666 /mnt/vendor/persist/audio/aw_cali.bin
-    chmod 666 /mnt/vendor/persist/audio/aw88263_chk.txt
-
-service vendor.lowi /vendor/bin/lowirpcd
-   class core
-   user system
-   group system wakelock
-   capabilities BLOCK_SUSPEND
-
-service audioshell_service /vendor/bin/audioshell_service
-   oneshot
-   disabled
-
-on property:ro.vendor.miui.region=*
-   start audioshell_service
-
-
-#pd-mapper
-service vendor.pd_mapper /vendor/bin/pd-mapper
-    class core
-    user system
-    group system
-
-#Peripheral manager
-service vendor.per_mgr /vendor/bin/pm-service
-    class core
-    user system
-    group system
-    ioprio rt 4
-
-service vendor.per_proxy /vendor/bin/pm-proxy
-    class core
-    user system
-    group system
-    disabled
-
-#service vendor.mdm_helper /vendor/bin/mdm_helper
-#    class core
-#    group system wakelock
-#    disabled
-
-service vendor.mdm_launcher /vendor/bin/sh /vendor/bin/init.mdm.sh
-    class core
-    oneshot
-
-on property:init.svc.vendor.per_mgr=running
-    start vendor.per_proxy
-
-on property:sys.shutdown.requested=*
-    stop vendor.per_proxy
-
-#on property:vold.decrypt=trigger_restart_framework
-#   start vendor.cnss_diag
-
-on property:persist.vendor.cnss_diag.enable=true
-    start vendor.cnss_diag
-
-on property:persist.vendor.cnss_diag.enable=false
-    stop vendor.cnss_diag
-
-service vendor.cnss_diag /system/vendor/bin/cnss_diag -q -f -t HELIUM
-   class main
-   user system
-   group system wifi inet sdcard_rw media_rw diag
-   disabled
-   oneshot
-
-service vendor.tcpdump /vendor/bin/tcpdump -i any -W 3 -C 5 -s 134 -w /data/vendor/wlan_logs/tcpdump.pcap
-       class main
-       user root
-       group root wifi
-       disabled
-       oneshot
-
-service vendor.sniffer /vendor/bin/tcpdump -i wlan0 -w /data/vendor/wlan_logs/sniffer.pcap
-    class main
-    user root
-    group root wifi
-    disabled
-    oneshot
-
-service vendor.sniffer.circular /vendor/bin/tcpdump -i wlan0 -W 3 -C 300 -w /data/vendor/wlan_logs/sniffer.pcap
-    class main
-    user root
-    group root wifi
-    disabled
-    oneshot
-
-service startbtclog_info /vendor/bin/iwpriv wlan0 setUnitTestCmd 4 2 11 1
-    class main
-    user root
-    group root
-    disabled
-    oneshot
-
-service startbtclog_msg /vendor/bin/iwpriv wlan0 setUnitTestCmd 4 2 12 1
-    class main
-    user root
-    group root
-    disabled
-    oneshot
-
-service stopbtclog_info /vendor/bin/iwpriv wlan0 setUnitTestCmd 4 2 11 0
-    class main
-    user root
-    group root
-    disabled
-    oneshot
-
-service stopbtclog_msg /vendor/bin/iwpriv wlan0 setUnitTestCmd 4 2 12 0
-    class main
-    user root
-    group root
-    disabled
-    oneshot
-
-#on property:sys.user.0.ce_available=true
-#    start vendor.tcpdump
-
-on property:persist.vendor.tcpdump.enable=true
-    start vendor.tcpdump
-
-on property:persist.vendor.tcpdump.enable=false
-    stop vendor.tcpdump
-
-service factory_err_check /system/bin/check_factory_err.sh
-    class late_start
-    user root
-    group root
-    oneshot
-
-on property:vendor.bluetooth.startwdsdaemon=true
-    start vendor.bt_wdsdaemon
-
-on property:vendor.bluetooth.startwdsdaemon=false
-    stop vendor.bt_wdsdaemon
-
-service vendor.bt_wdsdaemon /system/vendor/bin/wdsdaemon -su
-    class late_start
-    user root
-    group bluetooth diag system wakelock
-    disabled
-    oneshot
-
-service vendor.nv_mac /vendor/bin/nv_mac
-    class late_start
-    user system
-    group system inet net_admin wifi net_raw
-    oneshot
-
-service l5_hal_test /vendor/bin/l5_hal_test GETCFG
-    class late_start
-    disabled
-    oneshot
-
-service displayfeature /vendor/bin/displayfeature
-    class late_start
-    user root
-    group root
-
-on property:init.svc.surfaceflinger=stopped
-    stop displayfeature
-
-on property:init.svc.surfaceflinger=running
-    start displayfeature
-
-on property:init.svc.surfaceflinger=restarting
-    stop displayfeature
-
-service displaycount /vendor/bin/displaycount
-    class late_start
-    user system
-    group system
-    oneshot
-    disabled
-
-on property:sys.boot_completed=1
-    start displaycount
-
-#####copy megvii files#####
-on property:sys.boot_completed=1
-    mkdir /data/vendor/camera/model 0777 cameraserver audio
-    mkdir /data/vendor/camera/model/rt_model 0777 cameraserver audio
-    copy /vendor/etc/camera/model/rt_model/preview_model /data/vendor/camera/model/rt_model/preview_model
-    chown cameraserver audio  /data/vendor/camera/model/rt_model/preview_model
-    chmod 0777 /data/vendor/camera/model/rt_model/preview_model
-    copy /vendor/etc/camera/model/rt_model/preview_cache /data/vendor/camera/model/rt_model/preview_cache
-    chown cameraserver audio  /data/vendor/camera/model/rt_model/preview_cache
-    chmod 0777 /data/vendor/camera/model/rt_model/preview_cache
-    copy /vendor/etc/camera/model/rt_model/preview_policy /data/vendor/camera/model/rt_model/preview_policy
-    chown cameraserver audio  /data/vendor/camera/model/rt_model/preview_policy
-    chmod 0777 /data/vendor/camera/model/rt_model/preview_policy
-    mkdir /data/vendor/camera/model/dof_model 0777 cameraserver audio
-    copy /vendor/etc/camera/model/dof_model/capture_cache /data/vendor/camera/model/dof_model/capture_cache
-    chown cameraserver audio  /data/vendor/camera/model/dof_model/capture_cache
-    chmod 0777 /data/vendor/camera/model/dof_model/capture_cache
-    copy /vendor/etc/camera/model/dof_model/capture_model /data/vendor/camera/model/dof_model/capture_model
-    chown cameraserver audio  /data/vendor/camera/model/dof_model/capture_model
-    chmod 0777 /data/vendor/camera/model/dof_model/capture_model
-    copy /vendor/etc/camera/model/dof_model/capture_policy /data/vendor/camera/model/dof_model/capture_policy
-    chown cameraserver audio  /data/vendor/camera/model/dof_model/capture_policy
-    chmod 0777 /data/vendor/camera/model/dof_model/capture_policy
-    #####copy fusion models#####
-    mkdir /data/vendor/camera/fusion_models 0777 cameraserver audio
-    copy /vendor/etc/camera/fusion_models/fusion_cache /data/vendor/camera/fusion_models/fusion_cache
-    chown cameraserver audio  /data/vendor/camera/fusion_models/fusion_cache
-    chmod 0777 /data/vendor/camera/fusion_models/fusion_cache
-    copy /vendor/etc/camera/fusion_models/fusion_model /data/vendor/camera/fusion_models/fusion_model
-    chown cameraserver audio  /data/vendor/camera/fusion_models/fusion_model
-    chmod 0777 /data/vendor/camera/fusion_models/fusion_model
-    copy /vendor/etc/camera/fusion_models/fusion_policy /data/vendor/camera/fusion_models/fusion_policy
-    chown cameraserver audio  /data/vendor/camera/fusion_models/fusion_policy
-    chmod 0777 /data/vendor/camera/fusion_models/fusion_policy
-    start l5_hal_test
+    chmod 0662 /dev/miev
+    restorecon /dev/miev
 
 on property:sys.lmkd.memory.compact=1
     setprop sys.lmkd.memory.compact 0
-    write /proc/sys/vm/reclaim_pages ${sys.lmkd.memory.reclaim_pages}
     write /proc/sys/vm/compact_memory 1
 
-on property:sys.lmkd.memory.start_reclaim_in_video_record=1
-    setprop sys.lmkd.memory.start_reclaim_in_video_record 0
-    write /sys/kernel/cam_reclaim/config "0 1 1 200000 200000 0 0 12000000000"
-    write /sys/kernel/cam_reclaim/event 1
+# Sync attribute volume between system and vendor
+on property:sys.volume.stream.music.device.speaker=*
+    setprop vendor.volume.stream.music.device.speaker ${sys.volume.stream.music.device.speaker}
 
-on property:sys.lmkd.memory.start_reclaim_in_cam_boost=1
-    setprop sys.lmkd.memory.start_reclaim_in_cam_boost 0
-    write /sys/kernel/cam_reclaim/config "0 1 3 400000 400000 0 0 12000000000"
-    write /sys/kernel/cam_reclaim/event 1
+on property:sys.volume.stream.music.device.usb.headset=*
+    setprop vendor.volume.stream.music.device.usb.headset ${sys.volume.stream.music.device.usb.headset}
 
-# gps Sync attribute value between system and vendor
-on property:persist.sys.mcc.mnc=*
-    setprop persist.vendor.mcc.mnc ${persist.sys.mcc.mnc}
+on property:sys.volume.stream.music.device.wired.headset=*
+    setprop vendor.volume.stream.music.device.wired.headset ${sys.volume.stream.music.device.wired.headset}
 
-#fan-controller
-service fan_control_turn_on /vendor/bin/fan_control 1
-    class late_start
-    user root
-    disabled
-    oneshot
+on property:sys.volume.stream.music.device.wired.headphone=*
+    setprop vendor.volume.stream.music.device.wired.headphone ${sys.volume.stream.music.device.wired.headphone}
 
-service fan_control_turn_off /vendor/bin/fan_control 0
-    class late_start
-    user root
-    disabled
-    oneshot
+on property:sys.volume.stream.music.device.bluetooth=*
+    setprop vendor.volume.stream.music.device.bluetooth ${sys.volume.stream.music.device.bluetooth}
 
-
+on property:sys.volume.stream.bluetoothsco=*
+    setprop vendor.volume.stream.bluetoothsco ${sys.volume.stream.bluetoothsco}

@@ -8,7 +8,7 @@
 
 set -e
 
-DEVICE=lisa
+DEVICE=marble
 VENDOR=xiaomi
 
 # Load extract_utils and do some sanity checks
@@ -55,31 +55,19 @@ fi
 
 function blob_fixup() {
     case "${1}" in
-        vendor/bin/hw/dolbycodec2)
-            patchelf --replace-needed libavservices_minijail_vendor.so libavservices_minijail.so "${2}"
-            patchelf --replace-needed libcodec2_hidl@1.0.so libcodec2_hidl@1.0.stock.so "${2}"
+        vendor/bin/hw/vendor.qti.hardware.display.composer-service)
+            "${PATCHELF}" --replace-needed "libutils.so" "libutils-v32.so" "${2}"
             ;;
-        vendor/etc/camera/pure*_parameter.xml)
+        vendor/etc/camera/marble*_motiontuning.xml)
+            sed -i 's/xml=version/xml\ version/g' "${2}"
+            ;;
+        vendor/etc/camera/pureView_parameter.xml)
             sed -i "s/=\([0-9]\+\)>/=\"\1\">/g" "${2}"
             ;;
-        vendor/lib/libcodec2_hidl@1.0.stock.so)
-            patchelf --set-soname libcodec2_hidl@1.0.stock.so "${2}"
-            patchelf --replace-needed libcodec2_vndk.so libcodec2_vndk.stock.so "${2}"
-            ;;
-        vendor/lib/libcodec2_vndk.stock.so)
-            patchelf --set-soname libcodec2_vndk.stock.so "${2}"
-            ;;
-        vendor/lib64/hw/camera.xiaomi.so)
-            # Before
-            # 21 00 80 52     mov        w1,#0x1
-            # 29 07 00 94     bl         <EXTERNAL>::android::hardware::configureRpcThr
-            # After
-            # 21 00 80 52     mov        w1,#0x1
-            # 1f 20 03 d5     nop
-            sed -i "s/\x21\x00\x80\x52\x29\x07\x00\x94/\x21\x00\x80\x52\x1f\x20\x03\xd5/g" "${2}"
-            ;;
-        vendor/lib64/libwa_sat.so)
-            sed -i 's/\/system\/lib64\([^\/]\)/\/vendor\/lib64\1/g' "${2}"
+        vendor/bin/hw/vendor.qti.secure_element@1.2-service)
+            "${PATCHELF}" --replace-needed "jcos_nq_client-v1.so" "jcos_nq_client.so" "${2}"
+            "${PATCHELF}" --replace-needed "ls_nq_client-v1.so" "ls_nq_client.so" "${2}"
+            "${PATCHELF}" --replace-needed "se_nq_extn_client-v1.so" "se_nq_extn_client.so" "${2}"
             ;;
     esac
 }

@@ -1,36 +1,33 @@
-# Device Tree for Xiaomi 11 Lite NE
+# Device Tree for POCO F5 / Redmi Note 12 Turbo
 
-The Xiaomi 11 Lite NE (codenamed "lisa") is an upper-mid-range smartphone from Xiaomi.
+The POCO F5 (codenamed "marble") is an upper-mid-range smartphone from Xiaomi. It was announced and released in May 2023.
 
-It was announced in September 2021 and released in October 2021.
-
-It is also known as Xiaomi 11 Lite 5G NE (globally) and Mi 11 LE (China).
+It was originally released in China as Redmi Note 12 Turbo, in March 2023.
 
 ## Device specifications
 
 | Feature     | Specification
 | :-----------|:-------------
-| Chipset     | Qualcomm SM7325 Snapdragon 778G 5G (6 nm)
-| CPU         | Octa-core Kryo 670 (1x2.4 GHz Prime, 3x2.4 GHz Gold & 4x1.8 GHz Silver)
-| GPU         | Adreno 642L (560 MHz)
-| Memory      | 6/8 GB LPDDR4X RAM
-| Storage     | 128/256 GB (UFS 2.2), MicroSD
-| SIM         | Hybrid Dual SIM (Nano-SIM, dual stand-by)
-| Battery     | 4250 mAh Li-Po (non-removable), 33W fast charge
-| Shipped OS  | Android 11.0 (MIUI 12.5)
-| Dimensions  | 160.5 x 75.7 x 6.8 mm (6.32 x 2.98 x 0.27 in)
-| Display     | 6.55", 1080x2400 pixels, AMOLED, 90Hz, 10 bit, Dolby Vision, HDR10+
-| Camera      | 64 MP (main), 8 MP (ultrawide), 5 MP (telemacro), 20 MP (front)
-| Comms       | GSM/HSPA/LTE/5G, Wi-Fi 802.11 a/b/g/n/ac/6, Bluetooth 5.2, NFC
-| Sensors     | Fingerprint (side-mounted), accelerometer, gyro, compass, proximity (virtual), light
+| Chipset     | Qualcomm SM7475-AB Snapdragon 7+ Gen 2 (4 nm)
+| CPU         | Octa-core (1x2.92 GHz Cortex-X2 & 3x2.5 GHz Cortex-A710 & 4x1.8 GHz Cortex-A510)
+| GPU         | Adreno 725 (580 MHz)
+| Memory      | 8/12 GB LPDDR5 RAM
+| Storage     | 256 GB (UFS 3.1)
+| SIM         | Dual SIM (Nano-SIM, dual stand-by)
+| Battery     | 5000 mAh Li-Po (non-removable), 67W fast charge
+| Shipped OS  | Android 13.0 (MIUI 14)
+| Dimensions  | 161.1 x 75 x 7.9 mm (6.34 x 2.95 x 0.31 in)
+| Display     | 6.67", 1080x2400 pixels, AMOLED, 120Hz, 12 bit, Dolby Vision, HDR10+
+| Camera      | 64 MP (main), 8 MP (ultrawide), 2 MP (macro), 16 MP (front)
+| Comms       | GSM/HSPA/LTE/5G, Wi-Fi 802.11 a/b/g/n/ac/ax, Bluetooth 5.3, NFC (non-IN)
+| Sensors     | Fingerprint (side-mounted), accelerometer, gyro, compass, proximity, light
 
 ## Device picture
 
-![Xiaomi 11 Lite NE](https://i02.appmifile.com/984_operator_sg/02/11/2021/fc9dd7c4de97018c179efc57616cd85b.png)
+![POCO F5](https://i02.appmifile.com/173_operator_sg/20/04/2023/27b9038f6166371bea81e9b5aad9a66a.png)
 
 ```
-Copyright (C) 2021 The Android Open Source Project
-          (C) 2022-2023 Paranoid Android
+Copyright (C) 2023 Paranoid Android
 
 SPDX-License-Identifier: Apache-2.0
 ```

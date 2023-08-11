@@ -5,8 +5,8 @@
 //
 
 cc_library_static {
-    name: "libinit_lisa",
-    srcs: ["init_lisa.cpp"],
+    name: "libinit_marble",
+    srcs: ["init_marble.cpp"],
     recovery_available: true,
     whole_static_libs: ["libbase"],
     include_dirs: [

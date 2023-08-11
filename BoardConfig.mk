@@ -5,7 +5,7 @@
 # SPDX-License-Identifier: Apache-2.0
 #
 
-DEVICE_PATH := device/xiaomi/lisa
+DEVICE_PATH := device/xiaomi/marble
 
 # Architecture
 TARGET_ARCH := arm64
@@ -27,158 +27,84 @@ AB_OTA_PARTITIONS += \
     dtbo \
     odm \
     product \
+    recovery \
     system \
     system_ext \
     vbmeta \
     vbmeta_system \
     vendor \
-    vendor_boot
+    vendor_boot \
+    vendor_dlkm
 
 # Bootloader
-TARGET_BOOTLOADER_BOARD_NAME := lisa
+TARGET_BOARD_INFO_FILE := $(DEVICE_PATH)/board-info.txt
 
 # Build
 BUILD_BROKEN_DUP_RULES := true
 BUILD_BROKEN_ELF_PREBUILT_PRODUCT_COPY_FILES  := true
+BUILD_BROKEN_VENDOR_PROPERTY_NAMESPACE := true
 
 # HIDL
 DEVICE_FRAMEWORK_COMPATIBILITY_MATRIX_FILE += $(DEVICE_PATH)/configs/hidl/device_framework_compatibility_matrix.xml
 DEVICE_MANIFEST_FILE += $(DEVICE_PATH)/configs/hidl/manifest.xml
+ODM_MANIFEST_SKUS += marble
+ODM_MANIFEST_MARBLE_FILES := $(DEVICE_PATH)/configs/hidl/manifest_nfc.xml
 
 # Init
-TARGET_INIT_VENDOR_LIB := //$(DEVICE_PATH):libinit_lisa
-TARGET_RECOVERY_DEVICE_MODULES := libinit_lisa
+TARGET_INIT_VENDOR_LIB := //$(DEVICE_PATH):libinit_marble
+TARGET_RECOVERY_DEVICE_MODULES := libinit_marble
 
 # Kernel
-BOARD_BOOT_HEADER_VERSION := 3
-BOARD_KERNEL_BASE := 0x00000000
-BOARD_KERNEL_OFFSET := 0x00008000
 BOARD_KERNEL_PAGESIZE := 4096
-BOARD_KERNEL_TAGS_OFFSET := 0x00000100
-BOARD_RAMDISK_OFFSET := 0x01000000
+BOARD_INCLUDE_DTB_IN_BOOTIMG := true
 BOARD_RAMDISK_USE_LZ4 := true
+BOARD_USES_GENERIC_KERNEL_IMAGE := true
+TARGET_HAS_GENERIC_KERNEL_HEADERS := true
+
+BOARD_BOOT_HEADER_VERSION := 4
+BOARD_MKBOOTIMG_ARGS := --header_version $(BOARD_BOOT_HEADER_VERSION)
 
 BOARD_KERNEL_CMDLINE := \
-    androidboot.console=ttyMSM0 \
+    disable_dma32=on \
+    mtdoops.fingerprint=$(AOSPA_VERSION) \
+    swinfo.fingerprint=$(AOSPA_VERSION)
+
+BOARD_BOOTCONFIG := \
     androidboot.hardware=qcom \
     androidboot.init_fatal_reboot_target=recovery \
     androidboot.memcg=1 \
-    androidboot.usbcontroller=a600000.dwc3 \
-    cgroup.memory=nokmem,nosocket \
-    console=ttyMSM0,115200n8 \
-    ip6table_raw.raw_before_defrag=1 \
-    iptable_raw.raw_before_defrag=1 \
-    loop.max_part=7 \
-    lpm_levels.sleep_disabled=1 \
-    msm_rtb.filter=0x237 \
-    pcie_ports=compat \
-    service_locator.enable=1 \
-    swiotlb=0
-
-BOARD_INCLUDE_DTB_IN_BOOTIMG := true
-BOARD_KERNEL_SEPARATED_DTBO := true
-BOARD_MKBOOTIMG_ARGS += --header_version $(BOARD_BOOT_HEADER_VERSION)
-
-KERNEL_DEFCONFIG := lisa_defconfig
-TARGET_KERNEL_SOURCE := kernel/xiaomi/lahaina
-
-BOARD_VENDOR_KERNEL_MODULES := \
-    $(KERNEL_MODULES_OUT)/adsp_loader_dlkm.ko \
-    $(KERNEL_MODULES_OUT)/apr_dlkm.ko \
-    $(KERNEL_MODULES_OUT)/bolero_cdc_dlkm.ko \
-    $(KERNEL_MODULES_OUT)/bt_fm_slim.ko \
-    $(KERNEL_MODULES_OUT)/btpower.ko \
-    $(KERNEL_MODULES_OUT)/camera.ko \
-    $(KERNEL_MODULES_OUT)/device_management_service_v01.ko \
-    $(KERNEL_MODULES_OUT)/fpc1020_tee.ko \
-    $(KERNEL_MODULES_OUT)/goodix_core.ko \
-    $(KERNEL_MODULES_OUT)/goodix_ts_gesture.ko \
-    $(KERNEL_MODULES_OUT)/goodix_ts_tools.ko \
-    $(KERNEL_MODULES_OUT)/hdmi_dlkm.ko \
-    $(KERNEL_MODULES_OUT)/hwid.ko \
-    $(KERNEL_MODULES_OUT)/icnss2.ko \
-    $(KERNEL_MODULES_OUT)/ir-spi.ko \
-    $(KERNEL_MODULES_OUT)/leds-qti-flash.ko \
-    $(KERNEL_MODULES_OUT)/llcc_perfmon.ko \
-    $(KERNEL_MODULES_OUT)/machine_dlkm.ko \
-    $(KERNEL_MODULES_OUT)/mbhc_dlkm.ko \
-    $(KERNEL_MODULES_OUT)/mi_thermal_interface.ko \
-    $(KERNEL_MODULES_OUT)/native_dlkm.ko \
-    $(KERNEL_MODULES_OUT)/nfc_i2c.ko \
-    $(KERNEL_MODULES_OUT)/pinctrl_lpi_dlkm.ko \
-    $(KERNEL_MODULES_OUT)/pinctrl_wcd_dlkm.ko \
-    $(KERNEL_MODULES_OUT)/platform_dlkm.ko \
-    $(KERNEL_MODULES_OUT)/q6_dlkm.ko \
-    $(KERNEL_MODULES_OUT)/q6_notifier_dlkm.ko \
-    $(KERNEL_MODULES_OUT)/q6_pdr_dlkm.ko \
-    $(KERNEL_MODULES_OUT)/qti_battery_charger_main.ko \
-    $(KERNEL_MODULES_OUT)/radio-i2c-rtc6226-qca.ko \
-    $(KERNEL_MODULES_OUT)/rmnet_core.ko \
-    $(KERNEL_MODULES_OUT)/rmnet_ctl.ko \
-    $(KERNEL_MODULES_OUT)/rmnet_offload.ko \
-    $(KERNEL_MODULES_OUT)/rmnet_shs.ko \
-    $(KERNEL_MODULES_OUT)/rx_macro_dlkm.ko \
-    $(KERNEL_MODULES_OUT)/slimbus-ngd.ko \
-    $(KERNEL_MODULES_OUT)/slimbus.ko \
-    $(KERNEL_MODULES_OUT)/snd_event_dlkm.ko \
-    $(KERNEL_MODULES_OUT)/stub_dlkm.ko \
-    $(KERNEL_MODULES_OUT)/swr_ctrl_dlkm.ko \
-    $(KERNEL_MODULES_OUT)/swr_dlkm.ko \
-    $(KERNEL_MODULES_OUT)/swr_dmic_dlkm.ko \
-    $(KERNEL_MODULES_OUT)/swr_haptics_dlkm.ko \
-    $(KERNEL_MODULES_OUT)/tfa98xx_dlkm.ko \
-    $(KERNEL_MODULES_OUT)/tx_macro_dlkm.ko \
-    $(KERNEL_MODULES_OUT)/us_prox_iio.ko \
-    $(KERNEL_MODULES_OUT)/usb_f_dtp.ko \
-    $(KERNEL_MODULES_OUT)/usbdtp.ko \
-    $(KERNEL_MODULES_OUT)/va_macro_dlkm.ko \
-    $(KERNEL_MODULES_OUT)/wcd937x_dlkm.ko \
-    $(KERNEL_MODULES_OUT)/wcd937x_slave_dlkm.ko \
-    $(KERNEL_MODULES_OUT)/wcd938x_dlkm.ko \
-    $(KERNEL_MODULES_OUT)/wcd938x_slave_dlkm.ko \
-    $(KERNEL_MODULES_OUT)/wcd9xxx_dlkm.ko \
-    $(KERNEL_MODULES_OUT)/wcd_core_dlkm.ko \
-    $(KERNEL_MODULES_OUT)/wlan.ko \
-    $(KERNEL_MODULES_OUT)/wlan_firmware_service_v01.ko \
-    $(KERNEL_MODULES_OUT)/wsa883x_dlkm.ko \
-    $(KERNEL_MODULES_OUT)/wsa_macro_dlkm.ko \
-    $(KERNEL_MODULES_OUT)/xiaomi_touch.ko
+    androidboot.usbcontroller=a600000.dwc3
 
 # Partitions
 BOARD_FLASH_BLOCK_SIZE := 131072
 BOARD_BOOTIMAGE_PARTITION_SIZE := 201326592
 BOARD_VENDOR_BOOTIMAGE_PARTITION_SIZE := 100663296
 BOARD_DTBOIMG_PARTITION_SIZE := 25165824
+BOARD_RECOVERYIMAGE_PARTITION_SIZE := 104857600
 BOARD_USES_METADATA_PARTITION := true
+BOARD_USES_VENDOR_DLKMIMAGE := true
 
-BOARD_SUPER_PARTITION_SIZE := 9126805504
+BOARD_SUPER_PARTITION_SIZE := 9663676416
 BOARD_SUPER_PARTITION_GROUPS := qti_dynamic_partitions
-BOARD_QTI_DYNAMIC_PARTITIONS_PARTITION_LIST := odm product system system_ext vendor
-BOARD_QTI_DYNAMIC_PARTITIONS_SIZE := 9122611200 # (BOARD_SUPER_PARTITION_SIZE - 4MB overhead)
+BOARD_QTI_DYNAMIC_PARTITIONS_PARTITION_LIST := odm product system system_ext vendor vendor_dlkm
+BOARD_QTI_DYNAMIC_PARTITIONS_SIZE := 9659482112 # (BOARD_SUPER_PARTITION_SIZE - 4MB overhead)
 
-BOARD_PRODUCTIMAGE_PARTITION_RESERVED_SIZE := 104857600
-BOARD_SYSTEMIMAGE_PARTITION_RESERVED_SIZE := 104857600
-BOARD_SYSTEM_EXTIMAGE_PARTITION_RESERVED_SIZE := 104857600
-BOARD_VENDORIMAGE_PARTITION_RESERVED_SIZE := 104857600
-BOARD_ODMIMAGE_PARTITION_RESERVED_SIZE := 104857600
-
-BOARD_PRODUCTIMAGE_FILE_SYSTEM_TYPE := ext4
-BOARD_SYSTEMIMAGE_FILE_SYSTEM_TYPE := ext4
-BOARD_SYSTEM_EXTIMAGE_FILE_SYSTEM_TYPE := ext4
-BOARD_VENDORIMAGE_FILE_SYSTEM_TYPE := ext4
-BOARD_ODMIMAGE_FILE_SYSTEM_TYPE := ext4
-
-TARGET_COPY_OUT_PRODUCT := product
-TARGET_COPY_OUT_SYSTEM_EXT := system_ext
-TARGET_COPY_OUT_VENDOR := vendor
-TARGET_COPY_OUT_ODM := odm
+PARTITION_LIST := $(call to-upper, $(BOARD_QTI_DYNAMIC_PARTITIONS_PARTITION_LIST))
+ifneq ($(TARGET_BUILD_VARIANT),user)
+PARTITION_FS_TYPE := ext4
+$(foreach p, $(PARTITION_LIST), $(eval BOARD_$(p)IMAGE_PARTITION_RESERVED_SIZE := 104857600))
+else
+PARTITION_FS_TYPE := erofs
+endif
+$(foreach p, $(PARTITION_LIST), \
+    $(eval BOARD_$(p)IMAGE_FILE_SYSTEM_TYPE := $(PARTITION_FS_TYPE)) \
+    $(eval TARGET_COPY_OUT_$(p) := $(call to-lower, $(p))))
 
 # Power
-TARGET_POWER_FEATURE_EXT_LIB := //$(DEVICE_PATH):libpowerfeature_ext_lisa
+TARGET_POWER_FEATURE_EXT_LIB := //$(DEVICE_PATH):libpowerfeature_ext_marble
 
 # Recovery
-BOARD_INCLUDE_RECOVERY_DTBO := true
-BOARD_USES_RECOVERY_AS_BOOT := true
+BOARD_EXCLUDE_KERNEL_FROM_RECOVERY_IMAGE := true
 TARGET_RECOVERY_FSTAB := $(DEVICE_PATH)/rootdir/etc/fstab.qcom
 TARGET_RECOVERY_PIXEL_FORMAT := "RGBX_8888"
 TARGET_RECOVERY_UI_MARGIN_HEIGHT := 104
@@ -189,7 +115,7 @@ SOONG_CONFIG_ufsbsg += ufsframework
 SOONG_CONFIG_ufsbsg_ufsframework := bsg
 
 # Screen density
-TARGET_SCREEN_DENSITY := 400
+TARGET_SCREEN_DENSITY := 420
 
 # Security patch level
 VENDOR_SECURITY_PATCH := $(PLATFORM_SECURITY_PATCH)
@@ -214,6 +140,14 @@ BOARD_AVB_VBMETA_SYSTEM_KEY_PATH := external/avb/test/data/testkey_rsa2048.pem
 BOARD_AVB_VBMETA_SYSTEM_ROLLBACK_INDEX := $(PLATFORM_SECURITY_PATCH_TIMESTAMP)
 BOARD_AVB_VBMETA_SYSTEM_ROLLBACK_INDEX_LOCATION := 2
 
+# Vendor API
+BOARD_API_LEVEL := 31
+BOARD_SHIPPING_API_LEVEL := $(BOARD_API_LEVEL)
+
+# Vibrator
+SOONG_CONFIG_NAMESPACES += XIAOMI_VIBRATOR
+SOONG_CONFIG_XIAOMI_VIBRATOR := USE_EFFECT_STREAM
+SOONG_CONFIG_XIAOMI_VIBRATOR_USE_EFFECT_STREAM := true
+
 # Wi-Fi
 CONFIG_ACS := true
-CONFIG_IEEE80211AX := true

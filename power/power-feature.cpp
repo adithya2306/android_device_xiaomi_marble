@@ -9,14 +9,12 @@
 #include <android-base/logging.h>
 #include <sys/ioctl.h>
 
-// defines from drivers/input/touchscreen/xiaomi/xiaomi_touch.h
 #define SET_CUR_VALUE 0
-#define Touch_Doubletap_Mode 14
-
+#define TOUCH_DOUBLETAP_MODE 14
+#define TOUCH_MAGIC 't'
+#define TOUCH_IOC_SETMODE _IO(TOUCH_MAGIC, SET_CUR_VALUE)
 #define TOUCH_DEV_PATH "/dev/xiaomi-touch"
 #define TOUCH_ID 0
-#define TOUCH_MAGIC 0x5400
-#define TOUCH_IOC_SETMODE TOUCH_MAGIC + SET_CUR_VALUE
 
 namespace aidl {
 namespace vendor {
@@ -27,7 +25,7 @@ bool setDeviceSpecificFeature(Feature feature, bool enabled) {
     switch (feature) {
         case Feature::DOUBLE_TAP: {
             int fd = open(TOUCH_DEV_PATH, O_RDWR);
-            int arg[3] = {TOUCH_ID, Touch_Doubletap_Mode, enabled ? 1 : 0};
+            int arg[3] = {TOUCH_ID, TOUCH_DOUBLETAP_MODE, enabled ? 1 : 0};
             ioctl(fd, TOUCH_IOC_SETMODE, &arg);
             close(fd);
             return true;
