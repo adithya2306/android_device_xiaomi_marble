@@ -144,11 +144,9 @@ PRODUCT_VENDOR_PROPERTIES += \
     ro.vendor.sre.enable=true \
     ro.vendor.xiaomi.bl.poll=true \
     vendor.display.disable_dynamic_sf_idle=1 \
-    vendor.display.enable_fb_scaling=1 \
     vendor.display.enable_fp_monitor=1 \
     vendor.display.enable_hist_intr=1 \
-    vendor.display.idle_time=0 \
-    vendor.display.mixer_resolution=1080,2400,420
+    vendor.display.idle_time=0
 
 # Doze
 PRODUCT_PACKAGES += \
