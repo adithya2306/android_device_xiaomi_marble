@@ -54,6 +54,12 @@ on property:vendor.post_boot.parsed=1
     # Enable suspend to RAM
     write /sys/power/mem_sleep "deep"
 
+    # IRQ Tuning
+    # IRQ 253: msm_drm0
+    # IRQ 208: kgsl_3d0_irq
+    write /proc/irq/208/smp_affinity_list 1
+    write /proc/irq/253/smp_affinity_list 2
+
 on property:persist.sys.device_provisioned=1
     setprop dalvik.vm.dex2oat-cpu-set 0,1,2,3,4,5,6
     setprop dalvik.vm.dex2oat-threads 6
