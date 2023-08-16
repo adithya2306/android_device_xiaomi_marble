@@ -1997,7 +1997,6 @@ vendor/firmware/4_pop_P_RTP.bin
 
 # Wi-Fi
 vendor/bin/cnss-daemon
-vendor/etc/wifi/qca6490/WCNSS_qcom_cfg.ini
 
 # Wi-Fi Display
 vendor/bin/wfdhdcphalservice
