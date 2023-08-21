@@ -1494,6 +1494,7 @@ vendor/lib64/vendor.qti.hardware.vpp@2.0.so
 
 # Media (Dolby)
 vendor/bin/hw/dolbycodec2
+vendor/bin/hw/vendor.dolby.hardware.dms@2.0-service
 vendor/etc/dolby/dax-default.xml
 vendor/etc/dolby_vision.cfg
 vendor/etc/init/vendor.dolby.hardware.dms@2.0-service.rc
