@@ -123,6 +123,9 @@ PRODUCT_PACKAGES += \
     vendor.qti.hardware.display.config-V5-ndk_platform.vendor \
     vendor.qti.hardware.memtrack-service
 
+PRODUCT_SYSTEM_PROPERTIES += \
+    ro.sf.defer_refresh_rate_when_off=1
+
 PRODUCT_ODM_PROPERTIES += \
     persist.sys.sf.color_mode=0 \
     vendor.display.disable_3d_adaptive_tm=0 \
