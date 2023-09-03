@@ -124,10 +124,13 @@ PRODUCT_PACKAGES += \
     vendor.qti.hardware.memtrack-service
 
 PRODUCT_SYSTEM_PROPERTIES += \
-    ro.sf.defer_refresh_rate_when_off=1
+    ro.sf.defer_refresh_rate_when_off=1 \
+    ro.sf.force_handle_idle_timeout=1
 
 PRODUCT_ODM_PROPERTIES += \
     persist.sys.sf.color_mode=0 \
+    ro.surface_flinger.set_idle_timer_ms=500 \
+    ro.surface_flinger.set_touch_timer_ms=1000 \
     vendor.display.disable_3d_adaptive_tm=0 \
     vendor.display.enable_rounded_corner=0 \
     vendor.display.use_smooth_motion=0 \
@@ -137,7 +140,6 @@ PRODUCT_VENDOR_PROPERTIES += \
     debug.sf.disable_backpressure=1 \
     persist.sys.sf.native_mode=258 \
     ro.gfx.driver.1=com.qualcomm.qti.gpudrivers.taro.api32 \
-    ro.surface_flinger.set_idle_timer_ms=1000 \
     ro.vendor.display.ai_disp.enable=true \
     ro.vendor.display.framework_thermal_dimming=true \
     ro.vendor.display.hwc_thermal_dimming=false \
