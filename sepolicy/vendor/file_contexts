@@ -22,18 +22,27 @@
 
 # Fingerprint
 /data/vendor/fpc(/.*)?                                                    u:object_r:vendor_fingerprint_data_file:s0
+/vendor/bin/hw/android\.hardware\.biometrics\.fingerprint@2\.3-service\.xiaomi u:object_r:hal_fingerprint_default_exec:s0
 
 # IR
 /dev/ir_spi                                                               u:object_r:ir_spi_device:s0
 
 # Media
 /vendor/bin/hw/dolbycodec2                                                u:object_r:mediacodec_exec:s0
+/vendor/bin/hw/vendor\.dolby\.media\.c2@1\.0-service                      u:object_r:mediacodec_exec:s0
+/vendor/bin/hw/vendor\.dolby\.hardware\.dms@2\.0-service                  u:object_r:hal_dms_default_exec:s0
 
 # Mlipay
-/(vendor|system/vendor)/bin/mlipayd@1.1                                   u:object_r:hal_mlipay_default_exec:s0
+/vendor/bin/mlipayd@1.1                                                   u:object_r:hal_mlipay_default_exec:s0
 
 # NV MAC
 /vendor/bin/nv_mac                                                        u:object_r:vendor_wcnss_service_exec:s0
+
+# QRTR
+/vendor/bin/qrtr-lookup                                                   u:object_r:vendor_qrtr_exec:s0
+
+# SSG QMI Gateway Daemon
+/vendor/bin/ssgqmigd64                                                    u:object_r:vendor_ssgqmigd_exec:s0
 
 # Sensors
 /dev/elliptic(.*)?                                                        u:object_r:sound_device:s0
@@ -42,7 +51,8 @@
 /sys/devices/platform/us_prox.0/iio:device1(/.*)?                         u:object_r:vendor_sysfs_iio:s0
 /sys/devices/platform/soc/c440000.qcom,spmi/spmi-0/spmi0-00/c440000.qcom,spmi:qcom,pmk8350@0:vadc@3100/iio:device0(/.*)? u:object_r:vendor_sysfs_iio:s0
 
-/vendor/bin/hw/vendor\.xiaomi\.hardware\.citsensorservice@1\.1-service    u:object_r:vendor_hal_citsensorservice_xiaomi_default_exec:s0
+/vendor/bin/hw/vendor\.xiaomi\.sensor\.citsensorservice@2\.0-service      u:object_r:vendor_hal_citsensorservice_xiaomi_default_exec:s0
+/vendor/bin/hw/vendor\.xiaomi\.sensor\.communicate@1\.0-service           u:object_r:vendor_hal_sensorcommunicate_default_exec:s0
 /vendor/bin/init\.sensors_fix\.sh                                         u:object_r:vendor_init-qcom-sensors-sh_exec:s0
 
 # Thermal
@@ -54,6 +64,9 @@
 
 # USB
 /vendor/bin/init\.mi\.usb\.sh                                             u:object_r:vendor_qti_init_shell_exec:s0
+
+# Vibrator
+/vendor/bin/hw/vendor\.qti\.hardware\.vibrator\.service\.xiaomi           u:object_r:hal_vibrator_default_exec:s0
 
 # Wakeup nodes
 /sys/devices/platform/soc/soc:qcom,msm-audio-apr/soc:qcom,msm-audio-apr:qcom,q6core-audio/soc:qcom,msm-audio-apr:qcom,q6core-audio:sound/Listen\s[0-9]+\sAudio\sService/wakeup/wakeup[0-9]+(/.*)? u:object_r:sysfs_wakeup:s0
