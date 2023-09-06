@@ -17,6 +17,7 @@ android_app {
 
     static_libs: [
         "co.aospa.resources",
+        "vendor.xiaomi.hardware.displayfeature-V1.0-java",
     ],
 
     optimize: {
