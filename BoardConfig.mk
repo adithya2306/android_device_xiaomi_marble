@@ -68,8 +68,6 @@ BOARD_BOOTCONFIG := \
     androidboot.memcg=1 \
     androidboot.usbcontroller=a600000.dwc3
 
-BOARD_BOOTCONFIG += androidboot.selinux=permissive
-
 # OTA
 TARGET_OTA_ASSERT_DEVICE := marble,marblein
 
