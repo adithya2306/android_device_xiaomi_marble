@@ -24,9 +24,9 @@ on property:vendor.post_boot.parsed=1
     write /sys/devices/system/cpu/cpufreq/policy0/walt/up_rate_limit_us 500
     write /sys/devices/system/cpu/cpufreq/policy0/walt/down_rate_limit_us 20000
     write /sys/devices/system/cpu/cpufreq/policy4/walt/up_rate_limit_us 500
-    write /sys/devices/system/cpu/cpufreq/policy4/walt/down_rate_limit_us 10000
+    write /sys/devices/system/cpu/cpufreq/policy4/walt/down_rate_limit_us 20000
     write /sys/devices/system/cpu/cpufreq/policy7/walt/up_rate_limit_us 500
-    write /sys/devices/system/cpu/cpufreq/policy7/walt/down_rate_limit_us 5000
+    write /sys/devices/system/cpu/cpufreq/policy7/walt/down_rate_limit_us 20000
 
     # Configure scheduler
     write /proc/sys/kernel/sched_upmigrate "80 95"
