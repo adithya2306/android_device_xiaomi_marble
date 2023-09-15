@@ -277,6 +277,7 @@ PRODUCT_SOONG_NAMESPACES += \
 PRODUCT_PACKAGES += \
     AOSPAMarbleFrameworksOverlay \
     AOSPAMarbleSystemUIOverlay \
+    MarbleApertureOverlay \
     MarbleCNSettingsOverlay \
     MarbleCNSettingsProviderOverlay \
     MarbleCNWifiOverlay \
