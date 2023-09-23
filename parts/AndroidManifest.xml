@@ -11,6 +11,7 @@
 
     <uses-permission android:name="android.permission.DEVICE_POWER" />
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+    <uses-permission android:name="android.permission.CAMERA_OPEN_CLOSE_LISTENER" />
 
     <application
         android:allowBackup="true"
