@@ -1,4 +1,4 @@
-# Device proprietary files - from marble MIUI V14.0.6.0.TMRMIXM package, unless pinned
+# Device proprietary files - from marble MIUI V14.0.7.0.TMRMIXM package, unless pinned
 
 # ADSP
 vendor/bin/adsprpcd
