@@ -28,6 +28,7 @@ import org.lineageos.settings.camera.NfcCameraService;
 import org.lineageos.settings.dirac.DiracUtils;
 import org.lineageos.settings.display.ColorService;
 import org.lineageos.settings.dolby.DolbyUtils;
+import org.lineageos.settings.doze.AodBrightnessService;
 import org.lineageos.settings.doze.PocketService;
 import org.lineageos.settings.thermal.ThermalUtils;
 
@@ -56,6 +57,9 @@ public class BootCompletedReceiver extends BroadcastReceiver {
 
         // NFC
         NfcCameraService.startService(context);
+
+        // AOD
+        AodBrightnessService.startService(context);
 
         // Override HDR types
         final IBinder displayToken = SurfaceControl.getInternalDisplayToken();
