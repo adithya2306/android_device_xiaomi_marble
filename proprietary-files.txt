@@ -1521,7 +1521,6 @@ vendor/lib64/vendor.dolby.hardware.dms@2.0.so
 # Media (Dolby C2 Audio) - from nuwa V14.0.2.0.UMBMIXM
 vendor/bin/hw/vendor.dolby.media.c2@1.0-service|4a88666d7f072ce6ba4147198fe3aee1eebf1481
 vendor/etc/init/vendor.dolby.media.c2@1.0-service.rc|bc1e134139c7dd0e5b4f98952aa51c629ea66dc7
-vendor/etc/media_codecs_dolby_audio.xml|4bd36201a93af6630c5af022823af315c1235e97
 vendor/lib64/libcodec2_soft_ac4dec.so|d05ca5722350cb3654098096bd39f478396a627e
 vendor/lib64/libcodec2_soft_ddpdec.so|85beb82e2dd6d020a18e628bf15a174e03eddf8c
 vendor/lib64/libcodec2_store_dolby.so|3749d05dc119cd7c06d536cafbe7a79101386bec
