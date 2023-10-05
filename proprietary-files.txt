@@ -1498,13 +1498,8 @@ vendor/bin/hw/vendor.dolby.hardware.dms@2.0-service
 vendor/etc/dolby/dax-default.xml
 vendor/etc/dolby_vision.cfg
 vendor/etc/init/vendor.dolby.hardware.dms@2.0-service.rc
-vendor/etc/init/vendor.dolby.media.c2@1.0-service.rc
-vendor/etc/media_codecs_dolby_audio.xml
+vendor/etc/init/vendor.dolby.media.c2@1.0-service.rc:vendor/etc/init/dolbycodec2.rc
 vendor/etc/vintf/manifest/manifest_vendor.dolby.hardware.dms.xml
-vendor/lib/libdeccfg.so
-vendor/lib/libstagefright_soft_ac4dec.so
-vendor/lib/libstagefright_soft_ddpdec.so
-vendor/lib/vendor.dolby.hardware.dms@2.0.so
 vendor/lib64/c2.dolby.avc.dec.so
 vendor/lib64/c2.dolby.avc.sec.dec.so
 vendor/lib64/c2.dolby.client.so
@@ -1522,6 +1517,15 @@ vendor/lib64/soundfx/libswgamedap.so
 vendor/lib64/soundfx/libswvqe.so
 vendor/lib64/vendor.dolby.hardware.dms@2.0-impl.so
 vendor/lib64/vendor.dolby.hardware.dms@2.0.so
+
+# Media (Dolby C2 Audio) - from ishtar V14.0.16.0.TMACNXM
+vendor/bin/hw/vendor.dolby.media.c2@1.0-service|4a88666d7f072ce6ba4147198fe3aee1eebf1481
+vendor/etc/init/vendor.dolby.media.c2@1.0-service.rc|bc1e134139c7dd0e5b4f98952aa51c629ea66dc7
+vendor/etc/media_codecs_dolby_audio.xml|4bd36201a93af6630c5af022823af315c1235e97
+vendor/lib64/libcodec2_soft_ac4dec.so|81859eb1a2e58a659ae83fdeb4bdf27300d5a93d
+vendor/lib64/libcodec2_soft_ddpdec.so|8cacfa08083fcac5dd43585356680e4c62bf3748
+vendor/lib64/libcodec2_store_dolby.so|3749d05dc119cd7c06d536cafbe7a79101386bec
+vendor/lib64/libdeccfg.so|8968bc8b781167dcfea4be4c141f89340fe8b90f
 
 # Memory
 vendor/lib64/libvmmem.so

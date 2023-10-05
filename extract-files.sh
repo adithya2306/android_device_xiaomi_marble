@@ -69,6 +69,9 @@ function blob_fixup() {
         vendor/etc/camera/pureView_parameter.xml)
             sed -i "s/=\([0-9]\+\)>/=\"\1\">/g" "${2}"
             ;;
+        vendor/etc/media_codecs_dolby_audio.xml)
+            sed -i "/software-codec/d" "${2}"
+            ;;
     esac
 }
 
