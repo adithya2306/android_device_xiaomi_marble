@@ -153,7 +153,6 @@ vendor/etc/acdbdata/nn_vad_models/fai__3.0.0_0.0__eai_1.36_enpu2.pmd
 
 # Audio configs
 vendor/etc/audio/sku_ukee/adsp_sleep_monitor.conf
-vendor/etc/audio/sku_ukee/audio_effects.xml
 vendor/etc/audio/sku_ukee/mixer_paths_overlay_dynamic.xml
 vendor/etc/audio/sku_ukee/mixer_paths_overlay_static.xml
 vendor/etc/audio/sku_ukee/mixer_paths_ukee_mtp.xml
@@ -1508,23 +1507,26 @@ vendor/lib64/c2.dolby.hevc.dec.so
 vendor/lib64/c2.dolby.hevc.enc.so
 vendor/lib64/c2.dolby.hevc.sec.dec.so
 vendor/lib64/c2.dolby.store.so
-vendor/lib64/libdapparamstorage.so
 vendor/lib64/libdlbdsservice.so
 vendor/lib64/libdolbyottcameracontrol.so
 vendor/lib64/libdolbyvision.so
-vendor/lib64/soundfx/libhwdap.so
-vendor/lib64/soundfx/libswgamedap.so
-vendor/lib64/soundfx/libswvqe.so
 vendor/lib64/vendor.dolby.hardware.dms@2.0-impl.so
 vendor/lib64/vendor.dolby.hardware.dms@2.0.so
 
-# Media (Dolby C2 Audio) - from nuwa V14.0.2.0.UMBMIXM
+# Media (Dolby Audio) - from nuwa V14.0.2.0.UMBMIXM
 vendor/bin/hw/vendor.dolby.media.c2@1.0-service|4a88666d7f072ce6ba4147198fe3aee1eebf1481
 vendor/etc/init/vendor.dolby.media.c2@1.0-service.rc|bc1e134139c7dd0e5b4f98952aa51c629ea66dc7
 vendor/lib64/libcodec2_soft_ac4dec.so|d05ca5722350cb3654098096bd39f478396a627e
 vendor/lib64/libcodec2_soft_ddpdec.so|85beb82e2dd6d020a18e628bf15a174e03eddf8c
 vendor/lib64/libcodec2_store_dolby.so|3749d05dc119cd7c06d536cafbe7a79101386bec
+vendor/lib64/libdapparamstorage.so|6687bb0673a0c681bc6bdc0df7c876cc01600d5c
 vendor/lib64/libdeccfg.so|0106d4d3069f413ab90a2d6dce9fd215ea565e25
+vendor/lib64/libdlbpreg.so|49d9fe0ff22a8a7feaca5d5996e19a112517533e
+vendor/lib64/libspatializerparamstorage.so|3eea1870e6b3c8d4799d3b9e13c0d3d13dba3e00
+vendor/lib64/soundfx/libhwdap.so|9d9d434864d5d5445e9def4871dd11d4d262186e
+vendor/lib64/soundfx/libswgamedap.so|c1111602ed9ac7db970956645e9d2b8c2c21b0b1
+vendor/lib64/soundfx/libswspatializer.so|4a62bf548fc8a56f2704920dfbcd634cc88f7afa
+vendor/lib64/soundfx/libswvqe.so|b057f8a65f94d3009e77cd4c6cebf5a9554c43e0
 
 # Memory
 vendor/lib64/libvmmem.so

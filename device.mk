@@ -39,7 +39,8 @@ $(call inherit-product, $(SRC_TARGET_DIR)/product/updatable_apex.mk)
 
 # Audio
 PRODUCT_COPY_FILES += \
-    $(LOCAL_PATH)/configs/audio_policy_configuration.xml:$(TARGET_COPY_OUT_VENDOR)/etc/audio/sku_ukee_qssi/audio_policy_configuration.xml
+    $(LOCAL_PATH)/configs/audio/audio_effects.xml:$(TARGET_COPY_OUT_VENDOR)/etc/audio/sku_ukee/audio_effects.xml \
+    $(LOCAL_PATH)/configs/audio/audio_policy_configuration.xml:$(TARGET_COPY_OUT_VENDOR)/etc/audio/sku_ukee_qssi/audio_policy_configuration.xml
 
 PRODUCT_ODM_PROPERTIES += \
     aaudio.mmap_policy=1 \
@@ -47,6 +48,7 @@ PRODUCT_ODM_PROPERTIES += \
 
 PRODUCT_VENDOR_PROPERTIES += \
     persist.vendor.audio.auto.scenario=true \
+    ro.audio.spatializer_enabled=true \
     ro.config.alarm_vol_steps=15 \
     ro.config.system_vol_steps=15 \
     ro.config.vc_call_vol_default=9 \
