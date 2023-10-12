@@ -31,6 +31,7 @@ AB_OTA_PARTITIONS += \
 
 # Bootloader
 TARGET_BOARD_INFO_FILE := $(DEVICE_PATH)/board-info.txt
+TARGET_BOOTLOADER_BOARD_NAME := marble
 
 # Build
 BUILD_BROKEN_DUP_RULES := true
