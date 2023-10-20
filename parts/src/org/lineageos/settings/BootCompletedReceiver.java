@@ -21,6 +21,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.IBinder;
+import android.util.Log;
 import android.view.Display.HdrCapabilities;
 import android.view.SurfaceControl;
 
@@ -34,17 +35,21 @@ import org.lineageos.settings.thermal.ThermalUtils;
 
 public class BootCompletedReceiver extends BroadcastReceiver {
 
+    private static final String TAG = "XiaomiParts-BCR";
+
     @Override
     public void onReceive(final Context context, Intent intent) {
         if (!intent.getAction().equals(Intent.ACTION_BOOT_COMPLETED)) {
             return;
         }
 
+        Log.i(TAG, "Boot completed");
+
         // Dirac
         // DiracUtils.onBootCompleted(context);
 
         // Dolby Atmos
-        DolbyUtils.getInstance(context).onBootCompleted();
+        DolbyUtils.getInstance(context);
 
         // Thermal Profiles
         ThermalUtils.startService(context);
