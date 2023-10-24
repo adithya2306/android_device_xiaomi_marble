@@ -34,6 +34,11 @@ public class AodBrightnessService extends Service {
     private static final float AOD_SENSOR_EVENT_DIM = 5f;
     private static final float AOD_SENSOR_EVENT_DARK = 3f;
 
+    private static final String DOZE_BRIGHTNESS_NODE
+            = "/sys/devices/virtual/mi_display/disp_feature/disp-DSI-0/doze_brightness";
+    private static final String DOZE_BRIGHTNESS_ENABLE = "0";
+    private static final String DOZE_BRIGHTNESS_DISABLE = "-1";
+
     private static final String DISP_PARAM_NODE
             = "/sys/devices/virtual/mi_display/disp_feature/disp-DSI-0/disp_param";
     private static final String DISP_PARAM_DOZE_HBM = "03 01";
@@ -81,6 +86,7 @@ public class AodBrightnessService extends Service {
                         dlog("AOD is disabled by setting.");
                         break;
                     }
+                    FileUtils.writeLine(DOZE_BRIGHTNESS_NODE, DOZE_BRIGHTNESS_DISABLE);
                     setInitialDozeHbmState();
                     mSensorManager.registerListener(mSensorListener,
                             mAodSensor, SensorManager.SENSOR_DELAY_NORMAL);
