@@ -5,6 +5,9 @@ genfscon sysfs /class/qcom-battery                                              
 genfscon sysfs /devices/platform/soc/soc:fingerprint_fpc                            u:object_r:vendor_sysfs_fingerprint:s0
 genfscon sysfs /devices/platform/soc/soc:xiaomi_fingerprint/fingerdown              u:object_r:vendor_sysfs_fingerprint:s0
 
+# Touchscreen
+genfscon sysfs /devices/platform/goodix_ts.0                                        u:object_r:vendor_sysfs_touch:s0
+
 # Wakeup nodes
 genfscon sysfs /devices/platform/goodix_ts.0/wakeup                                 u:object_r:sysfs_wakeup:s0
 genfscon sysfs /devices/platform/soc/3000000.remoteproc-adsp/remoteproc/remoteproc0/3000000.remoteproc-adsp:glink-edge/3000000.remoteproc-adsp:glink-edge.adsp_apps.-1.-1/wakeup u:object_r:sysfs_wakeup:s0

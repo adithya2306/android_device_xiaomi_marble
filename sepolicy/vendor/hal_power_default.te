@@ -1,1 +1,2 @@
-allow hal_power_default vendor_touchfeature_device:chr_file rw_file_perms;
+r_dir_file(hal_power_default, vendor_sysfs_touch)
+allow hal_power_default vendor_sysfs_touch:file w_file_perms;

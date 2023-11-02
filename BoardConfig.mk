@@ -38,6 +38,9 @@ BUILD_BROKEN_DUP_RULES := true
 BUILD_BROKEN_ELF_PREBUILT_PRODUCT_COPY_FILES  := true
 BUILD_BROKEN_VENDOR_PROPERTY_NAMESPACE := true
 
+# DT2W
+TARGET_TAP_TO_WAKE_NODE  := "/sys/devices/platform/goodix_ts.0/goodix_ts_double_tap"
+
 # HIDL
 DEVICE_FRAMEWORK_COMPATIBILITY_MATRIX_FILE += $(DEVICE_PATH)/configs/hidl/device_framework_compatibility_matrix.xml
 DEVICE_MANIFEST_FILE += $(DEVICE_PATH)/configs/hidl/manifest.xml
@@ -89,9 +92,6 @@ $(foreach p, $(call to-upper, $(BOARD_QTI_DYNAMIC_PARTITIONS_PARTITION_LIST)), \
     $(eval BOARD_$(p)IMAGE_FILE_SYSTEM_TYPE := ext4) \
     $(eval BOARD_$(p)IMAGE_PARTITION_RESERVED_SIZE := 104857600) \
     $(eval TARGET_COPY_OUT_$(p) := $(call to-lower, $(p))))
-
-# Power
-TARGET_POWER_FEATURE_EXT_LIB := //$(DEVICE_PATH):libpowerfeature_ext_marble
 
 # Recovery
 BOARD_EXCLUDE_KERNEL_FROM_RECOVERY_IMAGE := true
