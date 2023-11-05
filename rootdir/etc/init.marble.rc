@@ -120,3 +120,10 @@ service ssgqmigd /vendor/bin/ssgqmigd64
     user radio
     group radio gps system
     socket ssgqmig seqpacket 0660 radio inet
+
+service mfp-daemon /vendor/bin/hw/mfp-daemon
+    override
+    class late_start
+    user system
+    group system drmrpc diag input uhid
+    capabilities SYS_NICE
