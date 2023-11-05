@@ -27,11 +27,16 @@ import android.os.Bundle;
 
 import org.lineageos.settings.R;
 import org.lineageos.settings.dolby.DolbyUtils;
+import org.lineageos.settings.gestures.GestureUtils;
+
+import java.util.Arrays;
+import java.util.List;
 
 /** Provide preference summary for injected items. */
 public class SummaryProvider extends ContentProvider {
 
     private static final String KEY_DOLBY = "dolby";
+    private static final String KEY_FP_DOUBLE_TAP = "fp_double_tap";
 
     @Override
     public Bundle call(String method, String uri, Bundle extras) {
@@ -40,6 +45,9 @@ public class SummaryProvider extends ContentProvider {
         switch (method) {
             case KEY_DOLBY:
                 summary = getDolbySummary();
+                break;
+            case KEY_FP_DOUBLE_TAP:
+                summary = getFpDoubleTapSummary();
                 break;
             default:
                 throw new IllegalArgumentException("Unknown method: " + method);
@@ -92,4 +100,18 @@ public class SummaryProvider extends ContentProvider {
             return getContext().getString(R.string.dolby_on_with_profile, profileName);
         }
     }
+
+    private String getFpDoubleTapSummary() {
+        if (!GestureUtils.isFpDoubleTapEnabled(getContext())) {
+            return getContext().getString(R.string.fp_double_tap_summary_off);
+        }
+        final int action = GestureUtils.getFpDoubleTapAction(getContext());
+        final List<String> actions = Arrays.asList(getContext().getResources().getStringArray(
+                R.array.fp_double_tap_action_values));
+        final int actionIndex = actions.indexOf(Integer.toString(action));
+        final String actionName = getContext().getResources().getStringArray(
+                R.array.fp_double_tap_action_entries)[actionIndex];
+        return getContext().getString(R.string.fp_double_tap_summary_on, actionName);
+    }
+
 }

@@ -58,11 +58,6 @@
                        android:value="content://org.lineageos.settings.device.summary/dolby" />
         </activity>
 
-        <provider
-            android:name=".SummaryProvider"
-            android:authorities="org.lineageos.settings.device.summary">
-        </provider>
-
         <activity
             android:name=".thermal.ThermalSettingsActivity"
             android:label="@string/thermal_title"
@@ -92,6 +87,24 @@
             <meta-data android:name="com.android.settings.category"
                        android:value="com.android.settings.category.ia.sound" />
         </activity>
+
+        <activity
+            android:name=".gestures.FpDoubleTapActivity"
+            android:label="@string/fp_double_tap_title"
+            android:theme="@style/Theme.SubSettingsBase">
+            <intent-filter>
+                <action android:name="com.android.settings.action.IA_SETTINGS" />
+            </intent-filter>
+            <meta-data android:name="com.android.settings.category"
+                       android:value="com.android.settings.category.ia.gestures" />
+            <meta-data android:name="com.android.settings.summary_uri"
+                       android:value="content://org.lineageos.settings.device.summary/fp_double_tap" />
+        </activity>
+
+        <provider
+            android:name=".SummaryProvider"
+            android:authorities="org.lineageos.settings.device.summary">
+        </provider>
 
         <service
             android:name=".thermal.ThermalService"

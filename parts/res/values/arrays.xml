@@ -192,4 +192,31 @@
         <item>64</item>
     </string-array>
 
+    <!-- Must match co.aospa.keyhandler.FpDoubleTapHandler.handleEvent() -->
+    <string-array name="fp_double_tap_action_entries">
+        <item>@string/action_screenshot</item>
+        <item>@string/action_assistant</item>
+        <item>@string/action_play_pause</item>
+        <item>@string/action_notifications</item>
+        <item>@string/action_camera</item>
+        <item>@string/action_flashlight</item>
+        <item>@string/action_mute</item>
+        <item>@string/action_vibrate</item>
+        <item>@string/action_volume</item>
+        <item>@string/action_sleep</item>
+    </string-array>
+
+    <string-array name="fp_double_tap_action_values">
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
+        <item>6</item>
+        <item>7</item>
+        <item>8</item>
+        <item>9</item>
+        <item>10</item>
+    </string-array>
+
 </resources>
