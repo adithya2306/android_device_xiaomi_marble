@@ -5,6 +5,9 @@ genfscon sysfs /class/qcom-battery                                              
 genfscon sysfs /devices/platform/soc/soc:fingerprint_fpc                            u:object_r:vendor_sysfs_fingerprint:s0
 genfscon sysfs /devices/platform/soc/soc:xiaomi_fingerprint/fingerdown              u:object_r:vendor_sysfs_fingerprint:s0
 
+# Sensors
+genfscon sysfs /devices/virtual/touch/touch_dev/palm_sensor                         u:object_r:vendor_sysfs_sensors:s0
+
 # Touchscreen
 genfscon sysfs /devices/platform/goodix_ts.0                                        u:object_r:vendor_sysfs_touch:s0
 
