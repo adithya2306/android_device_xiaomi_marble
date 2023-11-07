@@ -39,39 +39,41 @@ public class BootCompletedReceiver extends BroadcastReceiver {
 
     @Override
     public void onReceive(final Context context, Intent intent) {
-        if (!intent.getAction().equals(Intent.ACTION_BOOT_COMPLETED)) {
-            return;
+        Log.i(TAG, "Received intent: " + intent.getAction());
+
+        switch (intent.getAction()) {
+            case Intent.ACTION_LOCKED_BOOT_COMPLETED:
+                onLockedBootCompleted(context);
+                break;
+            case Intent.ACTION_BOOT_COMPLETED:
+                onBootCompleted(context);
+                break;
         }
+    }
 
-        Log.i(TAG, "Boot completed");
-
-        // Dolby Atmos
-        DolbyUtils.getInstance(context);
-
-        // Thermal Profiles
-        ThermalUtils.startService(context);
-
-        // Pocket
-        PocketService.startService(context);
-
-        // DisplayFeature
+    private static void onLockedBootCompleted(Context context) {
+        // Services that don't require reading from data.
         ColorService.startService(context);
-
-        // NFC
+        AodBrightnessService.startService(context);
+        PocketService.startService(context);
         NfcCameraService.startService(context);
 
-        // AOD
-        AodBrightnessService.startService(context);
-
-        // Override HDR types
+        // Override HDR types to enable Dolby Vision
         final IBinder displayToken = SurfaceControl.getInternalDisplayToken();
         SurfaceControl.overrideHdrTypes(displayToken, new int[]{
                 HdrCapabilities.HDR_TYPE_DOLBY_VISION, HdrCapabilities.HDR_TYPE_HDR10,
                 HdrCapabilities.HDR_TYPE_HLG, HdrCapabilities.HDR_TYPE_HDR10_PLUS});
+    }
+
+    private static void onBootCompleted(Context context) {
+        // Data is now accessible (user has just unlocked).
+        DolbyUtils.getInstance(context);
+        ThermalUtils.startService(context);
 
         // Gesture: Double tap FPS
         if (GestureUtils.isFpDoubleTapEnabled(context)) {
             GestureUtils.setFingerprintNavigation(true);
         }
     }
+
 }
