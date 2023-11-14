@@ -15,14 +15,12 @@ import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
-import android.os.Handler;
 import android.os.IBinder;
 import android.os.UserHandle;
 import android.provider.Settings;
 import android.util.Log;
-import android.view.Display;
 
-import org.lineageos.settings.utils.FileUtils;
+import vendor.xiaomi.hardware.displayfeature.V1_0.IDisplayFeature;
 
 public class AodBrightnessService extends Service {
 
@@ -34,23 +32,12 @@ public class AodBrightnessService extends Service {
     private static final float AOD_SENSOR_EVENT_DIM = 5f;
     private static final float AOD_SENSOR_EVENT_DARK = 3f;
 
-    private static final String DOZE_BRIGHTNESS_NODE
-            = "/sys/devices/virtual/mi_display/disp_feature/disp-DSI-0/doze_brightness";
-    private static final String DOZE_BRIGHTNESS_ENABLE = "0";
-    private static final String DOZE_BRIGHTNESS_DISABLE = "-1";
-
-    private static final String DISP_PARAM_NODE
-            = "/sys/devices/virtual/mi_display/disp_feature/disp-DSI-0/disp_param";
-    private static final String DISP_PARAM_DOZE_HBM = "03 01";
-    private static final String DISP_PARAM_DOZE_LBM = "03 02";
-
-    private static final long SCREEN_OFF_WAIT_MS = 5000L;
     private static final int DOZE_HBM_BRIGHTNESS_THRESHOLD = 20;
 
     private SensorManager mSensorManager;
     private Sensor mAodSensor;
-    private boolean mIsDozeHbm;
-    private final Handler mHandler = new Handler();
+    private boolean mIsDozing, mIsDozeHbm;
+    private IDisplayFeature mDisplayFeature;
 
     private final SensorEventListener mSensorListener = new SensorEventListener() {
         @Override
@@ -60,13 +47,8 @@ public class AodBrightnessService extends Service {
         public void onSensorChanged(SensorEvent event) {
             final float value = event.values[0];
             mIsDozeHbm = (value == AOD_SENSOR_EVENT_BRIGHT);
-            dlog("onSensorChanged: type=" + event.sensor.getType() + " value=" + value
-                    + " mIsDozeHbm=" + mIsDozeHbm);
-            if (!mHandler.hasCallbacks(mScreenOffRunnable)) {
-                writeDozeParam();
-            } else {
-                dlog("mScreenOffRunnable pending, skip writeDozeParam");
-            }
+            dlog("onSensorChanged: type=" + event.sensor.getType() + " value=" + value);
+            updateDozeBrightness();
         }
     };
 
@@ -76,7 +58,8 @@ public class AodBrightnessService extends Service {
             switch (intent.getAction()) {
                 case Intent.ACTION_SCREEN_ON:
                     dlog("Received ACTION_SCREEN_ON");
-                    mHandler.removeCallbacksAndMessages(null);
+                    mIsDozing = false;
+                    updateDozeBrightness();
                     mSensorManager.unregisterListener(mSensorListener, mAodSensor);
                     break;
                 case Intent.ACTION_SCREEN_OFF:
@@ -84,28 +67,15 @@ public class AodBrightnessService extends Service {
                     if (Settings.Secure.getInt(getContentResolver(),
                             Settings.Secure.DOZE_ALWAYS_ON, 0) == 0) {
                         dlog("AOD is disabled by setting.");
+                        mIsDozing = false;
                         break;
                     }
-                    FileUtils.writeLine(DOZE_BRIGHTNESS_NODE, DOZE_BRIGHTNESS_DISABLE);
+                    mIsDozing = true;
                     setInitialDozeHbmState();
                     mSensorManager.registerListener(mSensorListener,
                             mAodSensor, SensorManager.SENSOR_DELAY_NORMAL);
-                    mHandler.postDelayed(mScreenOffRunnable, SCREEN_OFF_WAIT_MS);
                     break;
             }
-        }
-    };
-
-    private final Runnable mScreenOffRunnable = () -> {
-        final int displayState = getDisplay().getState();
-        dlog("displayState=" + displayState);
-        if (displayState == Display.STATE_DOZE
-                || displayState == Display.STATE_DOZE_SUSPEND) {
-            Log.i(TAG, "We are dozing, let's do our thing.");
-            writeDozeParam();
-        } else {
-            Log.i(TAG, "Not dozing, unregister AOD sensor.");
-            mSensorManager.unregisterListener(mSensorListener, mAodSensor);
         }
     };
 
@@ -137,7 +107,6 @@ public class AodBrightnessService extends Service {
         dlog("Destroying service");
         unregisterReceiver(mScreenStateReceiver);
         mSensorManager.unregisterListener(mSensorListener, mAodSensor);
-        mHandler.removeCallbacksAndMessages(null);
         super.onDestroy();
     }
 
@@ -151,15 +120,34 @@ public class AodBrightnessService extends Service {
                 Settings.System.SCREEN_BRIGHTNESS, 0);
         mIsDozeHbm = (brightness > DOZE_HBM_BRIGHTNESS_THRESHOLD);
         dlog("setInitialDozeHbmState: brightness=" + brightness + " mIsDozeHbm=" + mIsDozeHbm);
+        updateDozeBrightness();
     }
 
-    private void writeDozeParam() {
-        final String dispParam = mIsDozeHbm ? DISP_PARAM_DOZE_HBM : DISP_PARAM_DOZE_LBM;
-        Log.i(TAG, "Enabling doze " + (mIsDozeHbm ? "HBM" : "LBM"));
-        dlog("Writing \"" + dispParam + "\" to disp_param node");
-        if (!FileUtils.writeLine(DISP_PARAM_NODE, dispParam)) {
-            Log.e(TAG, "Failed to write \"" + dispParam + "\" to disp_param node!");
+    private void updateDozeBrightness() {
+        final IDisplayFeature displayFeature = getDisplayFeature();
+        if (displayFeature == null) {
+            Log.e(TAG, "updateDozeBrightness: displayFeature is null!");
+            return;
         }
+        dlog("updateDozeBrightness: mIsDozing=" + mIsDozing + " mIsDozeHbm=" + mIsDozeHbm);
+        final int mode = !mIsDozing ? 0 : (mIsDozeHbm ? 1 : 2);
+        try {
+            displayFeature.setFeature(0, /*DOZE_BRIGHTNESS_STATE*/ 25, mode, 0);
+        } catch (Exception e) {
+            Log.e(TAG, "updateDozeBrightness failed!", e);
+        }
+    }
+
+    private IDisplayFeature getDisplayFeature() {
+        if (mDisplayFeature == null) {
+            dlog("getDisplayFeature: mDisplayFeature=null");
+            try {
+                mDisplayFeature = IDisplayFeature.getService();
+            } catch (Exception e) {
+                Log.e(TAG, "getDisplayFeature failed!", e);
+            }
+        }
+        return mDisplayFeature;
     }
 
     private static void dlog(String msg) {
