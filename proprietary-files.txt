@@ -1142,45 +1142,43 @@ vendor/etc/init/vendor.qti.diag.rc
 vendor/etc/vintf/manifest/vendor.qti.diag.hal.service.xml
 vendor/lib64/vendor.qti.diaghal@1.0.so
 
-# Display
-vendor/bin/feature_enabler_client
-vendor/bin/hw/vendor.qti.hardware.display.composer-service
-vendor/bin/init.qti.display_boot.sh
-vendor/bin/qdcmss
-vendor/etc/init/feature_enabler_client.rc
-vendor/etc/init/qdcmss.rc
-vendor/lib64/libbacklight-calib.so
-vendor/lib64/libclient2slpi.notifier.so
-vendor/lib64/libdigital-dimming.so
-vendor/lib64/libdisp-aba.so
-vendor/lib64/libdisplayconfig.qti.so
-vendor/lib64/libdisplayqos.so
-vendor/lib64/libdisplayskuutils.so
-vendor/lib64/libdpps.so
-vendor/lib64/libhdr_backlight_adapter.so
-vendor/lib64/libhdr_tm.so
-vendor/lib64/libhdrdynamic.so
-vendor/lib64/libhdrdynamicootf.so
-vendor/lib64/libhistogram.so
-vendor/lib64/libmemutils.so
-vendor/lib64/libqdcm-algo.so
-vendor/lib64/libqdcm-json-mode-parser.so
-vendor/lib64/libqdcm-mode-parser.so
-vendor/lib64/libqdutils.so
-vendor/lib64/libqrtrclient.so
-vendor/lib64/libqseed3.so
-vendor/lib64/librcmask.so
-vendor/lib64/libsdedrm.so
-vendor/lib64/libsdm-color.so
-vendor/lib64/libsdm-colormgr-algo.so
-vendor/lib64/libsdm-disp-vndapis.so
-vendor/lib64/libsdmcore.so
-vendor/lib64/libsdmextension.so
-vendor/lib64/libsdmutils.so
-vendor/lib64/libsnapdragoncolor-manager.so
-vendor/lib64/libsnapdragoncolor-qdcm.so
-vendor/lib64/libtestutils.so
-vendor/lib64/libtinyxml2_1.so
+# Display - from garnet V14.0.13.0.TNRCNXM
+vendor/bin/hw/vendor.qti.hardware.display.composer-service|3b858655e5356df2edef463b1a74a99491526e07
+vendor/bin/init.qti.display_boot.sh|6d225894081c697765e66dcc11247d8a429ae106
+vendor/bin/qdcmss|2144852259f67e372b01181e6a542303a1de0bcb
+vendor/etc/init/qdcmss.rc|53d78d686678c4f923a9ec4ace7d4d3575b13788
+vendor/lib64/libbacklight-calib.so|cd291cab82d193f49b188ba13d2f20f6da8f2a90
+vendor/lib64/libclient2slpi.notifier.so|0b6aa42a735f87e602bc941e6e50e1fba14c2662
+vendor/lib64/libdigital-dimming.so|5ae2debd887c30dfb7f03be5e841328383b75e4d
+vendor/lib64/libdisp-aba.so|9a4294d49e1e6a8061d177b24d038679a2643562
+vendor/lib64/libdisplayconfig.qti.so|36e956f2f5327b27868972ffeac01d5afd854fb2
+vendor/lib64/libdisplayqos.so|f3d925d44a254e47b368901171b8e1026223dc67
+vendor/lib64/libdisplayskuutils.so|6ac00ad874b1f5cba23a2b41162092106afb21e0
+vendor/lib64/libdpps.so|2910a0923d366ac94f45f47fb09c98f1448c19d8
+vendor/lib64/libhdr_backlight_adapter.so|daad5f8ee95c1fd37010eabc35b7b9cf5b153bfd
+vendor/lib64/libhdr_tm.so|10a0573ff6b749bd01380d65dc6594455aa8fb8b
+vendor/lib64/libhdrdynamic.so|48b912d98089807b49d451163651dcb658008475
+vendor/lib64/libhdrdynamicootf.so|857a8d1908524590f0de56bf2e1ba1e287272e6c
+vendor/lib64/libhistogram.so|3cac8f1b43ac3b6e23eaac13b52fae600a7d365f
+vendor/lib64/libmemutils.so|3744be3c02eacd6a24d0af51dfedd13243acb143
+vendor/lib64/libqdcm-algo.so|53f991a19146ca0090dbf642b5f05f81cd80af2c
+vendor/lib64/libqdcm-json-mode-parser.so|6657c89cf1b4ac4b872062e19f967a77571e0069
+vendor/lib64/libqdcm-mode-parser.so|68d4026bdc20966577213422d34021b0c2af6494
+vendor/lib64/libqdutils.so|e556f77e69d23c0557e7b33453cc97a6e13123e7
+vendor/lib64/libqrtrclient.so|2a776b6dfefcd32c77d63180b32a9f4ce3482f49
+vendor/lib64/libqseed3.so|93bc80eaa497dd2a73bb56777110ada402704f7c
+vendor/lib64/librcmask.so|80567747c78fb98d96b05c0768de962946ee9eb1
+vendor/lib64/libsdedrm.so|0edcab73f1355404b5ff1ebae9f14a8d2fc5e50b
+vendor/lib64/libsdm-color.so|287b9a30d989464846c268fff40106f06aedd62d
+vendor/lib64/libsdm-colormgr-algo.so|616c5bcc40f42fb97c17cad6859179fd3b411abd
+vendor/lib64/libsdm-disp-vndapis.so|c3fa23b42321ed93445d067b344d766c75a9d229
+vendor/lib64/libsdmcore.so|6d6db2e6e94006211decd32d13e4fac588ab0d08
+vendor/lib64/libsdmextension.so|52576a369b3be5e6add6b22a387c89e1fc27f004
+vendor/lib64/libsdmutils.so|94de88283e56afd52860ad4ebf1866d4abafda15
+vendor/lib64/libsnapdragoncolor-manager.so|26184947876c5faba48b277452ad80630f5657f2
+vendor/lib64/libsnapdragoncolor-qdcm.so|7244f7db0276e043a174bbdc7a750d3e54000382
+vendor/lib64/libtestutils.so|ff65bed29afd5cd8a1e6967a5cefcda9f1da6a99
+vendor/lib64/libtinyxml2_1.so|dc71b5ce376c8073b2ec64292d963e911b57b551
 
 # Displayfeature
 vendor/bin/displayfeature
@@ -1248,18 +1246,18 @@ vendor/etc/display/advanced_sf_offsets.xml
 vendor/etc/display/thermallevel_to_fps.xml
 vendor/etc/snapdragon_color_libs_config.xml
 
-# Display postprocessing
-vendor/bin/hw/vendor.display.color@1.0-service
-vendor/etc/init/vendor.display.color@1.0-service.rc
-vendor/lib64/vendor.display.color@1.0.so
-vendor/lib64/vendor.display.color@1.1.so
-vendor/lib64/vendor.display.color@1.2.so
-vendor/lib64/vendor.display.color@1.3.so
-vendor/lib64/vendor.display.color@1.4.so
-vendor/lib64/vendor.display.color@1.5.so
-vendor/lib64/vendor.display.color@1.6.so
-vendor/lib64/vendor.display.color@1.7.so
-vendor/lib64/vendor.display.postproc@1.0.so
+# Display postprocessing - from garnet V14.0.13.0.TNRCNXM
+vendor/bin/hw/vendor.display.color@1.0-service|8913e9d86ea7326402252270bc99e40cd0e8061c
+vendor/etc/init/vendor.display.color@1.0-service.rc|fc58968025ec9f09b4fedee0b9daecc6a56c8373
+vendor/lib64/vendor.display.color@1.0.so|529fb31fb154367cc2b0a3a1184c3122e7955819
+vendor/lib64/vendor.display.color@1.1.so|49c3079e90ea143f4ad9c6f38b9600b64d86736a
+vendor/lib64/vendor.display.color@1.2.so|41ec139caaeac1aed5e0f3b3369378cbd704b877
+vendor/lib64/vendor.display.color@1.3.so|7dfbb4e39f5df3fa6aef2c2e0aefa82d5b38c760
+vendor/lib64/vendor.display.color@1.4.so|441e9cf24857ebf9034e2a359566a06196fd131e
+vendor/lib64/vendor.display.color@1.5.so|8c1b56f61acc9a08630c309377c42addf53daa74
+vendor/lib64/vendor.display.color@1.6.so|ab55a6a04c3b2324653223c98c1aeb7f488dfc05
+vendor/lib64/vendor.display.color@1.7.so|34eb03d23007d452834737a1bfc414d045fdb2ce
+vendor/lib64/vendor.display.postproc@1.0.so|8c90293b18e82dfa583545963d8ff3047277190d
 
 # DPM
 vendor/bin/dpmQmiMgr

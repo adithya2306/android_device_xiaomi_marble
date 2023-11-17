@@ -4,6 +4,7 @@ persist.camera.                                       u:object_r:vendor_camera_p
 ro.boot.camera.                                       u:object_r:vendor_camera_prop:s0
 
 # Display
+persist.vendor.max.brightness                         u:object_r:vendor_displayfeature_prop:s0
 ro.vendor.display.dither                              u:object_r:vendor_displayfeature_prop:s0
 ro.vendor.display.mi_calib.enable                     u:object_r:vendor_displayfeature_prop:s0
 ro.vendor.histogram.enable                            u:object_r:vendor_displayfeature_prop:s0
