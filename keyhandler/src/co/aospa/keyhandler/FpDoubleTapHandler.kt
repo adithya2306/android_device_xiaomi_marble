@@ -18,8 +18,10 @@ package co.aospa.keyhandler
 
 import android.app.SearchManager
 import android.app.StatusBarManager
+import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
+import android.content.IntentFilter
 import android.hardware.camera2.CameraManager
 import android.media.AudioManager
 import android.os.Bundle
@@ -67,6 +69,8 @@ class FpDoubleTapHandler(
                 0, UserHandle.USER_CURRENT)
 
     private var torchOn = false
+    private var screenOn = true
+    private var screenOnRunnable = Runnable { screenOn = true }
 
     init {
         cameraManager.registerTorchCallback(
@@ -79,14 +83,34 @@ class FpDoubleTapHandler(
             },
             handler
         )
+        context.registerReceiver(
+            object: BroadcastReceiver() {
+                override fun onReceive(context: Context, intent: Intent) {
+                    Log.d(TAG, "onReceive: ${intent.action}")
+                    when (intent.action) {
+                        Intent.ACTION_SCREEN_OFF -> {
+                            handler.removeCallbacks(screenOnRunnable)
+                            screenOn = false
+                        }
+                        Intent.ACTION_USER_PRESENT -> {
+                            handler.postDelayed(screenOnRunnable, UNLOCK_WAIT_MS)
+                        }
+                    }
+                }
+            },
+            IntentFilter(Intent.ACTION_USER_PRESENT).apply {
+                addAction(Intent.ACTION_SCREEN_OFF)
+            }
+        )
     }
 
     fun handleEvent(event: KeyEvent) {
         val enabled = isFpDoubleTapEnabled
         val action = fpDoubleTapAction
         val interactive = powerManager.isInteractive() // TODO: support screen off?
-        Log.d(TAG, "handleEvent: enabled=$enabled action=$action interactive=$interactive")
-        if (!enabled || !interactive || event.action != KeyEvent.ACTION_UP) {
+        Log.d(TAG, "handleEvent: enabled=$enabled action=$action"
+                + " screenOn=$screenOn interactive=$interactive")
+        if (!screenOn || !enabled || !interactive || event.action != KeyEvent.ACTION_UP) {
             Log.d(TAG, "wont handle")
             return
         }
@@ -185,5 +209,6 @@ class FpDoubleTapHandler(
         private const val REAR_CAMERA_ID = "0"
         private const val SETTING_KEY_ENABLE = "fp_double_tap_enable"
         private const val SETTING_KEY_ACTION = "fp_double_tap_action"
+        private const val UNLOCK_WAIT_MS = 1500L
     }
 }
