@@ -7,6 +7,7 @@
 package org.lineageos.settings.display;
 
 import static android.provider.Settings.System.DISPLAY_COLOR_MODE;
+import static org.lineageos.settings.display.DfWrapper.DfParams;
 
 import android.app.Service;
 import android.content.Context;
@@ -20,8 +21,6 @@ import android.provider.Settings;
 import android.util.Log;
 
 import java.util.Map;
-
-import vendor.xiaomi.hardware.displayfeature.V1_0.IDisplayFeature;
 
 public class ColorService extends Service {
     private static final String TAG = "ColorService";
@@ -42,8 +41,6 @@ public class ColorService extends Service {
     /* original/p3/srgb */
     private static final int EXPERT_MODE = 26;
     private static final DfParams EXPERT_PARAMS = new DfParams(26, 0, 10);
-
-    private IDisplayFeature mDisplayFeature;
 
     private final ContentObserver mSettingObserver = new ContentObserver(new Handler()) {
         @Override
@@ -94,53 +91,12 @@ public class ColorService extends Service {
         final DfParams params = COLOR_MAP.get(colorMode);
         dlog("setCurrentColorMode: " + colorMode + ", params=" + params);
         if (params.mode == EXPERT_MODE) {
-            setDisplayFeatureParams(EXPERT_PARAMS);
+            DfWrapper.setDisplayFeature(EXPERT_PARAMS);
         }
-        setDisplayFeatureParams(params);
-    }
-
-    private void setDisplayFeatureParams(DfParams params) {
-        final IDisplayFeature displayFeature = getDisplayFeature();
-        if (displayFeature == null) {
-            Log.e(TAG, "setDisplayFeatureParams: displayFeature is null!");
-            return;
-        }
-        dlog("setDisplayFeatureParams: " + params);
-        try {
-            displayFeature.setFeature(0, params.mode, params.value, params.cookie);
-        } catch (Exception e) {
-            Log.e(TAG, "setDisplayFeatureParams failed!", e);
-        }
-    }
-
-    private IDisplayFeature getDisplayFeature() {
-        if (mDisplayFeature == null) {
-            dlog("getDisplayFeature: mDisplayFeature=null");
-            try {
-                mDisplayFeature = IDisplayFeature.getService();
-            } catch (Exception e) {
-                Log.e(TAG, "getDisplayFeature failed!", e);
-            }
-        }
-        return mDisplayFeature;
+        DfWrapper.setDisplayFeature(params);
     }
 
     private static void dlog(String msg) {
         if (DEBUG) Log.d(TAG, msg);
-    }
-
-    private static class DfParams {
-        /* displayfeature parameters */
-        final int mode, value, cookie;
-
-        DfParams(int mode, int value, int cookie) {
-            this.mode = mode;
-            this.value = value;
-            this.cookie = cookie;
-        }
-
-        public String toString() {
-            return "DisplayFeatureParams(" + mode + ", " + value + ", " + cookie + ")";
-        }
     }
 }

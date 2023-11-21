@@ -20,7 +20,7 @@ import android.os.UserHandle;
 import android.provider.Settings;
 import android.util.Log;
 
-import vendor.xiaomi.hardware.displayfeature.V1_0.IDisplayFeature;
+import org.lineageos.settings.display.DfWrapper;
 
 public class AodBrightnessService extends Service {
 
@@ -37,7 +37,6 @@ public class AodBrightnessService extends Service {
     private SensorManager mSensorManager;
     private Sensor mAodSensor;
     private boolean mIsDozing, mIsDozeHbm;
-    private IDisplayFeature mDisplayFeature;
 
     private final SensorEventListener mSensorListener = new SensorEventListener() {
         @Override
@@ -124,30 +123,14 @@ public class AodBrightnessService extends Service {
     }
 
     private void updateDozeBrightness() {
-        final IDisplayFeature displayFeature = getDisplayFeature();
-        if (displayFeature == null) {
-            Log.e(TAG, "updateDozeBrightness: displayFeature is null!");
-            return;
-        }
         dlog("updateDozeBrightness: mIsDozing=" + mIsDozing + " mIsDozeHbm=" + mIsDozeHbm);
         final int mode = !mIsDozing ? 0 : (mIsDozeHbm ? 1 : 2);
         try {
-            displayFeature.setFeature(0, /*DOZE_BRIGHTNESS_STATE*/ 25, mode, 0);
+            DfWrapper.setDisplayFeature(
+                    new DfWrapper.DfParams(/*DOZE_BRIGHTNESS_STATE*/ 25, mode, 0));
         } catch (Exception e) {
             Log.e(TAG, "updateDozeBrightness failed!", e);
         }
-    }
-
-    private IDisplayFeature getDisplayFeature() {
-        if (mDisplayFeature == null) {
-            dlog("getDisplayFeature: mDisplayFeature=null");
-            try {
-                mDisplayFeature = IDisplayFeature.getService();
-            } catch (Exception e) {
-                Log.e(TAG, "getDisplayFeature failed!", e);
-            }
-        }
-        return mDisplayFeature;
     }
 
     private static void dlog(String msg) {
