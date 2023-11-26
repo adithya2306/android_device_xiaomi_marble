@@ -15,6 +15,7 @@ import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
+import android.hardware.display.AmbientDisplayConfiguration;
 import android.os.IBinder;
 import android.os.UserHandle;
 import android.provider.Settings;
@@ -37,6 +38,7 @@ public class AodBrightnessService extends Service {
 
     private SensorManager mSensorManager;
     private Sensor mAodSensor;
+    private AmbientDisplayConfiguration mAmbientConfig;
     private boolean mIsDozing, mIsDozeHbm;
     private int mDisplayState = Display.STATE_ON;
 
@@ -66,9 +68,8 @@ public class AodBrightnessService extends Service {
                     }
                     break;
                 case Intent.ACTION_SCREEN_OFF:
-                    if (Settings.Secure.getInt(getContentResolver(),
-                            Settings.Secure.DOZE_ALWAYS_ON, 0) == 0) {
-                        dlog("AOD is disabled by setting.");
+                    if (!mAmbientConfig.alwaysOnEnabled(UserHandle.USER_CURRENT)) {
+                        dlog("AOD is not enabled.");
                         mIsDozing = false;
                         break;
                     }
@@ -98,6 +99,7 @@ public class AodBrightnessService extends Service {
         dlog("Creating service");
         mSensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
         mAodSensor = mSensorManager.getDefaultSensor(SENSOR_TYPE_AOD);
+        mAmbientConfig = new AmbientDisplayConfiguration(this);
     }
 
     @Override

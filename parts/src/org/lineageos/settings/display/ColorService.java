@@ -15,6 +15,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.database.ContentObserver;
+import android.hardware.display.AmbientDisplayConfiguration;
 import android.os.Handler;
 import android.os.IBinder;
 import android.os.SystemProperties;
@@ -49,6 +50,7 @@ public class ColorService extends Service {
     private static final DfParams EXPERT_PARAMS = new DfParams(26, 0, 10);
 
     private Handler mHandler = new Handler();
+    private AmbientDisplayConfiguration mAmbientConfig;
     private boolean mIsDozing;
 
     private final ContentObserver mSettingObserver = new ContentObserver(mHandler) {
@@ -75,8 +77,7 @@ public class ColorService extends Service {
                     }
                     break;
                 case Intent.ACTION_SCREEN_OFF:
-                    if (Settings.Secure.getInt(getContentResolver(),
-                            Settings.Secure.DOZE_ALWAYS_ON, 0) == 0) {
+                    if (!mAmbientConfig.alwaysOnEnabled(UserHandle.USER_CURRENT)) {
                         dlog("AOD is not enabled");
                         mIsDozing = false;
                         break;
@@ -94,6 +95,7 @@ public class ColorService extends Service {
     public void onCreate() {
         super.onCreate();
         dlog("onCreate");
+        mAmbientConfig = new AmbientDisplayConfiguration(this);
         getContentResolver().registerContentObserver(Settings.System.getUriFor(DISPLAY_COLOR_MODE),
                     false, mSettingObserver, UserHandle.USER_CURRENT);
         IntentFilter screenStateFilter = new IntentFilter(Intent.ACTION_SCREEN_ON);
