@@ -126,6 +126,7 @@ PRODUCT_PACKAGES += \
     vendor.qti.hardware.memtrack-service
 
 PRODUCT_SYSTEM_PROPERTIES += \
+    ro.sf.defer_refresh_rate_when_off=1 \
     ro.sf.force_handle_idle_timeout=1
 
 PRODUCT_ODM_PROPERTIES += \
