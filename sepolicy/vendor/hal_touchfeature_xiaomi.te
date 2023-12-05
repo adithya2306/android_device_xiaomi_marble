@@ -1,0 +1,20 @@
+type hal_touchfeature_xiaomi_hwservice, hwservice_manager_type, protected_hwservice;
+
+type hal_touchfeature_xiaomi_default, domain;
+hal_server_domain(hal_touchfeature_xiaomi_default, hal_touchfeature_xiaomi)
+
+type hal_touchfeature_xiaomi_default_exec, exec_type, vendor_file_type, file_type;
+init_daemon_domain(hal_touchfeature_xiaomi_default)
+
+add_hwservice(hal_touchfeature_xiaomi_server, hal_touchfeature_xiaomi_hwservice)
+
+allow hal_touchfeature_xiaomi_client hal_touchfeature_xiaomi_hwservice:hwservice_manager find;
+
+binder_call(hal_touchfeature_xiaomi_client, hal_touchfeature_xiaomi_server)
+binder_call(hal_touchfeature_xiaomi_server, hal_touchfeature_xiaomi_client)
+
+allow hal_touchfeature_xiaomi_default vendor_touchfeature_device:chr_file rw_file_perms;
+
+hal_client_domain(system_app, hal_touchfeature_xiaomi)
+
+binder_call(hal_touchfeature_xiaomi_default, system_server)

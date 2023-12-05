@@ -1328,7 +1328,6 @@ vendor/lib64/libgf_hal.so
 vendor/lib64/libgoodixhwfingerprint.so
 vendor/lib64/vendor.xiaomi.hardware.fingerprintextension@1.0.so
 vendor/lib64/vendor.xiaomi.hardware.fx.tunnel@1.0.so
-vendor/lib64/vendor.xiaomi.hw.touchfeature@1.0.so
 
 # Gatekeeper
 vendor/bin/hw/android.hardware.gatekeeper@1.0-service-qti
@@ -1954,6 +1953,13 @@ vendor/app/TimeService/TimeService.apk
 vendor/bin/time_daemon
 vendor/etc/init/init.time_daemon.rc
 vendor/lib64/libtime_genoff.so
+
+# Touchfeature
+vendor/bin/hw/vendor.xiaomi.hw.touchfeature@1.0-service
+vendor/etc/init/vendor.xiaomi.hw.touchfeature@1.0-service.rc
+vendor/etc/vintf/manifest/vendor.xiaomi.hw.touchfeature@1.0-service.xml
+vendor/lib64/hw/vendor.xiaomi.hw.touchfeature@1.0-impl.so
+vendor/lib64/vendor.xiaomi.hw.touchfeature@1.0.so
 
 # Touchscreen firmware
 vendor/firmware/goodix_cfg_group_TM.bin

@@ -21,3 +21,8 @@ attribute vendor_hal_citsensorservice_xiaomi_server;
 attribute vendor_hal_sensorcommunicate;
 attribute vendor_hal_sensorcommunicate_client;
 attribute vendor_hal_sensorcommunicate_server;
+
+# Touchfeature
+attribute hal_touchfeature_xiaomi;
+attribute hal_touchfeature_xiaomi_client;
+attribute hal_touchfeature_xiaomi_server;
