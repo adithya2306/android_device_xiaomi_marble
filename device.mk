@@ -111,6 +111,10 @@ PRODUCT_VENDOR_PROPERTIES += \
 # Characteristics
 PRODUCT_CHARACTERISTICS := nosdcard
 
+# Cutout
+PRODUCT_PRODUCT_PROPERTIES += \
+    ro.support_hide_display_cutout=true
+
 # Dalvik
 $(call inherit-product, frameworks/native/build/phone-xhdpi-6144-dalvik-heap.mk)
 
@@ -288,6 +292,7 @@ PRODUCT_PACKAGES += \
     AOSPAMarbleFrameworksOverlay \
     AOSPAMarbleSettingsOverlay \
     AOSPAMarbleSystemUIOverlay \
+    AvoidAppsInCutoutOverlay \
     MarbleApertureOverlay \
     MarbleCNSettingsOverlay \
     MarbleCNSettingsProviderOverlay \
