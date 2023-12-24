@@ -312,6 +312,7 @@ PRODUCT_PACKAGES += \
     MarbleSettingsOverlay \
     MarbleSystemUIOverlay \
     MarbleWifiOverlay \
+    MarbleWifiMainlineOverlay \
     NoCutoutOverlay
 
 # Partitions
