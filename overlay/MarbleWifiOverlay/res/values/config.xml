@@ -98,4 +98,32 @@
          Note: this is conditional on the device supporting dual concurrent STAs. -->
     <bool translatable="false" name="config_wifiMultiStaNetworkSwitchingMakeBeforeBreakEnabled">true</bool>
 
+    <!-- Controls whether a wifi connection with RSSI lower than the sufficient RSSI will be
+    temporarily disabled when it is unwanted by core networking -->
+    <bool translatable="false" name="config_wifiDisableUnwantedNetworkOnLowRssi">true</bool>
+
+    <!-- Whether we should apply APF filters on non primary STA connections when STA + STA is active.
+         Defaults to false since most wifi chips cannot support concurrent APF filter set needed for STA + STA-->
+    <bool translatable="false" name="config_wifiEnableApfOnNonPrimarySta">true</bool>
+
+    <!-- Boolean indicating that enable roaming between linked networks -->
+    <bool translatable="false" name="config_wifiEnableLinkedNetworkRoaming">false</bool>
+
+    <!-- Boolean indicating whether IP address allocation in EAPOL is enabled by default in Wi-Fi.
+         The GO fixed IP address is set to 192.168.49.1 and subnet mask to 255.255.255.0 -->
+    <bool translatable="false" name ="config_wifiP2pGoIpAddressAllocationInEapolFrames">true</bool>
+
+    <!-- Use legacy wifi p2p dedicated address instead of randomize address. -->
+    <bool translatable="false" name="config_tether_enable_legacy_wifi_p2p_dedicated_ip">true</bool>
+
+    <!-- List of constants to indicate how many failures are needed to temporarily disable a network
+    from auto-connect -->
+    <integer translatable="false" name="config_wifiDisableReasonAssociationRejectionThreshold"> 5 </integer>
+    <integer translatable="false" name="config_wifiDisableReasonAuthenticationFailureThreshold"> 5 </integer>
+
+    <!-- Interval Multiplier for PNO scan. After not finding any networks for
+         config_wifiPnoScanIterations, PNO will multiply the scan interval by the value
+         configured.-->
+    <integer translatable="false" name="config_wifiPnoScanIntervalMultiplier">6</integer>
+
 </resources>

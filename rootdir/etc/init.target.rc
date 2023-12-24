@@ -87,6 +87,9 @@ on init
     chmod 0666 /dev/cpuctl/background/cpu.shares
     chmod 0666 /dev/cpuctl/top-app/cpu.shares
 
+    # Initial uhid
+    chmod 0666 /dev/uhid
+
 on early-fs
     start vold
 
@@ -120,8 +123,6 @@ on post-fs-data
     mkdir /data/vendor/thermal 0771 root system
     mkdir /data/vendor/thermal/config 0771 root system
     mkdir /data/vendor/perfspy 0775 camera camera
-    
-    
     chmod 0660 /dev/ir_spi
     chown system system /dev/ir_spi
     #nfc
@@ -235,19 +236,21 @@ on boot
     chown system system /sys/class/qcom-battery/input_suspend
     chmod 774 /sys/class/qcom-battery/input_suspend
 
+    # perfservice access for venidng control
+    mkdir /dev/cpuset/vending
+    chown system system /dev/cpuset/vending
+    chown system system /dev/cpuset/vending/tasks
+    chown system system /dev/cpuset/vending/cgroup.procs
+    chmod 0664 /dev/cpuset/vending/cgroup.procs
+    chmod 0664 /dev/cpuset/vending/tasks
+    write /dev/cpuset/vending/mems 0
+    write /dev/cpuset/vending/cpus 0-7
 
     # game plaid mode
     chown system system  /sys/devices/virtual/gpu_plaid/plaid/game_data
 
     # Create persist for camera calibration data
     mkdir /mnt/vendor/persist/camera 0755 system cameraserver
-
-    mkdir /dev/cpuctl/misc
-    chown system system /dev/cpuctl/misc
-    chown system system /dev/cpuctl/misc/tasks
-    chown system system /dev/cpuctl/misc/cgroup.procs
-    chmod 0664 /dev/cpuctl/misc/cgroup.procs
-    chmod 0664 /dev/cpuctl/misc/tasks
 
     #ufscld functions permission
     chown root system /sys/devices/platform/soc/1d84000.ufshc/ufscld/auto_hibern8_enable
@@ -282,7 +285,7 @@ on property:vendor.display.lcd_density=560
    setprop dalvik.vm.heapgrowthlimit 256m
 
 on property:vendor.display.lcd_density=640
-   setprop dalvik.vm.heapgrowthlimit 512m
+   setprop dalvik.vm.heapgrowthlimit 256m
 
 on init && property:ro.boot.mode=charger
     wait_for_prop vendor.all.modules.ready 1
@@ -309,22 +312,22 @@ on property:vendor.audio.cit.spkcal.copy=true
 #
 # _if oldCaliFile isn't exist then  2 and 4 will failed(try again will success).
 # it could optimized when property action in front of spkcal
-# 
+#
 
     # 2.backup
     chmod 600 /mnt/vendor/persist/audio/crus_calr.bin
     chmod 600 /mnt/vendor/persist/audio/crus_calr.txt
     copy /mnt/vendor/persist/audio/crus_calr.bin /mnt/vendor/persist/audio/crus_calr.bin.bak
     copy /mnt/vendor/persist/audio/crus_calr.txt /mnt/vendor/persist/audio/crus_calr.txt.bak
-    
+
     # 3.newCreate
     write /mnt/vendor/persist/audio/crus_calr.bin ""
     write /mnt/vendor/persist/audio/crus_calr.txt ""
-    
+
     # 4.recovery
     copy /mnt/vendor/persist/audio/crus_calr.bin.bak /mnt/vendor/persist/audio/crus_calr.bin
     copy /mnt/vendor/persist/audio/crus_calr.txt.bak /mnt/vendor/persist/audio/crus_calr.txt
-    
+
     chmod 666 /mnt/vendor/persist/audio/crus_calr.bin
     chmod 666 /mnt/vendor/persist/audio/crus_calr.txt
 
@@ -422,6 +425,12 @@ service fatal_err_check /system/bin/check_fatal_err.sh
     group root
     oneshot
 
+service fatal_err_check_vendor /vendor/bin/check_fatal_err_vendor.sh
+    class late_start
+    user root
+    group root
+    oneshot
+
 on property:vendor.bluetooth.startwdsdaemon=true
     start vendor.bt_wdsdaemon
 
@@ -434,6 +443,14 @@ service vendor.bt_wdsdaemon /system/vendor/bin/wdsdaemon -su
     group bluetooth diag system wakelock
     disabled
     oneshot
+
+#Enable WLAN SSR recovery
+on property:persist.vendor.ssr.restart_level=ALL_ENABLE
+    write /sys/kernel/cnss/recovery 1
+
+#Disable WLAN SSR recovery
+on property:persist.vendor.ssr.restart_level=ALL_DISABLE
+    write /sys/kernel/cnss/recovery 0
 
 #on property:sys.user.0.ce_available=true
 #    start vendor.tcpdump
@@ -592,6 +609,31 @@ on post-fs-data
 
     chmod 0662 /dev/miev
     restorecon /dev/miev
+
+service mi-serial-sh /vendor/bin/init.mi.serial.sh
+    class late_start
+    user root
+    group root system radio
+    disabled
+    oneshot
+
+on post-fs && property:ro.product.device=yudi
+    start mi-serial-sh
+
+on property:ro.product.device=yudi && property:ro.vendor.ril.oem.sno=*
+    setprop ro.ril.oem.sno ${ro.vendor.ril.oem.sno}
+
+on property:ro.product.device=yudi && property:ro.vendor.ril.oem.psno=*
+    setprop ro.ril.oem.psno ${ro.vendor.ril.oem.psno}
+
+on post-fs && property:ro.product.device=liuqin
+    start mi-serial-sh
+
+on property:ro.product.device=liuqin && property:ro.vendor.ril.oem.sno=*
+    setprop ro.ril.oem.sno ${ro.vendor.ril.oem.sno}
+
+on property:ro.product.device=liuqin && property:ro.vendor.ril.oem.psno=*
+    setprop ro.ril.oem.psno ${ro.vendor.ril.oem.psno}
 
 on property:sys.lmkd.memory.compact=1
     setprop sys.lmkd.memory.compact 0

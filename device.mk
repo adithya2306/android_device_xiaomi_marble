@@ -49,7 +49,6 @@ PRODUCT_ODM_PROPERTIES += \
 PRODUCT_VENDOR_PROPERTIES += \
     persist.vendor.audio.auto.scenario=true \
     persist.vendor.audio.misound.disable=true \
-    persist.vendor.audio.misoundasc=false \
     ro.audio.spatializer_enabled=true \
     ro.config.alarm_vol_steps=15 \
     ro.config.system_vol_steps=15 \
@@ -135,6 +134,7 @@ PRODUCT_SYSTEM_PROPERTIES += \
 
 PRODUCT_ODM_PROPERTIES += \
     persist.sys.sf.color_mode=0 \
+    ro.surface_flinger.enable_frame_rate_override=false \
     ro.surface_flinger.set_idle_timer_ms=500 \
     ro.surface_flinger.set_touch_timer_ms=1000 \
     vendor.display.disable_3d_adaptive_tm=0 \
@@ -250,6 +250,7 @@ PRODUCT_COPY_FILES += \
     frameworks/native/data/etc/android.hardware.keystore.app_attest_key.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.keystore.app_attest_key.xml
 
 PRODUCT_VENDOR_PROPERTIES += \
+    ro.hardware.keystore_desede=true \
     vendor.gatekeeper.disable_spu=true
 
 # Keylayout
@@ -356,7 +357,8 @@ TARGET_COMMON_QTI_COMPONENTS := \
 PRODUCT_VENDOR_PROPERTIES += \
     persist.vendor.data.iwlan.enable=true \
     persist.vendor.radio.add_power_save=1 \
-    persist.vendor.radio.dynamic_sar=1
+    persist.vendor.radio.dynamic_sar=1 \
+    ro.vendor.radio.build_profile=u-stable
 
 # Sensors
 PRODUCT_PACKAGES += \

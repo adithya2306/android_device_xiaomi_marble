@@ -127,8 +127,8 @@
     <item name="wifi.on">1.35</item>
     <item name="wifi.active">335.55</item>
     <item name="wifi.scan">36.98</item>
-    <item name="dsp.audio">21.88</item>
-    <item name="dsp.video">34.97</item>
+    <item name="audio">21.88</item>
+    <item name="video">34.97</item>
     <item name="camera.flashlight">155.75</item>
     <item name="camera.avg">522.54</item>
     <item name="gps.on">50.79</item>

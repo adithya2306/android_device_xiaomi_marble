@@ -10,9 +10,6 @@ on early-boot
     write /sys/class/remoteproc/remoteproc2/recovery enabled
     write /sys/class/remoteproc/remoteproc3/recovery enabled
 
-on early-init
-    start vendor.audioadsprpcd_audiopd
-
 on boot
     # Modem
     chmod 0777 /dev/smd8
