@@ -1,0 +1,7 @@
+cc_library_shared {
+    name: "libutils-shim",
+    shared_libs: ["libutils-v32"],
+    header_libs: ["libutils_headers"],
+    srcs: ["libutils/String16.cpp"],
+    vendor: true,
+}

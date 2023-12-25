@@ -59,7 +59,9 @@ function blob_fixup() {
             "${PATCHELF}" --add-needed "android.hardware.security.rkp-V1-ndk_platform.so" "${2}"
             ;;
         vendor/bin/hw/vendor.qti.hardware.display.composer-service)
-            "${PATCHELF}" --replace-needed "libutils.so" "libutils-v32.so" "${2}"
+            "${PATCHELF}" --remove-needed "libutils.so" "${2}"
+            "${PATCHELF}" --add-needed "libutils-v32.so" "${2}"
+            "${PATCHELF}" --add-needed "libutils-shim.so" "${2}"
             ;;
         vendor/bin/hw/vendor.qti.secure_element@1.2-service)
             "${PATCHELF}" --replace-needed "jcos_nq_client-v1.so" "jcos_nq_client.so" "${2}"

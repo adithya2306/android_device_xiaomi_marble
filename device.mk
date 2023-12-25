@@ -404,8 +404,8 @@ PRODUCT_VENDOR_PROPERTIES += \
 endif
 
 # VNDK
-PRODUCT_COPY_FILES += \
-    prebuilts/vndk/v32/arm64/arch-arm64-armv8-a/shared/vndk-sp/libutils.so:$(TARGET_COPY_OUT_VENDOR)/lib64/libutils-v32.so
+PRODUCT_PACKAGES += \
+    libutils-shim
 
 # Vendor blobs
 $(call inherit-product, vendor/xiaomi/marble/marble-vendor.mk)

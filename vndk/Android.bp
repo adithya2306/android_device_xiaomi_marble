@@ -1,0 +1,10 @@
+// From prebuilts/vndk/v32/arm64/arch-arm64-armv8-a/shared/vndk-sp/libutils.so
+cc_prebuilt_library_shared {
+    name: "libutils-v32",
+    vendor: true,
+    strip: {
+        none: true,
+    },
+    srcs: ["libutils-v32.so"],
+    check_elf_files: false,
+}
