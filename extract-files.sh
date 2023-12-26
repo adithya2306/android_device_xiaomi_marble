@@ -58,6 +58,12 @@ function blob_fixup() {
         vendor/bin/hw/android.hardware.security.keymint-service-qti | vendor/lib64/libqtikeymint.so)
             "${PATCHELF}" --add-needed "android.hardware.security.rkp-V1-ndk_platform.so" "${2}"
             ;;
+        vendor/bin/hw/dolbycodec2 | vendor/bin/hw/vendor.dolby.hardware.dms@2.0-service | vendor/bin/hw/vendor.dolby.media.c2@1.0-service)
+            "${PATCHELF}" --add-needed "libstagefright_foundation-v33.so" "${2}"
+            ;;
+        vendor/bin/hw/mfp-daemon | vendor/lib64/hw/displayfeature.default.so | vendor/lib64/hw/audio.primary.taro.so)
+            "${PATCHELF}" --replace-needed "libstagefright_foundation.so" "libstagefright_foundation-v33.so" "${2}"
+            ;;
         vendor/bin/hw/vendor.qti.hardware.display.composer-service)
             "${PATCHELF}" --remove-needed "libutils.so" "${2}"
             "${PATCHELF}" --add-needed "libutils-v32.so" "${2}"

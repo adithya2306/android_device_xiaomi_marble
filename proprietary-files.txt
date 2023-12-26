@@ -1504,7 +1504,7 @@ vendor/lib64/libvpplibrary.so
 vendor/lib64/vendor.qti.hardware.vpp@2.0.so
 
 # Media (Dolby)
-vendor/bin/hw/dolbycodec2|ea6ec316c68f016f9c516c7799a35143f29eb9e9
+vendor/bin/hw/dolbycodec2|3be3be9e6e7e5a2190238d5ac1116cce63bea781
 vendor/bin/hw/vendor.dolby.hardware.dms@2.0-service
 vendor/etc/dolby/dax-default.xml
 vendor/etc/dolby_vision.cfg
@@ -1526,7 +1526,7 @@ vendor/lib64/vendor.dolby.hardware.dms@2.0-impl.so
 vendor/lib64/vendor.dolby.hardware.dms@2.0.so
 
 # Media (Dolby Audio) - from nuwa MIUI V14.0.2.0.UMBMIXM
-vendor/bin/hw/vendor.dolby.media.c2@1.0-service|4a88666d7f072ce6ba4147198fe3aee1eebf1481
+vendor/bin/hw/vendor.dolby.media.c2@1.0-service|f4bcd0776be21da47cd1e0cccf838d841d1c7914
 vendor/etc/init/vendor.dolby.media.c2@1.0-service.rc|bc1e134139c7dd0e5b4f98952aa51c629ea66dc7
 vendor/lib64/libcodec2_soft_ac4dec.so|d05ca5722350cb3654098096bd39f478396a627e
 vendor/lib64/libcodec2_soft_ddpdec.so|85beb82e2dd6d020a18e628bf15a174e03eddf8c
