@@ -128,10 +128,6 @@ PRODUCT_PACKAGES += \
     vendor.qti.hardware.display.config-V5-ndk_platform.vendor \
     vendor.qti.hardware.memtrack-service
 
-PRODUCT_SYSTEM_PROPERTIES += \
-    ro.sf.defer_refresh_rate_when_off=1 \
-    ro.sf.force_handle_idle_timeout=1
-
 PRODUCT_ODM_PROPERTIES += \
     persist.sys.sf.color_mode=0 \
     ro.surface_flinger.enable_frame_rate_override=false \
@@ -142,6 +138,7 @@ PRODUCT_ODM_PROPERTIES += \
     vendor.display.vds_allow_hwc=true
 
 PRODUCT_VENDOR_PROPERTIES += \
+    debug.sf.defer_refresh_rate_when_off=1 \
     debug.sf.disable_backpressure=1 \
     debug.sf.frame_rate_multiple_threshold=120 \
     persist.sys.sf.native_mode=258 \
